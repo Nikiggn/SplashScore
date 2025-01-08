@@ -26,7 +26,7 @@ public class Club  extends BaseEntity {
     private Set<Coach> coaches;
 
     @OneToMany(mappedBy = "club")
-    private Set<Player> players;
+    private Set<Player> squad;
 
     @Column()
     private String town;
@@ -105,11 +105,11 @@ public class Club  extends BaseEntity {
         this.coaches = coaches;
     }
 
-    public Set<Player> getPlayers() {
-        return players;
+    public Set<Player> getSquad() {
+        return squad;
     }
 
-    public void setPlayers(Set<Player> players) {
-        this.players = players;
+    public void setSquad(Set<Player> players) {
+        this.squad = players;
     }
 }

@@ -14,6 +14,9 @@ public class Player extends BaseEntity {
     @Column(nullable = false, name = "birth_date")
     private Instant birthDate;
 
+    @Column
+    private Integer age;
+
     @Column(name = "primary_position")
     private String primaryPosition;
 
@@ -30,7 +33,6 @@ public class Player extends BaseEntity {
 
     public Player() {
     }
-
 
 
     public String getFullName() {
@@ -64,9 +66,6 @@ public class Player extends BaseEntity {
     public void setClub(Club club) {
         this.club = club;
     }
-
-
-
 
     public Country getCountry() {
         return country;
