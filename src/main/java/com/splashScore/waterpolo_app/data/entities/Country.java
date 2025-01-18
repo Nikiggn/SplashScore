@@ -27,6 +27,9 @@ public class Country extends BaseEntity {
     @OneToMany(targetEntity = Club.class, mappedBy = "country")
     private Set<Club> clubs;
 
+    @OneToMany(targetEntity = Referee.class, mappedBy = "country")
+    private Set<Referee> referees;
+
     public Country() {
         players = new HashSet<>();
         coaches = new HashSet<>();
@@ -79,5 +82,13 @@ public class Country extends BaseEntity {
 
     public void setClubs(Set<Club> clubs) {
         this.clubs = clubs;
+    }
+
+    public Set<Referee> getReferees() {
+        return referees;
+    }
+
+    public void setReferees(Set<Referee> referees) {
+        this.referees = referees;
     }
 }

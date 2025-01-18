@@ -1,10 +1,7 @@
 package com.splashScore.waterpolo_app.data.entities;
 
 import com.splashScore.waterpolo_app.data.entities.enums.MatchStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -14,16 +11,21 @@ import java.util.HashSet;
 
 @Entity
 @Table(name = "matches")
-public class Match extends BaseEntity{
+public class Match extends BaseEntity {
 
     private LocalDateTime dateTime;
 
     @ManyToOne
+    @JoinColumn(name = "pool_id")
     private Pool pool;
 
-    //private Club homeClub;
+    @ManyToOne
+    @JoinColumn(name = "home_club_id") // Foreign key column in Match table
+    private Club homeClub;
 
-    //private Club awayClub;
+    @ManyToOne
+    @JoinColumn(name = "away_club_id")
+    private Club awayClub;
 
     private int homeScore;
 
@@ -31,7 +33,13 @@ public class Match extends BaseEntity{
 
     private MatchStatus status;
 
-     //private Set<Referee> referees;
+    @ManyToMany
+    @JoinTable(
+            name = "match_referee", // Join table name
+            joinColumns = @JoinColumn(name = "match_id"), // Foreign key for Match
+            inverseJoinColumns = @JoinColumn(name = "referee_id") // Foreign key for Referee
+    )
+    private Set<Referee> referees;
 
     // private MatchRound matchRound
 
@@ -58,21 +66,6 @@ public class Match extends BaseEntity{
         this.pool = pool;
     }
 
-//    public Club getHomeClub() {
-//        return homeClub;
-//    }
-//
-//    public void setHomeClub(Club homeClub) {
-//        this.homeClub = homeClub;
-//    }
-//
-//    public Club getAwayClub() {
-//        return awayClub;
-//    }
-//
-//    public void setAwayClub(Club awayClub) {
-//        this.awayClub = awayClub;
-//    }
 
     public int getHomeScore() {
         return homeScore;
@@ -98,11 +91,27 @@ public class Match extends BaseEntity{
         this.status = status;
     }
 
-//    public Set<Referee> getReferees() {
-//        return referees;
-//    }
-//
-//    public void setReferees(Set<Referee> referees) {
-//        this.referees = referees;
-//    }
+    public Club getHomeClub() {
+        return homeClub;
+    }
+
+    public void setHomeClub(Club homeClub) {
+        this.homeClub = homeClub;
+    }
+
+    public Club getAwayClub() {
+        return awayClub;
+    }
+
+    public void setAwayClub(Club awayClub) {
+        this.awayClub = awayClub;
+    }
+
+    public Set<Referee> getReferees() {
+        return referees;
+    }
+
+    public void setReferees(Set<Referee> referees) {
+        this.referees = referees;
+    }
 }

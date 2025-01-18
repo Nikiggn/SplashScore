@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,6 +37,12 @@ public class Club  extends BaseEntity {
 
     @Column
     private String description;
+
+    @OneToMany(mappedBy = "homeClub", cascade = CascadeType.ALL)
+    private List<Match> homeMatches;
+
+    @OneToMany(mappedBy = "awayClub", cascade = CascadeType.ALL)
+    private List<Match> awayMatches;
 
     public Club() {
         coaches = new HashSet<>();
