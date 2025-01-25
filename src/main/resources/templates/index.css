@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+section.header-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Create space between left and right sections */
+    border: 2px solid black;
+    background: #4CAF50;
+    padding: 0.5em 5em;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 2.5em;
+}
+
+.header-logo {
+    padding: 15px 10px 15px 30px;
+    font-size: 1.7em;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin-right: 20px; /* Add space between logo and search input */
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 8px;
+    border-radius: 20px;
+    max-width: 300px;
+}
+
+.search-container input {
+    border: none;
+    background-color: transparent;
+    color: #747474;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+}
+
+.search-container .search-icon img {
+    width: 18px; /* Adjust to make it smaller */
+    height: 18px; /* Adjust to match width */
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.search-container input::placeholder {
+    color: #bbb; /* Placeholder color */
+    font-size: 14px; /* Smaller placeholder text */
+    font-family: 'Roboto', sans-serif; /* Consistent with input text font */
+}
+
+/*.header-navigation {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
+
+/*ul {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+li {
+    color: white;
+    text-align: center;
+    list-style: none;
+    display: inline;
+    padding: 10px;
+    /*margin: 2em;*/
+    font-weight: bold;
+    font-size: 1.2em;
+}
