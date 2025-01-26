@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SplashScore</title>
     <link rel="stylesheet" href="index.css">
+    <script src="../static/js/header-setting-icon-dropdown.js"></script>
 </head>
 <body>
 
 
     <header>
         <section class="header-top-bar">
+
             <div class="left-section">
                 <div class="header-logo">SplashScore</div>
                 <div class="search-container">
-                    <span class="search-icon"><img src="search-icon.png"></span>
+                    <span class="search-icon"><img src="../static/images/search-icon.png"></span>
                     <input id="search-input" type="search" placeholder="Search">
                 </div>
             </div>
@@ -26,22 +28,61 @@
                         <li><a>About us</a></li>
                         <li><a>Sign in</a></li>
                         <li><a>Admin Panel</a></li>
+
+                        <li>
+                            <div class="dropdown">
+                                <button class="settings-icon" id="settings-button">
+                                    ⚙️ <!-- Replace with an actual icon -->
+                                </button>
+                                <div class="dropdown-menu" id="dropdown-menu">
+                                    <a href="#">Profile</a>
+                                    <a href="#">Theme</a>
+                                    <a href="#">Language</a>
+                                    <a href="#">Sign out</a>
+                                </div>
+                            </div>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
         </section>
     </header>
 
-<!--    <main>-->
-<!--        &lt;!&ndash; <div>Today</div> &ndash;&gt;-->
-<!--        <section>-->
+    <main>
+        <div class="date-top-bar">
+            <nav class="date-navigation">
+                <div class="date-picker">
+                    <a></a>
+                    <button></button>
+                    <a></a>
+                </div>
+            </nav>
 
 
-<!--            <main>-->
+             <section>
 
-<!--            </main>-->
+             </section>
+        </div>
 
-<!--        </section>-->
+        <aside class="teams-table-sidebar">
+            <div>
+               Clubs
+            </div>
+
+            <div>
+               <div></div>
+                <div>
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div></div>
+        </aside>
 
 <!--        <aside>-->
 <!--            <div>Teams</div>-->
@@ -54,7 +95,7 @@
 <!--            </ul>-->
 
 <!--        </aside>-->
-<!--    </main>-->
+    </main>
 
     <footer>
 
