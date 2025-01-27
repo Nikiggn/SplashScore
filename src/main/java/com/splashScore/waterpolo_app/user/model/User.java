@@ -1,12 +1,16 @@
-package com.splashScore.waterpolo_app.data.entities;
+package com.splashScore.waterpolo_app.user.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String username;
@@ -14,19 +18,21 @@ public class User extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column
     private String confirmPassword;
 
-    @Column(name = "profile_picture_url")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Column(nullable = false)
+    private LocalDateTime createdOn;
+
     private String profilePictureUrl;
 
-    @Column(name = "full_name")
     private String fullName;
 
-    @Column
     private int age;
 
     public User() {
@@ -38,6 +44,14 @@ public class User extends BaseEntity {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -86,5 +100,21 @@ public class User extends BaseEntity {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
     }
 }

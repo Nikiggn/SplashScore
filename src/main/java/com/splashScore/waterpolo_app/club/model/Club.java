@@ -1,5 +1,10 @@
-package com.splashScore.waterpolo_app.data.entities;
+package com.splashScore.waterpolo_app.club.model;
 
+import com.splashScore.waterpolo_app.coach.model.Coach;
+import com.splashScore.waterpolo_app.country.model.Country;
+import com.splashScore.waterpolo_app.data.entities.BaseEntity;
+import com.splashScore.waterpolo_app.match.model.Match;
+import com.splashScore.waterpolo_app.player.model.Player;
 import jakarta.persistence.*;
 
 import java.time.Instant;
@@ -9,7 +14,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "clubs")
-public class Club  extends BaseEntity {
+public class Club {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String name;
@@ -118,5 +127,13 @@ public class Club  extends BaseEntity {
 
     public void setSquad(Set<Player> players) {
         this.squad = players;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

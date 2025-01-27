@@ -1,5 +1,6 @@
 package com.splashScore.waterpolo_app.data.entities;
 
+import com.splashScore.waterpolo_app.player.model.Player;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;

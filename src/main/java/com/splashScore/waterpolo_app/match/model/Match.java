@@ -1,17 +1,22 @@
-package com.splashScore.waterpolo_app.data.entities;
+package com.splashScore.waterpolo_app.match.model;
 
+import com.splashScore.waterpolo_app.data.entities.BaseEntity;
+import com.splashScore.waterpolo_app.club.model.Club;
+import com.splashScore.waterpolo_app.data.entities.Pool;
+import com.splashScore.waterpolo_app.referee.model.Referee;
 import com.splashScore.waterpolo_app.data.entities.enums.MatchStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.sql.Time;
-import java.time.Instant;
-import java.util.HashSet;
 
 @Entity
 @Table(name = "matches")
-public class Match extends BaseEntity {
+public class Match {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private LocalDateTime dateTime;
 
@@ -113,5 +118,13 @@ public class Match extends BaseEntity {
 
     public void setReferees(Set<Referee> referees) {
         this.referees = referees;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

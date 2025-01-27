@@ -1,13 +1,17 @@
-package com.splashScore.waterpolo_app.data.entities;
+package com.splashScore.waterpolo_app.coach.model;
 
+import com.splashScore.waterpolo_app.country.model.Country;
+import com.splashScore.waterpolo_app.data.entities.BaseEntity;
+import com.splashScore.waterpolo_app.club.model.Club;
 import jakarta.persistence.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "coaches")
-public class Coach extends BaseEntity {
+public class Coach {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(unique = true, nullable = false, name = "full_name")
     private String fullName;
@@ -55,5 +59,12 @@ public class Coach extends BaseEntity {
 
     public void setHeadCoach(boolean headCoach) {
         isHeadCoach = headCoach;
+    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
