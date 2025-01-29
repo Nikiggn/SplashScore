@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SplashScore</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+        <header>
+            <section class="header-top-bar">
+                <div class="logo-container">
+                    <a href="index.html" class="logo">SplashScore</a>
+                </div>
+            </section>
+        </header>
+        <main>
+            <div class="form signup">
+                <span class="title">Creat your free account</span>
+                <form action="/register" method="post">
+                    <!-- Name Field -->
+                    <div class="input-field" id="first-name">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required />
+                        <i class="uil uil-user"></i>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="input-field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="input-field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" class="password" placeholder="Create a password" required />
+                        <i class="uil uil-lock icon"></i>
+                    </div>
+
+                    <!-- Confirm Password Field -->
+                    <div class="input-field">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm-password" class="password" placeholder="Confirm your password" required />
+                        <i class="uil uil-lock icon"></i>
+                        <i class="uil uil-eye-slash showHidePw"></i>
+                    </div>
+
+                    <!-- Terms and Conditions Checkbox -->
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="termCon" name="terms" required />
+                            <label for="termCon" class="text">I accept all terms and conditions</label>
+                        </div>
+
+                        <div class="filler">fffff</div>
+                    </div>
+
+                    <!-- Signup Button -->
+                    <div class="input-field button">
+                        <input type="submit" value="Sign Up" />
+                    </div>
+                </form>
+
+                <!-- Login Link -->
+                <div class="login-signup">
+                <span class="text">
+                    Already have an account?
+                    <a href="login.html" class="text login-link">Log in</a>
+                </span>
+                </div>
+            </div>
+        </main>
+
+
+
+
+
+</body>
+</html>

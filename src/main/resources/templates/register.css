@@ -1,0 +1,179 @@
+/* Header styles */
+/* Logo styles */
+
+.logo-container {
+    text-align: center;
+}
+
+.logo {
+    font-size: 2em;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+
+header {
+    padding: 1rem 0;
+    border-bottom: 1px solid black;
+}
+
+/* Centering the form */
+main {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    min-height: 80vh; /* Takes up most of the viewport */
+    gap: 2rem; /* Adds space between header and form */
+    flex-direction: column;
+}
+
+
+/* Form container styling */
+.form.signup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Adjust width as needed */
+    padding: 20px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.title {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#first-name {
+    padding-top: 10px;
+}
+
+/* Input field styling */
+.input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px; /* Adjusted space between fields */
+}
+
+.input-field label {
+    display: block;
+    text-align: left;
+    font-size: 13px;
+    font-weight: normal;
+    margin-bottom: 5px;
+    margin-left: 4px;
+    color: #333;
+}
+
+
+.input-field input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    max-width: 350px;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+
+/* Button styling */
+.input-field.button {
+    text-align: center;
+}
+
+.input-field.button input {
+    width: 100%;
+    padding: 0.75rem;
+    background: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.input-field.button input:hover {
+    background: darkblue;
+}
+
+/* Checkbox & Terms styling */
+.checkbox-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+    gap: 10px;
+
+}
+
+.filler{
+    width:70px;
+    visibility: hidden;
+ }
+.checkbox-content {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Adjust spacing between checkbox and text */
+    flex-wrap: wrap; /* Prevents text from squeezing the form */
+}
+
+.checkbox-content label{
+    font-size: 14px;
+
+}
+.input-field input {
+    width: 100%; /* Ensures full width */
+    max-width: 350px; /* Adjust as needed */
+    padding: 12px; /* Makes input fields look bigger */
+}
+
+/* Links and text under the form */
+.login-signup {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+
+
+.signup-link {
+    color: #007bff;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+
+.login-signup span.text {
+    color: grey;
+}
+
+.login-signup span.text  a{
+    padding-left: 7px;
+    color: #070707;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .form.signup {
+        padding: 1.5rem;
+    }
+    .input-field input {
+        padding: 0.5rem;
+    }
+}
+
+

@@ -4,8 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SplashScore</title>
+    <link rel="stylesheet" href="../static/css/login.css">
 </head>
 <body>
+
+    <header>
+        <section class="header-top-bar">
+            <div class="logo-container">
+                <a href="index.html" class="logo">SplashScore</a>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <span class="title">Log in to your account</span>
+            <form action="/login" method="post">
+                <div class="input-field">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" placeholder="Enter your email" required />
+                    <i class="uil uil-envelope icon"></i>
+                </div>
+
+                <div class="input-field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="password" placeholder="Enter your password" required />
+                    <i class="uil uil-lock icon"></i>
+                    <i class="uil uil-eye-slash showHidePw"></i>
+                </div>
+
+                <div class="checkbox-text">
+                    <div class="checkbox-content">
+                        <input type="checkbox" id="logCheck" />
+                        <label for="logCheck" class="remember-me">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <div class="input-field button">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+
+            <div class="login-signup">
+            <span class="text">Don't have an account?
+                <a href="register.html" class="text signup-link">Create one</a>
+            </span>
+            </div>
+        </div>
+    </main>
 
 </body>
 </html>
