@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SplashScore</title>
-    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" type="text/css" th:href="@{css/register.css}">
 </head>
 <body>
         <header>
             <section class="header-top-bar">
                 <div class="logo-container">
-                    <a href="index.html" class="logo">SplashScore</a>
+                    <a th:href="@{/}" class="logo">SplashScore</a>
                 </div>
             </section>
         </header>
@@ -20,8 +20,8 @@
                 <form action="/register" method="post">
                     <!-- Name Field -->
                     <div class="input-field" id="first-name">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" placeholder="Enter your name" required />
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="name" placeholder="Enter your username" required />
                         <i class="uil uil-user"></i>
                     </div>
 
@@ -67,7 +67,7 @@
                 <div class="login-signup">
                 <span class="text">
                     Already have an account?
-                    <a href="login.html" class="text login-link">Log in</a>
+                    <a th:href="@{/login}" class="text login-link">Log in</a>
                 </span>
                 </div>
             </div>

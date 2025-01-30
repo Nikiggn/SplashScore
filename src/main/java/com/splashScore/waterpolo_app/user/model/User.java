@@ -21,8 +21,6 @@ public class User{
     @Column(nullable = false)
     private String password;
 
-    private String confirmPassword;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -37,6 +35,7 @@ public class User{
 
     public User() {
     }
+
 
     public String getUsername() {
         return username;
@@ -68,14 +67,6 @@ public class User{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     public String getProfilePictureUrl() {

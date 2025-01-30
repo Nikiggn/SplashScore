@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SplashScore</title>
-    <link rel="stylesheet" href="../static/css/index.css">
-    <link rel="stylesheet" href="../static/css/center-index.css">
-    <link rel="stylesheet" href="../static/css/sidebar-index.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
     <script src="../static/js/header-setting-icon-dropdown.js"></script>
 </head>
 <body>
@@ -16,9 +14,11 @@
         <section class="header-top-bar">
 
             <div class="left-section">
-                <div class="header-logo">SplashScore</div>
+                <div class="header-logo">
+                    <a th:href="@{/}">SplashScore</a>
+                </div>
                 <div class="search-container">
-                    <span class="search-icon"><img src="../static/images/search-icon.png"></span>
+                    <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
                     <input id="search-input" type="search" placeholder="Search">
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <ul class="nav-list">
                         <li><a href="#">Leaderboard</a></li>
                         <li><a href="#">About us</a></li>
-                        <li><a href="login.html">Sign in</a></li>
+                        <li><a th:href="@{/login}">Sign in</a></li>
                         <li><a href="#">Admin Panel</a></li>
 
                         <li>

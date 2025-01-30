@@ -19,6 +19,9 @@ public class Coach {
     @ManyToOne(optional = false)
     private Country country;
 
+    @Enumerated(EnumType.STRING)
+    private CoachRole role;
+
     @ManyToOne
     @JoinColumn(name = "club_id")  // Foreign key to Club
     private Club club;
@@ -55,6 +58,14 @@ public class Coach {
 
     public boolean isHeadCoach() {
         return isHeadCoach;
+    }
+
+    public CoachRole getRole() {
+        return role;
+    }
+
+    public void setRole(CoachRole role) {
+        this.role = role;
     }
 
     public void setHeadCoach(boolean headCoach) {

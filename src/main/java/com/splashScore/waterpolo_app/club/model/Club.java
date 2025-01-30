@@ -23,38 +23,33 @@ public class Club {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Country country;
 
-    @Column(name = "logo_url")
     private String logoUrl;
 
     @OneToOne
     private Coach headCoach;
 
-    @OneToMany(mappedBy = "club")
-    private Set<Coach> coaches;
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Coach> coaches = new HashSet<>();
 
-    @OneToMany(mappedBy = "club")
-    private Set<Player> squad;
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Player> squad = new HashSet<>();
 
-    @Column()
     private String town;
 
-    @Column
     private Instant established;
 
-    @Column
     private String description;
 
-    @OneToMany(mappedBy = "homeClub", cascade = CascadeType.ALL)
-    private List<Match> homeMatches;
+    @OneToMany(mappedBy = "homeClub", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Match> homeMatches = new HashSet<>();
 
-    @OneToMany(mappedBy = "awayClub", cascade = CascadeType.ALL)
-    private List<Match> awayMatches;
+    @OneToMany(mappedBy = "awayClub", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Match> awayMatches = new HashSet<>();
 
     public Club() {
-        coaches = new HashSet<>();
     }
 
     public String getName() {

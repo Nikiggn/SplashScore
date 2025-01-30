@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SplashScore</title>
-    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 </head>
 <body>
 
     <header>
         <section class="header-top-bar">
             <div class="logo-container">
-                <a href="index.html" class="logo">SplashScore</a>
+                <a th:href="@{/}" class="logo">SplashScore</a>
             </div>
         </section>
     </header>
@@ -21,8 +21,8 @@
             <span class="title">Log in to your account</span>
             <form action="/login" method="post">
                 <div class="input-field">
-                    <label for="email">Email</label>
-                    <input type="text" id="email" placeholder="Enter your email" required />
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required />
                     <i class="uil uil-envelope icon"></i>
                 </div>
 
@@ -48,7 +48,7 @@
 
             <div class="login-signup">
             <span class="text">Don't have an account?
-                <a href="register.html" class="text signup-link">Create one</a>
+                <a th:href="@{/register}" class="text signup-link">Create one</a>
             </span>
             </div>
         </div>

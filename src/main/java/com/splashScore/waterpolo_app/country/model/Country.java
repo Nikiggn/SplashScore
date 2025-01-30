@@ -21,10 +21,9 @@ public class Country {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String code;
 
-    @Column
     private String flagUrl;
 
     @OneToMany(targetEntity = Player.class, mappedBy = "country")
