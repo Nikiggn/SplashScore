@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
+section.header-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Create space between left and right sections */
+
+    background: #ffffff;
+    padding: 0.25em 4.5em;
+    min-height: 80px;
+
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    gap: 2.2em;
+}
+
+.header-logo {
+    padding: 15px 10px 15px 30px;
+    font-size: 1.6em;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    margin-right: 20px; /* Add space between logo and search input */
+}
+
+.header-logo a{
+    text-decoration: none; /* Remove default underline */
+    color: inherit;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #F0F0F0;
+    padding: 8px;
+    border-radius: 20px;
+    max-width: 300px;
+}
+
+.search-container input {
+    border: none;
+    background-color: transparent;
+    color: #747474;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+}
+
+.search-container .search-icon img {
+    width: 18px; /* Adjust to make it smaller */
+    height: 18px; /* Adjust to match width */
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.search-container input::placeholder {
+    color: #bbb; /* Placeholder color */
+    font-size: 14px; /* Smaller placeholder text */
+    font-family: 'Roboto', sans-serif; /* Consistent with input text font */
+}
+.nav-list li {
+    color: black;
+    text-align: center;
+    list-style: none;
+    display: inline;
+    padding: 20px;
+    /*margin: 2em;*/
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Settings icon styling */
+.settings-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #fff; /* Adjust based on your app's theme */
+    padding: 5px;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 100%; /* Position just below the icon */
+    right: 0; /* Align to the right edge */
+    background-color: #222; /* Dropdown background */
+    color: #fff; /* Text color */
+    min-width: 150px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 8px;
+    z-index: 10;
+}
+
+/* Menu items */
+.dropdown-menu a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #fff; /* Match theme */
+}
+
+.dropdown-menu a:hover {
+    background-color: #444; /* Highlight on hover */
+}
+
+/* Show dropdown when active */
+.dropdown.active .dropdown-menu {
+    display: block;
+}
+
+.nav-list li a {
+    text-decoration: none; /* Remove default underline */
+    color: inherit; /* Keep the text color consistent */
+    position: relative; /* Needed for the border effect */
+}
+.nav-list li a:hover::after {
+    content: ""; /* Create the line with a pseudo-element */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px; /* Height of the border line */
+    background-color: currentColor; /* Use the text color for the border */
+    transform: scaleX(0); /* Start with no width */
+    transform-origin: left; /* Animation starts from the left */
+    transition: transform 0.3s ease; /* Smooth animation */
+}
+
+.nav-list li a:hover::after {
+    transform: scaleX(1); /* Expand the line on hover */
+}
+
+/*     -------------------   */
+
+:root{
+    --color-primary: #6C9BCF;
+    --color-danger: #FF0060;
+    --color-success: #1B9C85;
+    --color-warning: #F7D060;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-dark: #363949;
+    --color-light: rgba(132, 139, 200, 0.18);
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+.dark-mode-variables{
+    --color-background: #181a1e;
+    --color-white: #202528;
+    --color-dark: #edeffd;
+    --color-dark-variant: #a3bdcc;
+    --color-light: rgba(0, 0, 0, 0.4);
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+body{
+     width: 100vw;
+     height: 100vh;
+     font-family: 'Poppins', sans-serif;
+     font-size: 0.94rem;
+     user-select: none;
+     overflow-x: hidden;
+     color: var(--color-dark);
+     background-color: var(--color-background);
+ }
+a{
+      color: var(--color-dark);
+  }
+
+h3{
+    font-weight: 500;
+    font-size: 0.87rem;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.94rem;
+    user-select: none;
+    overflow-x: hidden;
+    color: var(--color-dark);
+    background-color: var(--color-background);
+}
+
+/*---------------------------------------------------------------*/
+/*---------------------------------------------------------------*/
+/*---------------------------------------------------------------*/
+/*---------------------------------------------------------------*/
+/*  Aside    */
+a {
+    color: var(--color-dark);
+}
+
+h3 {
+    font-weight: 500;
+    font-size: 0.87rem;
+}
+
+.container {
+    display: grid;
+    width: 96%;
+    margin: 0 auto;
+    gap: 1.8rem;
+    grid-template-columns: 12rem auto; /* Removed unnecessary third column */
+    height: 100vh; /* Ensures full height */
+}
+
+/* Sidebar (Fixed Width) */
+aside {
+    height: 100vh;
+}
+
+aside .sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    box-shadow: var(--box-shadow);
+    border-radius: 15px;
+    height: 88vh;
+    position: relative;
+    top: 1.3rem;
+    transition: all 0.3s ease;
+    gap: 1em;
+}
+
+aside .sidebar:hover {
+    box-shadow: none;
+}
+
+aside .sidebar a {
+    display: flex;
+    align-items: center;
+    color: var(--color-info-dark);
+    height: 3.7rem;
+    gap: 1rem;
+    position: relative;
+    margin-left: 2rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+
+}
+
+aside .sidebar a span {
+    font-size: 1.6rem;
+    transition: all 0.3s ease;
+}
+
+aside .sidebar a:last-child {
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+}
+
+aside .sidebar a.active {
+    width: 100%;
+    color: var(--color-primary);
+    background-color: var(--color-light);
+    margin-left: 0;
+}
+
+aside .sidebar a.active::before {
+    content: '';
+    width: 6px;
+    height: 18px;
+    background-color: var(--color-primary);
+}
+
+aside .sidebar a.active span {
+    color: var(--color-primary);
+    margin-left: calc(1rem - 3px);
+}
+
+aside .sidebar a:hover {
+    color: var(--color-primary);
+}
+
+aside .sidebar a:hover span {
+    margin-left: 0.6rem;
+}
+
+/* Main Section (Takes Remaining Space) */
+main {
+    margin-top: 1.4rem;
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+    justify-content: flex-start; /* Keeps elements aligned properly */
+    overflow: hidden; /* Prevents unnecessary scrolling */
+}
+
+/* Sidebar Container */
+.bigger-container {
+    max-width: 350px;
+    /* Adjusted for proper layout */
+    margin-left: 2em;
+}
+
+/*---------------------------------------------------------------*/
+/*---------------------------------------------------------------*/
+/*---------------------------------------------------------------*/
+/*---------------------------------------------------------------*/
+/* User Table Container */
+
+.user-table-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex-grow: 1; /* Allows it to take up remaining space */
+    max-width: calc(100% - 250px); /* Prevents overlap with sidebar */
+    margin: 20px auto;
+    margin-right: 3em;
+    overflow-x: auto; /* Ensures table is scrollable on small screens */
+}
+
+/* User Table Header */
+.user-table-container > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.user-table-container .search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #F0F0F0;
+    padding: 8px;
+    border-radius: 20px;
+    width: 250px;
+}
+
+.user-table-container .search-container input {
+    border: none;
+    background-color: transparent;
+    color: #747474;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+}
+
+.user-table-container .search-container .search-icon img {
+    width: 18px;
+    height: 18px;
+}
+
+/* Table Styles */
+#user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    display: table !important;
+
+}
+
+#user-table thead {
+    background-color: #3d8adc;
+    color: white;
+ }
+
+#user-table th,
+#user-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+
+}
+
+#user-table thead th {
+    padding: 20px;
+    font-weight: bold;
+ }
+
+#user-table tbody th {
+     font-weight: bold;
+     padding: 15px;
+
+}
+
+#user-table tbody tr:hover {
+    background-color: #f1f1f1;
+
+}
+
+/* Profile Image in Table */
+
+
+/* Buttons Inside Table */
+#user-table tbody tr td:last-child button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#user-table tbody tr td:last-child button:hover {
+    background-color: #0056b3;
+}
+
+.user-table-header{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    gap: 2.5em;
+    margin-bottom: 2em;
+}
+.header-left-title{
+    margin-left: 2em;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-right {
+    margin-right: 2em;
+    margin-bottom: 2em;
+}
+
+.header-right button {
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-right button:hover {
+    background: linear-gradient(135deg, #0056b3, #004494);
+    transform: scale(1.05);
+}
+
+.header-right button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

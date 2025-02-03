@@ -22,5 +22,10 @@ public class IndexController {
         return "register";
     }
 
+    @GetMapping("/admin-panel")
+    public String getAdminPanelPage() {
+        return "admin-panel";
+    }
+
 
 }
