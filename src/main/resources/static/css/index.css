@@ -25,7 +25,7 @@ section.header-top-bar {
     margin-right: 20px; /* Add space between logo and search input */
 }
 
-.header-logo a{
+.header-logo a {
     text-decoration: none; /* Remove default underline */
     color: inherit;
 }
@@ -54,11 +54,13 @@ section.header-top-bar {
     padding-left: 5px;
     padding-right: 5px;
 }
+
 .search-container input::placeholder {
     color: #bbb; /* Placeholder color */
     font-size: 14px; /* Smaller placeholder text */
     font-family: 'Roboto', sans-serif; /* Consistent with input text font */
 }
+
 .nav-list li {
     color: black;
     text-align: center;
@@ -122,6 +124,7 @@ section.header-top-bar {
     color: inherit; /* Keep the text color consistent */
     position: relative; /* Needed for the border effect */
 }
+
 .nav-list li a:hover::after {
     content: ""; /* Create the line with a pseudo-element */
     position: absolute;
@@ -136,13 +139,13 @@ section.header-top-bar {
 }
 
 .nav-list li a:hover::after {
-     transform: scaleX(1); /* Expand the line on hover */
- }
+    transform: scaleX(1); /* Expand the line on hover */
+}
 
 
 /*----------------------------------------------*/
 /*center-section*/
-body{
+body {
     background: #FAFAFA;
 }
 
@@ -151,7 +154,7 @@ main {
     flex-direction: row; /* Align items horizontally */
     justify-content: space-between; /* Ensure sections are evenly distributed */
     align-items: flex-start; /* Align items to the top of the container */
-    padding: 0 5em; /* Add padding to keep content away from edges */
+    padding: 1em 5em; /* Add padding to keep content away from edges */
     margin: 4em 3em; /* Add vertical spacing */
 }
 
@@ -180,6 +183,7 @@ main {
     font-family: 'Roboto', sans-serif;
     flex-shrink: 0; /* Prevent shrinking */
 }
+
 .date-matches-home {
 
     max-width: 650px;
@@ -196,12 +200,13 @@ main {
     border-radius: 15px;
 }
 
-.center-index button{
+.center-index button {
     background: none;
     border: none;
     font-weight: bold;
     font-size: 18px;
 }
+
 .date-navigation div {
     display: flex;
     justify-content: space-between;
@@ -213,7 +218,7 @@ main {
     background: transparent;
 }
 
-.date-picker a{
+.date-picker a {
     width: 30px; /* Set equal width and height */
     height: 30px;
     color: white;
@@ -222,19 +227,19 @@ main {
     text-align: center;
 }
 
-.date-picker a:hover{
+.date-picker a:hover {
     color: black;
     background: white;
 }
 
-<!--  -->
+<!--
+-->
 
 
 .date-picker a img {
     width: 18px;
     height: 18px;
 }
-
 
 
 .match-list {
@@ -269,7 +274,8 @@ main {
     gap: 0.2em; /* Reduced gap for closer alignment */
     flex-shrink: 1; /* Prevents logos from pushing content */
 }
-.match-info-container:hover{
+
+.match-info-container:hover {
     background: #EAEAEA;
 }
 
@@ -384,7 +390,7 @@ main {
     gap: 10px;
 }
 
-.stats{
+.stats {
     font-size: 10px;
     font-weight: normal;
 }
@@ -400,7 +406,7 @@ main {
     font-weight: bold;
 }
 
-.club-container li:hover   {
+.club-container li:hover {
     background: lightgray;
 
 }

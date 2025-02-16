@@ -15,8 +15,8 @@
 }
 header {
     padding: 1rem 0;
-    border-bottom: 1px solid black;
-}
+     background: #FFFFFF;
+ }
 
 /* Centering the form */
 main {
@@ -26,6 +26,7 @@ main {
     min-height: 80vh; /* Takes up most of the viewport */
     gap: 2rem; /* Adds space between header and form */
     flex-direction: column;
+    background: #FAFAFA;
 }
 
 /* Form container styling */
@@ -143,6 +144,19 @@ form {
     text-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     padding-left: 5px;
     font-size: 15px;
+}
+
+
+.alert-warning {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 250;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    background: linear-gradient(to left, #f88e8e, #f56767, #f54b3b);
+    background-size: 200%;
+    background-clip: text ;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 

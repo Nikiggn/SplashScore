@@ -8,27 +8,25 @@
 </head>
 <body>
 
-    <header>
-        <section class="header-top-bar">
-            <div class="logo-container">
-                <a th:href="@{/}" class="logo">SplashScore</a>
-            </div>
-        </section>
-    </header>
+<header th:replace="~{fragments/logo-header::header}"></header>
 
-    <main>
+
+<main>
         <div class="form-container">
             <span class="title">Log in to your account</span>
-            <form action="/login" method="post">
+            <form th:action="@{/login}" th:method="post" th:object="${loginRequest}">
                 <div class="input-field">
                     <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter your username" required />
+                    <input th:field="*{username}" type="text" id="username" placeholder="Enter your username" required />
+                    <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">fff</p>
+
                     <i class="uil uil-envelope icon"></i>
                 </div>
 
                 <div class="input-field">
                     <label for="password">Password</label>
-                    <input type="password" id="password" class="password" placeholder="Enter your password" required />
+                    <input th:field="*{password}" type="password" id="password" class="password" placeholder="Enter your password" required />
+                    <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">fff</p>
                     <i class="uil uil-lock icon"></i>
                     <i class="uil uil-eye-slash showHidePw"></i>
                 </div>

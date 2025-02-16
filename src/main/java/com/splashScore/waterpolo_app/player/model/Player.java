@@ -6,6 +6,7 @@ import com.splashScore.waterpolo_app.country.model.Country;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "players")
@@ -19,7 +20,7 @@ public class Player {
     private String fullName;
 
     @Column(nullable = false, name = "birth_date")
-    private Instant birthDate;
+    private LocalDate birthDate;
 
     @Column
     private Integer age;
@@ -50,11 +51,11 @@ public class Player {
         this.fullName = fullName;
     }
 
-    public Instant getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Instant birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

@@ -3,155 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/admin-panel.css}">
 
 
     <title>SplashScore</title>
 </head>
 <body>
-    <header>
-        <section class="header-top-bar">
-            <div class="left-section">
-                <div class="header-logo">
-                    <a th:href="@{/}">SplashScore</a>
-                </div>
-                <div class="search-container">
-                    <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
-                    <input id="search-input" type="search" placeholder="Search">
-                </div>
-            </div>
+    <header th:replace="~{fragments/commons::section}"></header>
 
-            <div class="header-navigation">
-                <nav class="navigation-container">
-                    <ul class="nav-list">
-                        <li><a href="#">Leaderboard</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a th:href="@{/login}">Sign in</a></li>
-                        <li><a th:href="@{/admin-panel}">Admin Panel</a></li>
-                        <li><a href="#">Profile</a></li>
 
-                        <li>
-                            <div class="dropdown">
-                                <button class="settings-icon" id="settings-button">
-                                    ⚙️ <!-- Replace with an actual icon -->
-                                </button>
-                                <div class="dropdown-menu" id="dropdown-menu">
-                                    <a href="#">Profile</a>
-                                    <a href="#">Theme</a>
-                                    <a href="#">Language</a>
-                                    <a href="#">Sign out</a>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-                </nav>
-            </div>
-        </section>
-    </header>
-
-    <main>
-        <div class="bigger-container">
-            <aside class="container" id="left-sidebar">
-                <div class="sidebar">
-                    <a href="/admin-panel/dashoard">
+<main>
+    <div class="bigger-container">
+        <aside class="container" id="left-sidebar">
+            <div class="sidebar">
+                <a href="/admin-panel/dashoard">
                     <span class="material-symbols-outlined">
                     dashboard
                     </span>
-                        <h3>Dashboard</h3>
-                    </a>
+                    <h3>Dashboard</h3>
+                </a>
 
-                    <a href="/admin-panel/users" data-section="users">
-                        <span class="material-symbols-outlined">person</span>
-                        <h3>Users</h3>
-                    </a>
+                <a href="/admin-panel/users" data-section="users">
+                    <span class="material-symbols-outlined">person</span>
+                    <h3>Users</h3>
+                </a>
 
-                    <a href="/admin-panel/players">
+                <a href="/admin-panel/players">
                     <span class="material-symbols-outlined">
                     groups
                     </span>
-                        <h3>Players</h3>
-                    </a>
+                    <h3>Players</h3>
+                </a>
 
-                    <a href="/admin-panel/matches">
+                <a href="/admin-panel/matches">
                     <span class="material-symbols-outlined">
                     stadium
                     </span>
-                        <h3>Matches</h3>
-                    </a>
+                    <h3>Matches</h3>
+                </a>
 
-                    <a href="/admin-panel/referees">
+                <a href="/admin-panel/referees">
                     <span class="material-symbols-outlined">
                     sports
                     </span>
-                        <h3>Referees</h3>
-                    </a>
+                    <h3>Referees</h3>
+                </a>
 
-                    <a href="/admin-panel/clubs">
+                <a href="/admin-panel/clubs">
                     <span class="material-symbols-outlined">
                     diversity_2
                     </span>
-                        <h3>Clubs</h3>
-                    </a>
+                    <h3>Clubs</h3>
+                </a>
 
-                    <a href="#">
+                <a href="#">
                     <span class="material-symbols-outlined">
                     logout
                     </span>
-                        <h3>Logout</h3>
-                    </a>
-                </div>
-            </aside>
-        </div>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
+    </div>
 
-        <div class="user-table-container">
-            <div class="user-table-header">
-                <div class="header-left">
-                    <div class="header-left-title">Registered Users</div>
-                    <div class="search-container">
-                        <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
-                        <input id="search-input-2" type="search" placeholder="Search by username">
-                    </div>
-                </div>
-
-                <div class="header-right">
-                    <button>Save</button>
+    <div class="user-table-container">
+        <div class="user-table-header">
+            <div class="header-left">
+                <div class="header-left-title">Registered Users</div>
+                <div class="search-container">
+                    <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
+                    <input id="search-input-2" type="search" placeholder="Search by username">
                 </div>
             </div>
 
-            <div>
-                <!-- Table will be injected here -->
-                <table id="user-table">
-                    <thead>
-                    <tr>
-
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Full name</th>
-                        <th>Current Role</th>
-                        <th>Created on</th>
-                        <th></th>
-                     </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr th:each="user : ${users}">
-                        <!--                        <th th:text="${#strings.isEmpty(user.profilePictureUrl) ? 'https://www.istockphoto.com/vector/profile-picture-vector-illustration-gm587805156-100912283-100912283' : user.profilePictureUrl}">ddvdv</th>-->
-                        <th th:text="${user.username}">admin</th>
-                        <th th:text="${user.email}">admin@gmail.com</th>
-                        <th th:text="${user.fullName}">Antoan Antoiev</th>
-                        <th th:text="${user.role}">User</th>
-                        <th th:text="${user.createdOn}">17.03.19</th>
-                        <th><span class="material-symbols-outlined">menu</span></th>
-
-                    </tr>
-                     </tbody>
-                </table>
+            <div class="header-right">
+                <button>Save</button>
             </div>
         </div>
-    </main>
+
+        <div>
+            <!-- Table will be injected here -->
+            <table id="user-table">
+                <thead>
+                <tr>
+
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Full name</th>
+                    <th>Current Role</th>
+                    <th>Created on</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="user : ${users}">
+                    <!--                        <th th:text="${#strings.isEmpty(user.profilePictureUrl) ? 'https://www.istockphoto.com/vector/profile-picture-vector-illustration-gm587805156-100912283-100912283' : user.profilePictureUrl}">ddvdv</th>-->
+                    <th th:text="${user.username}">admin</th>
+                    <th th:text="${user.email}">admin@gmail.com</th>
+                    <th th:text="${#strings.isEmpty(user.fullName) ? 'null' : user.fullName}">Antoan Antoiev</th>
+                    <th th:text="${user.role}">User</th>
+                    <th th:text="${#temporals.format(user.createdOn, 'dd-MM-yyyy HH:mm')}">17.03.19</th>
+                    <th> <span class="material-symbols-outlined" id="user-table-menu" style="color: black">menu</span></th>
 
 
- </body>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+ <script src="/js/header-setting-icon-dropdown.js"></script>
+</body>
 </html>

@@ -16,8 +16,7 @@
 
 header {
     padding: 1rem 0;
-    border-bottom: 1px solid black;
-}
+ }
 
 /* Centering the form */
 main {
@@ -165,6 +164,19 @@ main {
     padding-left: 7px;
     color: #070707;
 }
+
+.alert-warning {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 250;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    background: linear-gradient(to left, #f88e8e, #f56767, #f54b3b);
+    background-size: 200%;
+    background-clip: text ;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 
 /* Responsive adjustments */
 @media (max-width: 600px) {

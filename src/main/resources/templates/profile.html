@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SplashScore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
+</head>
+<body>
+<header th:replace="~{fragments/commons::section}"></header>
+
+<main>
+        <section class="profile-section">
+            <div class="profile-section-header">
+                <h3>Details</h3>
+                <a>
+<!--                    <span class="material-symbols-outlined">edit_note</span>-->
+                    <p>Edit Info</p>
+                </a>
+            </div>
+
+
+            <div class="profile-info">
+                <div class="details-section-container">
+                    <label><span class="material-symbols-outlined">person</span>Username:</label>
+                    <p th:text="${user.username}">NikiggN</p>
+                </div>
+
+                <div class="details-section-container">
+                    <label><span class="material-symbols-outlined">mail</span>Email:</label>
+                    <p th:text="${user.email}">abv@mail.com</p>
+                </div>
+
+                <div class="details-section-container">
+                    <label><span class="material-symbols-outlined">calendar_month</span>Joined:</label>
+                    <p th:text="${#temporals.format(user.createdOn, 'dd-MM-yyyy')}">a34.24,23</p>
+                </div>
+
+                <div class="details-section-container">
+                    <label><span class="material-symbols-outlined">support_agent</span>Role:</label>
+                    <p th:text="${user.role.toString()}"></p>
+                </div>
+
+                <div class="details-section-container">
+                    <label><span class="material-symbols-outlined">badge</span>Full Name:</label>
+                    <p th:text="${#strings.isEmpty(user.fullName) ? 'null' : user.fullName}">Nikola Antoniev</p>
+                </div>
+
+                <div class="details-section-container">
+                    <label><span class="material-symbols-outlined">pin</span>Age:</label>
+                    <p th:text="${user.age == null ? 'null' : user.age}"></p>
+                </div>
+            </div>
+
+        </section>
+
+         <section>
+
+         </section>
+    </main>
+</body>
+</html>

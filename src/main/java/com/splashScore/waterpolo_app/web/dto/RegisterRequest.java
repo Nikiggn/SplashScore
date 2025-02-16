@@ -1,24 +1,27 @@
 package com.splashScore.waterpolo_app.web.dto;
 
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 public class RegisterRequest {
-    // когато някой ми изпраща тези данни -> да ги валидираме
 
-
-    @Size(min = 6, max = 15)
+    @Size(min = 6, max = 15, message = "Username must be between 6 and 15 characters long")
     private String username;
 
+    @NotEmpty(message = "Email cannot be empty")
+    @Email
     private String email;
 
+    @Size(min = 6, message = "Password must be at least 6 symbols")
     private String password;
 
+    @Size(min = 6, message = "Password must be at least 6 symbols")
     private String confirmPassword;
 
     public RegisterRequest() {
     }
-
 
 
     public String getUsername() {

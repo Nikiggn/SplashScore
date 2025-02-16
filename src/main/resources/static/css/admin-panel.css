@@ -391,13 +391,13 @@ main {
 }
 
 #user-table thead th {
-    padding: 20px;
+    padding: 17px;
     font-weight: bold;
  }
 
 #user-table tbody th {
      font-weight: bold;
-     padding: 15px;
+     padding: 12px;
 
 }
 
@@ -471,4 +471,17 @@ main {
 .header-right button:active {
     transform: scale(0.98);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* Settings icon styling */
+#user-table-menu  {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #070707;
+      /* Adjust based on your app's theme */
+    padding: 5px;
 }

@@ -8,47 +8,7 @@
     <script src="../static/js/header-setting-icon-dropdown.js"></script>
 </head>
 <body>
-    <header>
-        <section class="header-top-bar">
-
-            <div class="left-section">
-                <div class="header-logo">
-                    <a th:href="@{/}">SplashScore</a>
-                </div>
-                <div class="search-container">
-                    <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
-                    <input id="search-input" type="search" placeholder="Search">
-                </div>
-            </div>
-
-            <div class="header-navigation">
-                <nav class="navigation-container">
-                    <ul class="nav-list">
-                        <li><a href="#">Leaderboard</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a th:href="@{/login}">Sign in</a></li>
-                        <li><a th:href="@{/admin-panel}">Admin Panel</a></li>
-                        <li><a href="#">Profile</a></li>
-
-                        <li>
-                            <div class="dropdown">
-                                <button class="settings-icon" id="settings-button">
-                                    ⚙️ <!-- Replace with an actual icon -->
-                                </button>
-                                <div class="dropdown-menu" id="dropdown-menu">
-                                    <a href="#">Profile</a>
-                                    <a href="#">Theme</a>
-                                    <a href="#">Language</a>
-                                    <a href="#">Sign out</a>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-                </nav>
-            </div>
-        </section>
-    </header>
+    <header th:replace="~{fragments/commons::section}"></header>
 
     <main>
         <div class="filler-container"></div>

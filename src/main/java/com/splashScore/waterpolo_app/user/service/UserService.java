@@ -45,10 +45,7 @@ public class UserService {
             throw new DomainException("Username is already in use");
         }
 
-        User user = userRepository.save(initializUser(registerRequest));
-
-        logger.info("Successfully  created user account for username [%s] and id [%d]:".formatted(user.getUsername(), user.getId()));
-        return user;
+        return userRepository.save(initializeUser(registerRequest));
     }
 
     public User login(LoginRequest loginRequest) {
@@ -61,7 +58,7 @@ public class UserService {
         return userOptional.get();
     }
 
-    private User initializUser(RegisterRequest registerRequest) {
+    private User initializeUser(RegisterRequest registerRequest) {
         User user = modelMapper.map(registerRequest, User.class);
 
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
@@ -72,6 +69,10 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        return  userRepository.findAll();
+        return userRepository.findAll();
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId).orElse(null);
     }
 }

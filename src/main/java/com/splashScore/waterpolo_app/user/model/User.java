@@ -29,7 +29,7 @@ public class User{
 
     private String profilePictureUrl;
 
-    private String fullName;
+    private String fullName;;
 
     private int age;
 
