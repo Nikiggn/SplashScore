@@ -1,33 +1,3 @@
-/* Header styles */
-/* Logo styles */
-
-.logo-container {
-    text-align: center;
-}
-
-.logo {
-    font-size: 2em;
-    font-weight: bold;
-    color: black;
-    cursor: pointer;
-    text-decoration: none;
-
-}
-header {
-    padding: 1rem 0;
-     background: #FFFFFF;
- }
-
-/* Centering the form */
-main {
-    display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
-    min-height: 80vh; /* Takes up most of the viewport */
-    gap: 2rem; /* Adds space between header and form */
-    flex-direction: column;
-    background: #FAFAFA;
-}
 
 /* Form container styling */
 .form-container {
