@@ -23,15 +23,7 @@ public class UserController {
 
     @GetMapping("/profile")
     public ModelAndView getUserProfile(@AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
-
-        System.out.println("AuthenticationMetaData: " + authenticationMetaData); // Debug log
-
-        if (authenticationMetaData == null) {
-            throw new RuntimeException("AuthenticationMetaData is NULL!");
-        }
         User user = userService.getUserById(authenticationMetaData.getId());
-
-        System.out.println("Authenticated user ID: " + authenticationMetaData.getId());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("profile");

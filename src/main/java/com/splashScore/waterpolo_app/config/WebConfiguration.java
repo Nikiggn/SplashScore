@@ -1,7 +1,6 @@
 package com.splashScore.waterpolo_app.config;
 
- import com.splashScore.waterpolo_app.security.SessionInterceptor;
- import org.springframework.beans.factory.annotation.Autowired;
+  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.Configuration;
@@ -14,24 +13,8 @@ package com.splashScore.waterpolo_app.config;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableWebSecurity
 @EnableMethodSecurity
 public class WebConfiguration implements WebMvcConfigurer {
-    private final SessionInterceptor sessionInterceptor;
-
-    @Autowired
-    public WebConfiguration(SessionInterceptor sessionInterceptor) {
-        this.sessionInterceptor = sessionInterceptor;
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-
-        registry.addInterceptor(sessionInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/css/**", "/img/**");
-    }
-
     @Bean // начин по който Spring Security разбира как да се прилага за нашето приложение
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // за да опиша endpoints, които ще бъдат свободно достъпвани
@@ -41,7 +24,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         http.
                 authorizeHttpRequests(request -> request
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                        .requestMatchers("/", "/register","/users/profile").permitAll() // Public Pages - да им се приложи Authentication
+                        .requestMatchers("/", "/register").permitAll() // Public Pages - да им се приложи Authentication
                         .anyRequest().authenticated())// Everything else need login
                 .formLogin(form -> form
                         .loginPage("/login")

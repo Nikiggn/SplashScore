@@ -1,14 +1,8 @@
 package com.splashScore.waterpolo_app.club.model;
 
-import com.splashScore.waterpolo_app.coach.model.Coach;
-import com.splashScore.waterpolo_app.match.model.Match;
 import com.splashScore.waterpolo_app.player.model.Country;
 import com.splashScore.waterpolo_app.player.model.Player;
 import jakarta.persistence.*;
-
-import java.time.Instant;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,14 +16,17 @@ public class Club {
     @Column(unique = true, nullable = false)
     private String name;
 
-    private String logoUrl;
+    @Column(nullable = false)
+    private String town;
 
-    @Column(nullable = true)
+    @Column()
     @Enumerated(EnumType.STRING)
     private Country country;
 
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Player> squad;
+
+    private String logoUrl;
 
 //    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private Set<Coach> coaches = new HashSet<>();
@@ -113,5 +110,21 @@ public class Club {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
     }
 }

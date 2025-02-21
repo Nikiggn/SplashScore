@@ -282,7 +282,7 @@ main {
     background-color: #0056b3;
 }
 
-.user-table-header{
+.content-section-header{
     display: flex;
     flex-direction: row;
     align-content: center;

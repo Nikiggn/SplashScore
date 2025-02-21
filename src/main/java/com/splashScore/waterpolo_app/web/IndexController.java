@@ -1,5 +1,7 @@
 package com.splashScore.waterpolo_app.web;
 
+import com.splashScore.waterpolo_app.club.model.Club;
+import com.splashScore.waterpolo_app.club.service.ClubService;
 import com.splashScore.waterpolo_app.player.model.Player;
 import com.splashScore.waterpolo_app.player.service.PlayerService;
 import com.splashScore.waterpolo_app.security.AuthenticationMetaData;
@@ -26,14 +28,16 @@ import java.util.List;
 public class IndexController {
     private final UserService userService;
     private final PlayerService playerService;
+    private final ClubService clubService;
 
     @Autowired
-    public IndexController(UserService userService, PlayerService playerService) {
+    public IndexController(UserService userService, PlayerService playerService, ClubService clubService) {
         this.userService = userService;
         this.playerService = playerService;
+        this.clubService = clubService;
     }
 
-    @GetMapping(value = "/", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping("/")
     public ModelAndView getIndexPage(@AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
         ModelAndView modelAndView = new ModelAndView("index");
 
@@ -41,28 +45,12 @@ public class IndexController {
         if (authenticationMetaData != null) {
             User user = userService.getUserById(authenticationMetaData.getId());
             modelAndView.addObject("user", user);
-
         } else {
             modelAndView.addObject("user", null); // or handle anonymous users differently
         }
 
         return modelAndView;
     }
-
-//      @GetMapping("/")
-//    public ModelAndView getIndexPage(HttpSession session) {
-//        ModelAndView modelAndView = new ModelAndView("index");
-//
-//        Long userId = (Long) session.getAttribute("user_id");
-//        if (userId != null) {
-//            User user = userService.getUserById(userId);
-//            modelAndView.addObject("user", user);
-//        } else {
-//            modelAndView.addObject("user", null);
-//        }
-//
-//        return modelAndView;
-//    }
 
     @GetMapping("/register")
     public ModelAndView getRegisterPage() {
@@ -76,7 +64,6 @@ public class IndexController {
 
     @PostMapping("/register")
     public ModelAndView registerNewUser(@Valid RegisterRequest registerRequest, BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
             return new ModelAndView("register");
         }
@@ -85,7 +72,6 @@ public class IndexController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", user);
-
         modelAndView.setViewName("redirect:/login");
 
         return modelAndView;
@@ -104,27 +90,16 @@ public class IndexController {
         return modelAndView;
     }
 
-//    @PostMapping("/login")
-//    public String login(@Valid LoginRequest loginRequest, BindingResult bindingResult, HttpSession session) {
-//        if (bindingResult.hasErrors()) {
-//            return "login";
-//        }
-//
-//        User user = userService.login(loginRequest);
-//        session.setAttribute("user_id", user.getId());
-//
-//        return "redirect:/";
-//    }
 
     @GetMapping("/admin-panel")         // казваме на Spring дай ми този обект
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getAdminPanelPage(@AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
         //този който иска да достъпи home page-a кой е
-
         User user = userService.getUserById(authenticationMetaData.getId());
 
         List<Player> players = playerService.getAllPlayers();
         List<User> users = userService.getAllUsers();
+        List<Club> clubs = clubService.getAllClubs();
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -132,6 +107,7 @@ public class IndexController {
         modelAndView.addObject("users", users);
         modelAndView.addObject("players", players);
         modelAndView.addObject("user", user);
+        modelAndView.addObject("clubs", clubs);
 
         return modelAndView;
     }
