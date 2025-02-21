@@ -1,9 +1,8 @@
 package com.splashScore.waterpolo_app.club.model;
 
 import com.splashScore.waterpolo_app.coach.model.Coach;
-import com.splashScore.waterpolo_app.country.model.Country;
-import com.splashScore.waterpolo_app.data.entities.BaseEntity;
 import com.splashScore.waterpolo_app.match.model.Match;
+import com.splashScore.waterpolo_app.player.model.Country;
 import com.splashScore.waterpolo_app.player.model.Player;
 import jakarta.persistence.*;
 
@@ -23,31 +22,23 @@ public class Club {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @ManyToOne(optional = true)
-    private Country country;
-
     private String logoUrl;
 
-    @OneToOne
-    private Coach headCoach;
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    private Country country;
 
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Coach> coaches = new HashSet<>();
+    private Set<Player> squad;
 
-    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Player> squad = new HashSet<>();
+//    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<Coach> coaches = new HashSet<>();
 
-    private String town;
-
-    private Instant established;
-
-    private String description;
-
-    @OneToMany(mappedBy = "homeClub", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Match> homeMatches = new HashSet<>();
-
-    @OneToMany(mappedBy = "awayClub", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Match> awayMatches = new HashSet<>();
+//    @OneToMany(mappedBy = "homeClub", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<Match> homeMatches = new HashSet<>();
+//
+//    @OneToMany(mappedBy = "awayClub", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<Match> awayMatches = new HashSet<>();
 
     public Club() {
     }
@@ -60,21 +51,13 @@ public class Club {
         this.name = name;
     }
 
-    public String getTown() {
-        return town;
-    }
-
-    public void setTown(String town) {
-        this.town = town;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
+//    public String getTown() {
+//        return town;
+//    }
+//
+//    public void setTown(String town) {
+//        this.town = town;
+//    }
 
     public String getLogoUrl() {
         return logoUrl;
@@ -83,38 +66,38 @@ public class Club {
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
-
-    public Instant getEstablished() {
-        return established;
-    }
-
-    public void setEstablished(Instant established) {
-        this.established = established;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Coach getHeadCoach() {
-        return headCoach;
-    }
-
-    public void setHeadCoach(Coach headCoach) {
-        this.headCoach = headCoach;
-    }
-
-    public Set<Coach> getCoaches() {
-        return coaches;
-    }
-
-    public void setCoaches(Set<Coach> coaches) {
-        this.coaches = coaches;
-    }
+//
+//    public Instant getEstablished() {
+//        return established;
+//    }
+//
+//    public void setEstablished(Instant established) {
+//        this.established = established;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
+//
+//    public Coach getHeadCoach() {
+//        return headCoach;
+//    }
+//
+//    public void setHeadCoach(Coach headCoach) {
+//        this.headCoach = headCoach;
+//    }
+//
+//    public Set<Coach> getCoaches() {
+//        return coaches;
+//    }
+//
+//    public void setCoaches(Set<Coach> coaches) {
+//        this.coaches = coaches;
+//    }
 
     public Set<Player> getSquad() {
         return squad;

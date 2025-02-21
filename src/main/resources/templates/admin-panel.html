@@ -12,7 +12,6 @@
 <body>
     <header th:replace="~{fragments/commons::section}"></header>
 
-
 <main>
     <div class="bigger-container">
         <aside class="container" id="left-sidebar">
@@ -24,12 +23,12 @@
                     <h3>Dashboard</h3>
                 </a>
 
-                <a href="/admin-panel/users" data-section="users">
+                <a href="javascript:void(0);" onclick="showDiv('users')" data-section="users">
                     <span class="material-symbols-outlined">person</span>
                     <h3>Users</h3>
                 </a>
 
-                <a href="/admin-panel/players">
+                <a href="javascript:void(0);" onclick="showDiv('players')">
                     <span class="material-symbols-outlined">
                     groups
                     </span>
@@ -67,7 +66,7 @@
         </aside>
     </div>
 
-    <div class="user-table-container">
+    <div id="users" class="content-section active">
         <div class="user-table-header">
             <div class="header-left">
                 <div class="header-left-title">Registered Users</div>
@@ -83,38 +82,75 @@
         </div>
 
         <div>
-            <!-- Table will be injected here -->
-            <table id="user-table">
-                <thead>
-                <tr>
-
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Full name</th>
-                    <th>Current Role</th>
-                    <th>Created on</th>
-                    <th></th>
-                </tr>
-                </thead>
+             <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Current Role</th>
+                            <th>Created on</th>
+                            <th></th>
+                        </tr>
+                    </thead>
                 <tbody>
 
                 <tr th:each="user : ${users}">
                     <!--                        <th th:text="${#strings.isEmpty(user.profilePictureUrl) ? 'https://www.istockphoto.com/vector/profile-picture-vector-illustration-gm587805156-100912283-100912283' : user.profilePictureUrl}">ddvdv</th>-->
                     <th th:text="${user.username}">admin</th>
                     <th th:text="${user.email}">admin@gmail.com</th>
-                    <th th:text="${#strings.isEmpty(user.fullName) ? 'null' : user.fullName}">Antoan Antoiev</th>
                     <th th:text="${user.role}">User</th>
                     <th th:text="${#temporals.format(user.createdOn, 'dd-MM-yyyy HH:mm')}">17.03.19</th>
-                    <th> <span class="material-symbols-outlined" id="user-table-menu" style="color: black">menu</span></th>
-
-
+                    <th><span class="material-symbols-outlined">menu</span></th>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
+
+    <div id="players" class="content-section">
+        <div class="user-table-header">
+            <div class="header-left">
+                <div class="header-left-title">Players</div>
+                <div class="search-container">
+                    <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
+                    <input type="search" placeholder="Search by full name">
+                </div>
+            </div>
+
+            <div class="header-right">
+                <button>Add Player</button>
+            </div>
+        </div>
+
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Age</th>
+                        <th>Club</th>
+                        <th>Country</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="player : ${players}">
+                        <th th:text="${player.fullName}">Nikola Antoniev</th>
+                        <th >17</th>
+                        <th th:text="${player.club.name}">ChernoMore-Ticha</th>
+                        <th >Bulgaria</th>
+                        <th><span class="material-symbols-outlined">menu</span></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
 </main>
 
+    <script src="/js/admin-panel.js"></script>
  <script src="/js/header-setting-icon-dropdown.js"></script>
 </body>
 </html>

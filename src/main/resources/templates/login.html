@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<header th:replace="~{fragments/logo-header::header}"></header>
+<header th:replace="~{fragments/header-logo::header}"></header>
 
 
 <main>
@@ -20,17 +20,14 @@
                 <div class="input-field">
                     <label for="username">Username</label>
                     <input th:field="*{username}" type="text" id="username" placeholder="Enter your username" required />
-                    <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">fff</p>
 
-                    <i class="uil uil-envelope icon"></i>
-                </div>
+                 </div>
 
                 <div class="input-field">
                     <label for="password">Password</label>
                     <input th:field="*{password}" type="password" id="password" class="password" placeholder="Enter your password" required />
-                    <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">fff</p>
-                    <i class="uil uil-lock icon"></i>
-                    <i class="uil uil-eye-slash showHidePw"></i>
+                    <p class="alert-warning" th:if="${errorMessage}" th:text="${errorMessage}">fff</p>
+
                 </div>
 
                 <div class="checkbox-text">

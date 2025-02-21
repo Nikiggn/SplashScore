@@ -16,10 +16,6 @@
         <section class="profile-section">
             <div class="profile-section-header">
                 <h3>Details</h3>
-                <a>
-<!--                    <span class="material-symbols-outlined">edit_note</span>-->
-                    <p>Edit Info</p>
-                </a>
             </div>
 
 
@@ -42,16 +38,6 @@
                 <div class="details-section-container">
                     <label><span class="material-symbols-outlined">support_agent</span>Role:</label>
                     <p th:text="${user.role.toString()}"></p>
-                </div>
-
-                <div class="details-section-container">
-                    <label><span class="material-symbols-outlined">badge</span>Full Name:</label>
-                    <p th:text="${#strings.isEmpty(user.fullName) ? 'null' : user.fullName}">Nikola Antoniev</p>
-                </div>
-
-                <div class="details-section-container">
-                    <label><span class="material-symbols-outlined">pin</span>Age:</label>
-                    <p th:text="${user.age == null ? 'null' : user.age}"></p>
                 </div>
             </div>
 

@@ -22,16 +22,10 @@ public class User{
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private UserRole role;
 
     @Column(nullable = false)
     private LocalDateTime createdOn;
-
-    private String profilePictureUrl;
-
-    private String fullName;;
-
-    private int age;
 
     public User() {
     }
@@ -69,35 +63,11 @@ public class User{
         this.password = password;
     }
 
-    public String getProfilePictureUrl() {
-        return profilePictureUrl;
-    }
-
-    public void setProfilePictureUrl(String profilePictureUrl) {
-        this.profilePictureUrl = profilePictureUrl;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Role getRole() {
+    public UserRole getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(UserRole role) {
         this.role = role;
     }
 
@@ -108,4 +78,5 @@ public class User{
     public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
+
 }

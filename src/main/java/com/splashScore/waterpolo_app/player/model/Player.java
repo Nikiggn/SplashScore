@@ -1,12 +1,8 @@
 package com.splashScore.waterpolo_app.player.model;
 
-import com.splashScore.waterpolo_app.data.entities.BaseEntity;
-import com.splashScore.waterpolo_app.club.model.Club;
-import com.splashScore.waterpolo_app.country.model.Country;
-import jakarta.persistence.*;
-
-import java.time.Instant;
-import java.time.LocalDate;
+ import com.splashScore.waterpolo_app.club.model.Club;
+ import jakarta.persistence.*;
+ import java.time.LocalDate;
 
 @Entity
 @Table(name = "players")
@@ -16,32 +12,32 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "full_name")
+    @Column(nullable = false)
     private String fullName;
 
-    @Column(nullable = false, name = "birth_date")
+    @Column(nullable = false)
     private LocalDate birthDate;
 
-    @Column
-    private Integer age;
+    @Column(nullable = false)
+    private String capNumber;
 
-    @Column(name = "primary_position")
-    private String primaryPosition;
+    @Enumerated(EnumType.STRING)
+    private Country country;
+
+    private int goals;
+
+    private int matchesPlayed;
+
+    private String profilePictureURL;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "club_id")
     private Club club;
 
-    //private PlayerStats playerStats;
-
-    @ManyToOne(optional = false)
-    private Country country;
-
     //private Set<Match> matches;
 
     public Player() {
     }
-
 
     public String getFullName() {
         return fullName;
@@ -59,20 +55,45 @@ public class Player {
         this.birthDate = birthDate;
     }
 
-    public String getPrimaryPosition() {
-        return primaryPosition;
-    }
-
-    public void setPrimaryPosition(String primaryPosition) {
-        this.primaryPosition = primaryPosition;
-    }
-
     public Club getClub() {
         return club;
     }
 
     public void setClub(Club club) {
         this.club = club;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public String getCapNumber() {
+        return capNumber;
+    }
+
+    public void setCapNumber(String capNumber) {
+        this.capNumber = capNumber;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public int getMatchesPlayed() {
+        return matchesPlayed;
+    }
+
+    public void setMatchesPlayed(int matchesPlayed) {
+        this.matchesPlayed = matchesPlayed;
     }
 
     public Country getCountry() {
@@ -83,11 +104,11 @@ public class Player {
         this.country = country;
     }
 
-    public Long getId() {
-        return id;
+    public String getProfilePictureURL() {
+        return profilePictureURL;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProfilePictureURL(String profilePictureURL) {
+        this.profilePictureURL = profilePictureURL;
     }
 }

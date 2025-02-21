@@ -1,0 +1,116 @@
+/* Header styles */
+/* Logo styles */
+
+.logo-container {
+    text-align: center;
+    padding: 0.5em 4.5em;
+}
+
+.logo {
+    font-size: 2em;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+
+}
+header {
+    padding: 1rem 0;
+    background: #FFFFFF;
+}
+
+/* Centering the form */
+/* General Styling for the Form Container */
+/* General Styling for the Form Container */
+.form-container {
+    width: 100%;
+    max-width: 500px; /* Form container width */
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 0 auto; /* Center the form */
+    position: relative;
+    top: 10%;
+    margin-top: 2em; /* Added margin-top */
+}
+
+/* Title Styling */
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* Input Field Styling */
+.input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.input-field label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.input-field input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* Input field focus effect */
+.input-field input:focus {
+    border-color: #4CAF50;
+}
+
+/* Button Styling (updated to match the registration form) */
+.input-field.button {
+    text-align: center;
+}
+
+.input-field.button button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #4CAF50; /* Same as registration form */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.input-field.button button:hover {
+    background-color: #45a049;
+}
+
+/* Login/Signup Link */
+.login-signup {
+    margin-top: 1.5rem;
+}
+
+.login-signup span.text {
+    color: grey;
+    font-size: 14px;
+}
+
+.signup-link {
+    color: #070707;
+    text-decoration: none;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}

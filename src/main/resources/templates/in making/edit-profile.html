@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="editafdjfv.css">
+    <title>Title</title>
+</head>
+<body>
+
+    <header>
+        <section class="header-top-bar">
+            <div class="logo-container">
+                <a th:href="@{/static}" class="logo">SplashScore</a>
+            </div>
+        </section>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <span class="title">Edit Your Profile</span>
+            <form action="/profile/edit" method="post">
+                <div class="input-field">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+                </div>
+
+                <div class="input-field">
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" required />
+                </div>
+
+                <div class="input-field button">
+                    <button type="submit">Update Profile</button>
+                </div>
+            </form>
+
+            <div class="login-signup">
+                <span class="text">Back to Profile?
+                    <a href="/profile" class="text signup-link">Go to Profile</a>
+                </span>
+            </div>
+        </div>
+
+
+    </main>
+</body>
+</html>

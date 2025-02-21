@@ -1,7 +1,5 @@
 package com.splashScore.waterpolo_app.referee.model;
 
-import com.splashScore.waterpolo_app.country.model.Country;
-import com.splashScore.waterpolo_app.data.entities.BaseEntity;
 import com.splashScore.waterpolo_app.match.model.Match;
 import jakarta.persistence.*;
 
@@ -18,9 +16,6 @@ public class Referee {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    private Country country;
 
     @ManyToMany(mappedBy = "referees")
     private Set<Match> matches;
@@ -36,13 +31,6 @@ public class Referee {
         this.name = name;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
 
     public Set<Match> getMatches() {
         return matches;

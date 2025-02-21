@@ -30,8 +30,11 @@
     margin-right: 2em;
 }
 
+.profile-section-header a{
+    color: #070707;
+}
 .profile-section-header a:hover {
-    color: #0056b3;
+    color: grey;
 }
 
 .profile-info {

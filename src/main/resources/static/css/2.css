@@ -225,7 +225,7 @@ main {
 }
 
 /* Table Styles */
-.table {
+#table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
@@ -236,30 +236,30 @@ main {
 
 }
 
-.table thead {
+#table thead {
     background-color: #3d8adc;
     color: white;
  }
 
-.table th,
-.table td {
+#table th,
+#table td {
     padding: 12px;
     border-bottom: 1px solid #ddd;
 
 }
 
-.table thead th {
+#table thead th {
     padding: 17px;
     font-weight: bold;
  }
 
-.table tbody th {
+#table tbody th {
      font-weight: bold;
      padding: 12px;
 
 }
 
-.table tbody tr:hover {
+#table tbody tr:hover {
     background-color: #f1f1f1;
 
 }
@@ -268,7 +268,7 @@ main {
 
 
 /* Buttons Inside Table */
-.table tbody tr td:last-child button {
+#table tbody tr td:last-child button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -278,7 +278,7 @@ main {
     font-size: 14px;
 }
 
-.table tbody tr td:last-child button:hover {
+#table tbody tr td:last-child button:hover {
     background-color: #0056b3;
 }
 
@@ -342,13 +342,4 @@ main {
     color: #070707;
       /* Adjust based on your app's theme */
     padding: 5px;
-}
-
-
-.content-section {
-    display: none;
-}
-
-.content-section.active {
-    display: block;
 }

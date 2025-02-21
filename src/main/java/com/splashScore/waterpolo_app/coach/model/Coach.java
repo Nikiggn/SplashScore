@@ -1,7 +1,5 @@
 package com.splashScore.waterpolo_app.coach.model;
 
-import com.splashScore.waterpolo_app.country.model.Country;
-import com.splashScore.waterpolo_app.data.entities.BaseEntity;
 import com.splashScore.waterpolo_app.club.model.Club;
 import jakarta.persistence.*;
 
@@ -15,9 +13,6 @@ public class Coach {
 
     @Column(unique = true, nullable = false, name = "full_name")
     private String fullName;
-
-    @ManyToOne(optional = false)
-    private Country country;
 
     @Enumerated(EnumType.STRING)
     private CoachRole role;
@@ -38,14 +33,6 @@ public class Coach {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
     }
 
     public Club getClub() {

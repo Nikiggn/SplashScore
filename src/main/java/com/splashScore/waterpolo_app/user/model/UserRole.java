@@ -1,6 +1,6 @@
 package com.splashScore.waterpolo_app.user.model;
 
-public enum Role {
+public enum UserRole {
     USER,
 
     ADMIN,

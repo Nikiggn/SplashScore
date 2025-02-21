@@ -1,32 +1,31 @@
 package com.splashScore.waterpolo_app.user.service;
 
 import com.splashScore.waterpolo_app.exception.DomainException;
-import com.splashScore.waterpolo_app.user.model.Role;
+import com.splashScore.waterpolo_app.security.AuthenticationMetaData;
+import com.splashScore.waterpolo_app.user.model.UserRole;
 import com.splashScore.waterpolo_app.user.model.User;
 import com.splashScore.waterpolo_app.user.repository.UserRepository;
 import com.splashScore.waterpolo_app.web.dto.LoginRequest;
 import com.splashScore.waterpolo_app.web.dto.RegisterRequest;
 import org.modelmapper.ModelMapper;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+ import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService{//  {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
-    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     // -> при създава на инстанция UserService
     // искам да ми дадеш имплементация на userRepository (дай ми депендънси)
@@ -48,22 +47,23 @@ public class UserService {
         return userRepository.save(initializeUser(registerRequest));
     }
 
-    public User login(LoginRequest loginRequest) {
-        Optional<User> userOptional = userRepository.findByUsername(loginRequest.getUsername());
-
-        if (userOptional.isEmpty() || !passwordEncoder.matches(loginRequest.getPassword(), userOptional.get().getPassword())) {
-            throw new DomainException("Invalid username or password");
-        }
-
-        return userOptional.get();
-    }
+//    public User login(LoginRequest loginRequest) {
+//        Optional<User> userOptional = userRepository.findByUsername(loginRequest.getUsername());
+//
+//        if (userOptional.isEmpty() || !passwordEncoder.matches(loginRequest.getPassword(), userOptional.get().getPassword())) {
+//            throw new DomainException("Invalid username or password");
+//        }
+//
+//        return userOptional.get();
+//    }
 
     private User initializeUser(RegisterRequest registerRequest) {
         User user = modelMapper.map(registerRequest, User.class);
 
+        System.out.println("Encoded Password: " + passwordEncoder.encode(registerRequest.getPassword()));
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setCreatedOn(LocalDateTime.now());
-        user.setRole(Role.USER);
+        user.setRole(UserRole.USER);
 
         return user;
     }
@@ -74,5 +74,14 @@ public class UserService {
 
     public User getUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
+    }
+
+//за да вземем детайлите на потребителя с този username
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new DomainException("User not found"));
+
+        return new AuthenticationMetaData(user.getId(), username, user.getPassword(),user.getEmail(), user.getRole(), user.getCreatedOn());
     }
 }

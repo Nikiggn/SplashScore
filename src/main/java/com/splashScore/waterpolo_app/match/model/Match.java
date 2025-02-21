@@ -1,11 +1,8 @@
 package com.splashScore.waterpolo_app.match.model;
 
-import com.splashScore.waterpolo_app.data.entities.BaseEntity;
-import com.splashScore.waterpolo_app.club.model.Club;
-import com.splashScore.waterpolo_app.data.entities.Pool;
-import com.splashScore.waterpolo_app.referee.model.Referee;
-import com.splashScore.waterpolo_app.data.entities.enums.MatchStatus;
-import jakarta.persistence.*;
+ import com.splashScore.waterpolo_app.club.model.Club;
+ import com.splashScore.waterpolo_app.referee.model.Referee;
+ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -21,10 +18,6 @@ public class Match {
     private LocalDateTime dateTime;
 
     @ManyToOne
-    @JoinColumn(name = "pool_id")
-    private Pool pool;
-
-    @ManyToOne
     @JoinColumn(name = "home_club_id") // Foreign key column in Match table
     private Club homeClub;
 
@@ -35,8 +28,6 @@ public class Match {
     private int homeScore;
 
     private int awayScore;
-
-    private MatchStatus status;
 
     @ManyToMany
     @JoinTable(
@@ -63,13 +54,6 @@ public class Match {
         this.dateTime = dateTime;
     }
 
-    public Pool getPool() {
-        return pool;
-    }
-
-    public void setPool(Pool pool) {
-        this.pool = pool;
-    }
 
 
     public int getHomeScore() {
@@ -88,13 +72,6 @@ public class Match {
         this.awayScore = awayScore;
     }
 
-    public MatchStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(MatchStatus status) {
-        this.status = status;
-    }
 
     public Club getHomeClub() {
         return homeClub;

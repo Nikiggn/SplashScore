@@ -27,8 +27,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+#        generate_statistics: true
     defer-datasource-initialization: true
-
 
   #Cloudinary Properties
   #cloudinary:
