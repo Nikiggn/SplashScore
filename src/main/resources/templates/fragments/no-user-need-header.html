@@ -6,17 +6,12 @@
     <title>Title</title>
 </head>
 <body>
-
 <header>
     <section class="header-top-bar">
 
         <div class="left-section">
             <div class="header-logo">
                 <a th:href="@{/}">SplashScore</a>
-            </div>
-            <div class="search-container">
-                <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
-                <input id="search-input" type="search" placeholder="Search">
             </div>
         </div>
 
@@ -25,10 +20,8 @@
                 <ul class="nav-list">
                     <li><a href="#">Leaderboard</a></li>
                     <li><a href="#">About us</a></li>
-                    <li th:unless="${user}"><a th:href="@{/login}">Sign in</a></li>
-                    <li th:if="${user != null and user.role.toString() == 'ADMIN'}"><a th:href="@{/admin-panel}">Admin Panel</a></li>
-                    <li th:if="${user}"><a th:href="@{/users/profile}">Profile</a></li>
-                    <li th:if="${user != null and user.role.toString() != 'ADMIN'}"><a th:href="@{/logout}">Logout</a></li>
+                    <li><a th:href="@{/admin-panel}">Admin Panel</a></li>
+                    <li><a th:href="@{/users/profile}">Profile</a></li>
 
                     <li>
                         <div class="dropdown">
@@ -48,14 +41,6 @@
             </nav>
         </div>
     </section>
-
-
-<!--    <form th:action="@{'/players/' + ${player.id} + '/change-status'}" method="post" style="display: inline;">-->
-<!--        <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">-->
-<!--            <span class="material-symbols-outlined">delete</span>-->
-<!--        </button>-->
-<!--    </form>-->
-
 </header>
 </body>
 </html>

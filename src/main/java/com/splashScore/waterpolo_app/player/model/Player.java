@@ -24,9 +24,14 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Country country;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     private int goals;
 
     private int matchesPlayed;
+
+    private int age;
 
     private String profilePictureURL;
 
@@ -110,5 +115,21 @@ public class Player {
 
     public void setProfilePictureURL(String profilePictureURL) {
         this.profilePictureURL = profilePictureURL;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

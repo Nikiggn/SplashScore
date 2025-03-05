@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SplashScore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/header-with-nav.css}">
+
+  <style>
+    .alert-warning {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 250;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      background: linear-gradient(to left, #f88e8e, #f56767, #f54b3b);
+      background-size: 200%;
+      background-clip: text ;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      align-items: center;
+    }
+  </style>
+
+</head>
+<body>
+
+<header th:replace="~{fragments/no-user-need-header::section}"></header>
+
+
+<div class="flex justify-center items-start min-h-screen bg-[#F6F6F9] pt-12">
+  <form th:method="POST" th:action="@{/admin-panel/add-club}"  th:object="${addClubRequest}" enctype="multipart/form-data" class="bg-[#FAFAFA] p-6 rounded-xl shadow-lg w-[500px] space-y-6">
+    <h2 class="text-gray-900 text-3xl font-semibold text-center">Add Club</h2>
+
+    <div class="space-y-2">
+      <label for="name" class="text-gray-700 font-medium">Name of the club</label>
+      <input th:field="*{name}" id="name" type="text" placeholder="Name" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert-warning">
+    </div>
+
+    <div class="space-y-2">
+      <label for="town" class="text-gray-700 font-medium">Town of the club</label>
+      <input th:field="*{town}" id="town" type="text" placeholder="Town" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <p th:if="${#fields.hasErrors('town')}" th:errors="*{town}" class="alert-warning">
+    </div>
+
+    <div class="flex gap-4">
+      <div class="w-1/2 space-y-2">
+        <label for="country" class="text-gray-700 font-medium">Country</label>
+        <select th:field="*{country}" id="country" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option style="color: black" th:each="country : ${T(com.splashScore.waterpolo_app.player.model.Country).values()}"
+                  th:value="${country}" th:text="${country.toString()}" th:field="*{country}">
+          </option>
+
+        </select>
+      </div>
+
+      <div class="w-1/2 space-y-2">
+        <label for="logo" class="text-gray-700 font-medium">Club Logo</label>
+        <input th:field="*{logo_URL}" id="logo" type="text" placeholder="Logo URL" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <p th:if="${#fields.hasErrors('logo_URL')}" th:errors="*{logo_URL}" class="alert-warning">
+      </div>
+    </div>
+
+    <button type="submit" class="w-full p-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
+      Add Club
+    </button>
+  </form>
+</div>
+</body>
+</html>

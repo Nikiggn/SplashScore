@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class IndexController {
@@ -90,9 +93,8 @@ public class IndexController {
         return modelAndView;
     }
 
-
-    @GetMapping("/admin-panel")         // казваме на Spring дай ми този обект
-    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/admin-panel")  // казваме на Spring дай ми този обект
+    @PreAuthorize("hasRole('ADMIN')") //проверяваме за едн аконкретна роля
     public ModelAndView getAdminPanelPage(@AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
         //този който иска да достъпи home page-a кой е
         User user = userService.getUserById(authenticationMetaData.getId());

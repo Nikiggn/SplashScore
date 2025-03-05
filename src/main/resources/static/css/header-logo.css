@@ -28,4 +28,5 @@ main {
     gap: 2rem; /* Adds space between header and form */
     flex-direction: column;
     background: #FAFAFA;
+    border-bottom: 1px solid lightgray;
 }

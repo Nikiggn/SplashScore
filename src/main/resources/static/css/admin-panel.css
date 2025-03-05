@@ -348,3 +348,8 @@ main {
 .content-section.active {
     display: block;
 }
+
+button a {
+    text-decoration: none;
+    color: white;
+}

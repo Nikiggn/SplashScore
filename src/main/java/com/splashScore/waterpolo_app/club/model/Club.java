@@ -3,6 +3,8 @@ package com.splashScore.waterpolo_app.club.model;
 import com.splashScore.waterpolo_app.player.model.Country;
 import com.splashScore.waterpolo_app.player.model.Player;
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,8 +25,8 @@ public class Club {
     @Enumerated(EnumType.STRING)
     private Country country;
 
-    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Player> squad;
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Player> squad;
 
     private String logoUrl;
 
@@ -96,12 +98,13 @@ public class Club {
 //        this.coaches = coaches;
 //    }
 
-    public Set<Player> getSquad() {
+
+    public List<Player> getSquad() {
         return squad;
     }
 
-    public void setSquad(Set<Player> players) {
-        this.squad = players;
+    public void setSquad(List<Player> squad) {
+        this.squad = squad;
     }
 
     public Long getId() {

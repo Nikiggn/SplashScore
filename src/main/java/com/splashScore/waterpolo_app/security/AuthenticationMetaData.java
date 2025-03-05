@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+// ПАЗИ ДАННИТЕ НА ЛОГНАТИЯ ПОТРЕБИТЕЛ
 public class AuthenticationMetaData implements UserDetails {
 
     private Long id;
@@ -27,8 +28,8 @@ public class AuthenticationMetaData implements UserDetails {
         this.createdOn = createdOn;
     }
 
-
     // Този метод се използва от SpringSecurity, за да се разбере какви  rolesAuthorities user-a има
+    // Authority -> permission / role
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 

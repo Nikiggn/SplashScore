@@ -4,7 +4,6 @@ function showDiv(divId){
         div.classList.remove('active');
     });
 
-
     const targetDiv = document.getElementById(divId);
     if (targetDiv){
         targetDiv.classList.add('active')

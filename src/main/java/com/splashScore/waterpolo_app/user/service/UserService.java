@@ -47,16 +47,6 @@ public class UserService implements UserDetailsService{//  {
         return userRepository.save(initializeUser(registerRequest));
     }
 
-//    public User login(LoginRequest loginRequest) {
-//        Optional<User> userOptional = userRepository.findByUsername(loginRequest.getUsername());
-//
-//        if (userOptional.isEmpty() || !passwordEncoder.matches(loginRequest.getPassword(), userOptional.get().getPassword())) {
-//            throw new DomainException("Invalid username or password");
-//        }
-//
-//        return userOptional.get();
-//    }
-
     private User initializeUser(RegisterRequest registerRequest) {
         User user = modelMapper.map(registerRequest, User.class);
 

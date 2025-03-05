@@ -29,7 +29,7 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .formLogin(form -> form
                         .loginPage("/login")
 //                      .usernameParameter("email") // ако очаква емайл а не username (id = email "HTML")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/",true)
                         .failureUrl("/login?error")
                         .permitAll())
                 .logout(logout -> logout

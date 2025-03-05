@@ -7,10 +7,25 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/admin-panel.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/header-with-nav.css}">
 
+    <style>
+        /* Adjust Delete button */
+        .btn-delete {
+            text-decoration: none; /* Remove underline */
+            color: #d9534f;
+            font-weight: bold;
+            transition: color 0.2s ease-in-out;
+            font-size: 1.6rem;
+        }
+
+        .btn-delete:hover {
+            color: #c9302c; /* Darker red on hover */
+        }
+
+    </style>
     <title>SplashScore</title>
 </head>
 <body>
-    <header th:replace="~{fragments/commons::section}"></header>
+<header th:replace="~{fragments/commons::section}"></header>
 
 <main>
     <div class="bigger-container">
@@ -70,28 +85,21 @@
         <div class="content-section-header">
             <div class="header-left">
                 <div class="header-left-title">Registered Users</div>
-                <div class="search-container">
-                    <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
-                    <input id="search-input-2" type="search" placeholder="Search by username">
-                </div>
-            </div>
 
-            <div class="header-right">
-                <button>Save</button>
             </div>
         </div>
 
         <div>
-             <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Current Role</th>
-                            <th>Created on</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Current Role</th>
+                    <th>Created on</th>
+                    <th></th>
+                </tr>
+                </thead>
                 <tbody>
 
                 <tr th:each="user : ${users}">
@@ -111,37 +119,42 @@
         <div class="content-section-header">
             <div class="header-left">
                 <div class="header-left-title">Players</div>
-                <div class="search-container">
-                    <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
-                    <input type="search" placeholder="Search by full name">
-                </div>
             </div>
 
             <div class="header-right">
-                <button>Add Player</button>
+                <button><a th:href="@{/admin-panel/add-player}">Add Player</a></button>
             </div>
         </div>
 
         <div>
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>Full Name</th>
-                        <th>Age</th>
-                        <th>Club</th>
-                        <th>Country</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Age</th>
+                    <th>Club</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    <tr th:each="player : ${players}">
-                        <th th:text="${player.fullName}">Nikola Antoniev</th>
-                        <th >17</th>
-                        <th th:text="${player.club.name}">ChernoMore-Ticha</th>
-                        <th >Bulgaria</th>
-                        <th><span class="material-symbols-outlined">menu</span></th>
-                    </tr>
+                <tr th:each="player : ${players}">
+                    <th th:text="${player.fullName}">Nikola Antoniev</th>
+                    <th th:text="${player.age}">17</th>
+                    <th th:text="${player.club.name}">ChernoMore-Ticha</th>
+                    <th th:text="${player.status}"
+                        th:style="${player.status == T(com.splashScore.waterpolo_app.player.model.Status).ACTIVE} ? 'color: green' : 'color: red'">
+                    </th>
+
+                    <th>
+                        <form th:action="@{'/players/' + ${player.id} + '/change-status'}" method="post" style="display: inline;">
+                            <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
+                                <span class="material-symbols-outlined" th:style="${player.status == T(com.splashScore.waterpolo_app.player.model.Status).ACTIVE} ? 'color: red' : 'color: green'">autorenew</span>
+                            </button>
+                        </form>
+                    </th>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -150,38 +163,40 @@
     <div id="clubs" class="content-section">
         <div class="content-section-header">
             <div class="header-left">
-                <div class="header-left-title">Players</div>
-
-                <div class="search-container">
-                    <span class="search-icon"><img th:src="@{/images/search-icon.png}"></span>
-                    <input type="search" placeholder="Search by full name">
-                </div>
+                <div class="header-left-title">Clubs</div>
             </div>
 
             <div class="header-right">
-                <button>Add Club</button>
+                <button><a th:href="@{/admin-panel/add-club}">Add Club</a></button>
             </div>
         </div>
 
         <div>
             <table class="table">
                 <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <th>Squad</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Squad</th>
+                        <th>Town</th>
+                        <th>Country</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
 
                 <tbody>
-                <tr th:each="club : ${clubs}">
-                    <th th:text="${club.name}"></th>
-                    <th>Varna</th>
-                    <th th:text="${club.country}"></th>
-                    <th >0</th>
-                    <th><span class="material-symbols-outlined">menu</span></th>
-                </tr>
+                    <tr th:each="club : ${clubs}">
+                        <th th:text="${club.name}"></th>
+                        <th th:text="${club.squad.size()}"></th>
+                        <th th:text="${club.town}"></th>
+                        <th th:text="${club.country}">0</th>
+                        <th>
+                            <form th:action="@{'/clubs/' + ${club.id} + '/confirm-deletion'}" method="get" style="display: inline;">
+                                <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -190,7 +205,7 @@
 
 </main>
 
-    <script src="/js/admin-panel.js"></script>
- <script src="/js/header-setting-icon-dropdown.js"></script>
+<script src="/js/admin-panel.js"></script>
+<script src="/js/header-setting-icon-dropdown.js"></script>
 </body>
 </html>
