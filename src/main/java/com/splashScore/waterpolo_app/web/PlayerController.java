@@ -23,6 +23,6 @@ public class PlayerController {
     @PostMapping("/{id}/change-status")
     public String changePlayerStatus(@PathVariable Long id) {
         playerService.changePlayerStatus(id);
-        return "redirect:/admin-panel";
+        return "redirect:/admin-panel?activeDiv=players";  // or whichever divId you want active
     }
 }

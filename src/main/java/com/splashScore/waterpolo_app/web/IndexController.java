@@ -100,7 +100,7 @@ public class IndexController {
         User user = userService.getUserById(authenticationMetaData.getId());
 
         List<Player> players = playerService.getAllPlayers();
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.getAllUsers(user);
         List<Club> clubs = clubService.getAllClubs();
 
         ModelAndView modelAndView = new ModelAndView();

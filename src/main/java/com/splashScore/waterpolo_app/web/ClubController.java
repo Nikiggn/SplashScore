@@ -3,6 +3,7 @@ package com.splashScore.waterpolo_app.web;
 import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ public class ClubController {
     }
 
     @GetMapping("/{id}/confirm-deletion")
+    @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getConfirmationPage(@PathVariable Long id) {
         Club club = clubService.getClubById(id);
 
@@ -34,7 +36,7 @@ public class ClubController {
     @PostMapping("/{id}/deletion")
     public String deleteClub(@PathVariable Long id) {
         clubService.deleteClubById(id);
-        return "redirect:/admin-panel";
+        return "redirect:/admin-panel?activeDiv=clubs";  // or whichever divId you want active
     }
 
 }

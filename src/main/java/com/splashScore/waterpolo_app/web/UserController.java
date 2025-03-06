@@ -2,13 +2,13 @@ package com.splashScore.waterpolo_app.web;
 
 import com.splashScore.waterpolo_app.security.AuthenticationMetaData;
 import com.splashScore.waterpolo_app.user.model.User;
+import com.splashScore.waterpolo_app.user.model.UserRole;
 import com.splashScore.waterpolo_app.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -30,5 +30,11 @@ public class UserController {
         modelAndView.addObject("user", user);
 
         return modelAndView;
+    }
+
+    @PostMapping("/{id}/change-role")
+    public String changeUserRole(@PathVariable("id") Long targetUserId, @AuthenticationPrincipal AuthenticationMetaData admin) {
+        userService.changeUserRole(targetUserId, admin.getId());
+        return "redirect:/admin-panel?activeDiv=users";  // or whichever divId you want active
     }
 }

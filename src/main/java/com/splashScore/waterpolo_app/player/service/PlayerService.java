@@ -2,6 +2,7 @@ package com.splashScore.waterpolo_app.player.service;
 
 import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.service.ClubService;
+import com.splashScore.waterpolo_app.exception.DomainException;
 import com.splashScore.waterpolo_app.player.model.Player;
 import com.splashScore.waterpolo_app.player.model.Status;
 import com.splashScore.waterpolo_app.player.repository.PlayerRepository;
@@ -38,6 +39,10 @@ public class PlayerService {
     }
 
      public void saveNewPlayer(AddPlayerRequest newPlayerRequest) {
+        if (clubService.getAllClubs().isEmpty()){
+            throw new DomainException("There are no clubs");
+        }
+
         Club club = clubService.getClubById(newPlayerRequest.getClubId());
         Player player = modelMapper.map(newPlayerRequest, Player.class);
 

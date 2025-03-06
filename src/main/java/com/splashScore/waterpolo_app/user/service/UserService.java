@@ -17,7 +17,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -58,18 +61,32 @@ public class UserService implements UserDetailsService{//  {
         return user;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<User> getAllUsers(User user) {
+        return userRepository.findAll().stream().filter(u -> !Objects.equals(u.getId(), user.getId())).collect(Collectors.toList());
     }
 
     public User getUserById(Long userId) {
         return userRepository.findById(userId).orElse(null);
     }
 
-//за да вземем детайлите на потребителя с този username
+    @Transactional
+    public void changeUserRole(Long targetUserId, Long adminId) {
+        if (Objects.equals(targetUserId, adminId)) {
+            throw new DomainException("Admin cannot change their own role. Please contact system support if needed.");
+        }
+
+        User user = userRepository.findById(targetUserId).orElseThrow();
+
+        if (user.getRole() == UserRole.USER){
+            user.setRole(UserRole.ADMIN);
+        }else {
+            user.setRole(UserRole.USER);
+        }
+    }
+
+    //за да вземем детайлите на потребителя с този username
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         User user = userRepository.findByUsername(username).orElseThrow(() -> new DomainException("User not found"));
 
         return new AuthenticationMetaData(user.getId(), username, user.getPassword(),user.getEmail(), user.getRole(), user.getCreatedOn());

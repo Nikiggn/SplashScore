@@ -17,12 +17,10 @@ public class AddPlayerRequest {
     @Past(message = "Date of birth must be in the past")
     private LocalDate dateOfBirth;
 
-     private Long clubId;
+    private Long clubId;
 
-    //@NotEmpty(message = "Country cannot be empty")
     private Country country;
 
-    //@NotEmpty(message = "Cap number cannot be empty")
     private String capNumber;
 
     public AddPlayerRequest() {

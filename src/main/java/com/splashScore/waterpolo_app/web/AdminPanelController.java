@@ -7,10 +7,11 @@ import com.splashScore.waterpolo_app.web.dto.AddClubRequest;
 import com.splashScore.waterpolo_app.web.dto.AddPlayerRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
- import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/admin-panel")
 public class AdminPanelController {
-
     private final PlayerService playerService;
     private final ClubService clubService;
 
@@ -28,43 +28,40 @@ public class AdminPanelController {
         this.clubService = clubService;
     }
 
-
     @GetMapping("/add-player")
-    public ModelAndView getAddPlayerPage(){
-        return createAddPlayerModelAndView(new AddPlayerRequest());
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView getAddPlayerPage() {
+        return addPlayerMV(new AddPlayerRequest());
     }
 
     @PostMapping("/add-player")
     public ModelAndView saveAddPlayer(@Valid AddPlayerRequest newPlayerRequest, BindingResult bindingResult) {
-        System.out.println();
         if (bindingResult.hasErrors()) {
-            return createAddPlayerModelAndView(newPlayerRequest);
+            return addPlayerMV(newPlayerRequest);
         }
         playerService.saveNewPlayer(newPlayerRequest);
 
-        return new ModelAndView("redirect:/admin-panel");
+        return new ModelAndView("redirect:/admin-panel?activeDiv=players");
     }
-
 
     @GetMapping("/add-club")
-    public ModelAndView getAddClubPage(){
-        return createAddClubModelAndView(new AddClubRequest());
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView getAddClubPage() {
+        return addClubMV(new AddClubRequest());
     }
-
 
     @PostMapping("/add-club")
     public ModelAndView saveAddClub(@Valid AddClubRequest newClubRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return createAddClubModelAndView(newClubRequest);
+            return addClubMV(newClubRequest);
         }
 
         clubService.saveNewClub(newClubRequest);
 
-        return new ModelAndView("redirect:/admin-panel");
-
+        return new ModelAndView("redirect:/admin-panel?activeDiv=clubs");
     }
 
-    private ModelAndView createAddPlayerModelAndView(AddPlayerRequest addPlayerRequest) {
+    private ModelAndView addPlayerMV(AddPlayerRequest addPlayerRequest) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("add-player");
         mav.addObject("addPlayerRequest", addPlayerRequest);
@@ -73,13 +70,12 @@ public class AdminPanelController {
         return mav;
     }
 
-
-    private ModelAndView createAddClubModelAndView(AddClubRequest addClubRequest) {
+    private ModelAndView addClubMV(AddClubRequest addClubRequest) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("add-club");
         mav.addObject("addClubRequest", addClubRequest);
         mav.addObject("clubs", clubService.getAllClubs());
-         return mav;
+        return mav;
     }
 }
 

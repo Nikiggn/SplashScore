@@ -353,3 +353,26 @@ button a {
     text-decoration: none;
     color: white;
 }
+
+
+.content-section {
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Hide content initially */
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s; /* Apply transition */
+}
+
+.content-section.active {
+    opacity: 1; /* Show content when active */
+    visibility: visible; /* Make content visible */
+    transition: opacity 0.3s ease, visibility 0s linear 0s; /* No delay for visibility */
+}
+
+aside .sidebar a {
+    transition: all 0.3s ease; /* Apply smooth transition to links */
+}
+
+aside .sidebar a.active {
+    color: var(--color-primary);
+    background-color: var(--color-light);
+    margin-left: 0;
+}

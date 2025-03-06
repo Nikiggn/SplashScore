@@ -31,40 +31,40 @@
     <div class="bigger-container">
         <aside class="container" id="left-sidebar">
             <div class="sidebar">
-                <a href="/admin-panel/dashoard">
+                <a  >
                     <span class="material-symbols-outlined">
                     dashboard
                     </span>
                     <h3>Dashboard</h3>
                 </a>
 
-                <a href="javascript:void(0);" onclick="showDiv('users')" data-section="users">
+                <a href="javascript:void(0);" onclick="showDiv('users')" data-section="users" id="users-link">
                     <span class="material-symbols-outlined">person</span>
                     <h3>Users</h3>
                 </a>
 
-                <a href="javascript:void(0);" onclick="showDiv('players')">
+                <a href="javascript:void(0);" onclick="showDiv('players')" id="players-link">
                     <span class="material-symbols-outlined">
                     groups
                     </span>
                     <h3>Players</h3>
                 </a>
 
-                <a href="/admin-panel/matches">
+                <a href="#">
                     <span class="material-symbols-outlined">
                     stadium
                     </span>
                     <h3>Matches</h3>
                 </a>
 
-                <a href="/admin-panel/referees">
+                <a href="#">
                     <span class="material-symbols-outlined">
                     sports
                     </span>
                     <h3>Referees</h3>
                 </a>
 
-                <a href="javascript:void(0);" onclick="showDiv('clubs')">
+                <a href="javascript:void(0);" onclick="showDiv('clubs')"  id="clubs-link">
                     <span class="material-symbols-outlined">
                     diversity_2
                     </span>
@@ -92,24 +92,30 @@
         <div>
             <table class="table">
                 <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Current Role</th>
-                    <th>Created on</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Current Role</th>
+                        <th>Created on</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
-                <tbody>
 
-                <tr th:each="user : ${users}">
-                    <!--                        <th th:text="${#strings.isEmpty(user.profilePictureUrl) ? 'https://www.istockphoto.com/vector/profile-picture-vector-illustration-gm587805156-100912283-100912283' : user.profilePictureUrl}">ddvdv</th>-->
-                    <th th:text="${user.username}">admin</th>
-                    <th th:text="${user.email}">admin@gmail.com</th>
-                    <th th:text="${user.role}">User</th>
-                    <th th:text="${#temporals.format(user.createdOn, 'dd-MM-yyyy HH:mm')}">17.03.19</th>
-                    <th><span class="material-symbols-outlined">menu</span></th>
-                </tr>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <!--                        <th th:text="${#strings.isEmpty(user.profilePictureUrl) ? 'https://www.istockphoto.com/vector/profile-picture-vector-illustration-gm587805156-100912283-100912283' : user.profilePictureUrl}">ddvdv</th>-->
+                        <th th:text="${user.username}">admin</th>
+                        <th th:text="${user.email}">admin@gmail.com</th>
+                        <th th:text="${user.role}">User</th>
+                        <th th:text="${#temporals.format(user.createdOn, 'dd-MM-yyyy HH:mm')}">17.03.19</th>
+                        <th>
+                            <form th:action="@{'/users/' + ${user.id} + '/change-role'}" method="post" style="display: inline;">
+                                <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
+                                    <span class="material-symbols-outlined" th:style="${user.role == T(com.splashScore.waterpolo_app.user.model.UserRole).ADMIN} ? 'color: red' : 'color: green'">autorenew</span>
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -122,7 +128,7 @@
             </div>
 
             <div class="header-right">
-                <button><a th:href="@{/admin-panel/add-player}">Add Player</a></button>
+                <button th:if="${clubs.size() > 0}"><a th:href="@{/admin-panel/add-player}">Add Player</a></button>
             </div>
         </div>
 
