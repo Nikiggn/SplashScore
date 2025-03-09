@@ -39,10 +39,6 @@ public class PlayerService {
     }
 
      public void saveNewPlayer(AddPlayerRequest newPlayerRequest) {
-        if (clubService.getAllClubs().isEmpty()){
-            throw new DomainException("There are no clubs");
-        }
-
         Club club = clubService.getClubById(newPlayerRequest.getClubId());
         Player player = modelMapper.map(newPlayerRequest, Player.class);
 
@@ -60,6 +56,12 @@ public class PlayerService {
             player.setStatus(Status.RETIRED);
         }else {
             player.setStatus(Status.ACTIVE);
+        }
+    }
+
+    public void checkAvailableClubs(){
+        if (clubService.getAllClubs().isEmpty()){
+            throw new DomainException("There are no clubs");
         }
     }
 }

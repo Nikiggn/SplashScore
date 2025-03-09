@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SplashScore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/header-with-nav.css}">
+
+  <style>
+    .alert-warning {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 250;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      background: linear-gradient(to left, #f88e8e, #f56767, #f54b3b);
+      background-size: 200%;
+      background-clip: text ;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      align-items: center;
+    }
+  </style>
+
+</head>
+<body>
+
+<header th:replace="~{fragments/no-user-need-header::section}"></header>
+
+  <div class="flex justify-center items-start min-h-screen bg-[#F6F6F9] pt-12">
+    <form th:method="POST" th:action="@{/referees}"  th:object="${addRefereeRequest}" class="bg-[#FAFAFA] p-6 rounded-xl shadow-lg w-[500px] space-y-6">
+      <h2 class="text-gray-900 text-3xl font-semibold text-center">Add Referee</h2>
+
+      <div class="space-y-2">
+        <label for="full-name" class="text-gray-700 font-medium">Full Name</label>
+        <input th:field="*{fullName}" id="full-name" type="text" placeholder="Full Name" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <p th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="alert-warning">
+      </div>
+
+      <div class="space-y-2">
+        <label for="country" class="text-gray-700 font-medium">Country</label>
+        <select th:field="*{country}" id="country" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option style="color: black" th:each="country : ${T(com.splashScore.waterpolo_app.player.model.Country).values()}"
+                  th:value="${country}" th:text="${#strings.capitalize(country.toString().toLowerCase())}" th:field="*{country}">
+          </option>
+
+        </select>
+      </div>
+
+      <button type="submit" class="w-full p-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
+        Add Country
+      </button>
+    </form>
+  </div>
+
+<script>
+  const today = new Date();
+  const minAge = 12;
+  const maxAge = 40;
+
+  const minDate = new Date(today.setFullYear(today.getFullYear() - maxAge)).toISOString().split("T")[0]; // Oldest date allowed
+  const maxDate = new Date(new Date().setFullYear(new Date().getFullYear() - minAge)).toISOString().split("T")[0]; // Youngest date allowed
+
+  document.getElementById('dob').min = minDate;
+  document.getElementById('dob').max = maxDate;
+</script>
+</body>
+</html>

@@ -5,6 +5,7 @@ import com.splashScore.waterpolo_app.player.model.CapNumberList;
 import com.splashScore.waterpolo_app.player.service.PlayerService;
 import com.splashScore.waterpolo_app.web.dto.AddClubRequest;
 import com.splashScore.waterpolo_app.web.dto.AddPlayerRequest;
+import com.splashScore.waterpolo_app.web.dto.AddRefereeRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,53 +29,35 @@ public class AdminPanelController {
         this.clubService = clubService;
     }
 
-    @GetMapping("/add-player")
+    @GetMapping("/players/new")
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getAddPlayerPage() {
-        return addPlayerMV(new AddPlayerRequest());
-    }
+        playerService.checkAvailableClubs();
 
-    @PostMapping("/add-player")
-    public ModelAndView saveAddPlayer(@Valid AddPlayerRequest newPlayerRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return addPlayerMV(newPlayerRequest);
-        }
-        playerService.saveNewPlayer(newPlayerRequest);
-
-        return new ModelAndView("redirect:/admin-panel?activeDiv=players");
-    }
-
-    @GetMapping("/add-club")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ModelAndView getAddClubPage() {
-        return addClubMV(new AddClubRequest());
-    }
-
-    @PostMapping("/add-club")
-    public ModelAndView saveAddClub(@Valid AddClubRequest newClubRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return addClubMV(newClubRequest);
-        }
-
-        clubService.saveNewClub(newClubRequest);
-
-        return new ModelAndView("redirect:/admin-panel?activeDiv=clubs");
-    }
-
-    private ModelAndView addPlayerMV(AddPlayerRequest addPlayerRequest) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("add-player");
-        mav.addObject("addPlayerRequest", addPlayerRequest);
+        mav.addObject("addPlayerRequest", new AddPlayerRequest());
         mav.addObject("clubs", clubService.getAllClubs());
         mav.addObject("capNumbers", CapNumberList.getCapNumbers());
         return mav;
     }
 
-    private ModelAndView addClubMV(AddClubRequest addClubRequest) {
+    @GetMapping("/clubs/new")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView getAddClubPage() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("add-club");
-        mav.addObject("addClubRequest", addClubRequest);
+        mav.addObject("addClubRequest",new AddClubRequest());
         mav.addObject("clubs", clubService.getAllClubs());
+        return mav;
+    }
+
+    @GetMapping("/referees/new")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView getAddRefereePage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("add-referee");
+        mav.addObject("addRefereeRequest", new AddRefereeRequest());
         return mav;
     }
 }

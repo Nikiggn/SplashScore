@@ -1,36 +1,41 @@
 package com.splashScore.waterpolo_app.referee.model;
 
 import com.splashScore.waterpolo_app.match.model.Match;
+import com.splashScore.waterpolo_app.player.model.Country;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "referees")
 public class Referee {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(nullable = false, unique = true)
+    private String fullName;
 
+    @ManyToMany(mappedBy = "referees",fetch = FetchType.EAGER)
+    private Set<Match> matches = new HashSet<>();
 
-    @ManyToMany(mappedBy = "referees")
-    private Set<Match> matches;
+    @Enumerated(EnumType.STRING)
+    private Country country;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     public Referee() {
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
-
 
     public Set<Match> getMatches() {
         return matches;
@@ -46,5 +51,21 @@ public class Referee {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

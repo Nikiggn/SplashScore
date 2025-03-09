@@ -32,7 +32,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping("/{id}/change-role")
+    @PostMapping("/{id}/role")
     public String changeUserRole(@PathVariable("id") Long targetUserId, @AuthenticationPrincipal AuthenticationMetaData admin) {
         userService.changeUserRole(targetUserId, admin.getId());
         return "redirect:/admin-panel?activeDiv=users";  // or whichever divId you want active

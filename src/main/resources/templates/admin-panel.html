@@ -31,10 +31,8 @@
     <div class="bigger-container">
         <aside class="container" id="left-sidebar">
             <div class="sidebar">
-                <a  >
-                    <span class="material-symbols-outlined">
-                    dashboard
-                    </span>
+                <a >
+                    <span class="material-symbols-outlined">dashboard</span>
                     <h3>Dashboard</h3>
                 </a>
 
@@ -44,37 +42,27 @@
                 </a>
 
                 <a href="javascript:void(0);" onclick="showDiv('players')" id="players-link">
-                    <span class="material-symbols-outlined">
-                    groups
-                    </span>
+                    <span class="material-symbols-outlined">groups</span>
                     <h3>Players</h3>
                 </a>
 
                 <a href="#">
-                    <span class="material-symbols-outlined">
-                    stadium
-                    </span>
+                    <span class="material-symbols-outlined">stadium</span>
                     <h3>Matches</h3>
                 </a>
 
-                <a href="#">
-                    <span class="material-symbols-outlined">
-                    sports
-                    </span>
+                <a href="javascript:void(0);" onclick="showDiv('referees')" id="referees-link">
+                    <span class="material-symbols-outlined">sports</span>
                     <h3>Referees</h3>
                 </a>
 
                 <a href="javascript:void(0);" onclick="showDiv('clubs')"  id="clubs-link">
-                    <span class="material-symbols-outlined">
-                    diversity_2
-                    </span>
+                    <span class="material-symbols-outlined">diversity_2</span>
                     <h3>Clubs</h3>
                 </a>
 
                 <a th:href="@{logout}">
-                    <span class="material-symbols-outlined">
-                    logout
-                    </span>
+                    <span class="material-symbols-outlined">logout</span>
                     <h3>Logout</h3>
                 </a>
             </div>
@@ -109,7 +97,7 @@
                         <th th:text="${user.role}">User</th>
                         <th th:text="${#temporals.format(user.createdOn, 'dd-MM-yyyy HH:mm')}">17.03.19</th>
                         <th>
-                            <form th:action="@{'/users/' + ${user.id} + '/change-role'}" method="post" style="display: inline;">
+                            <form th:action="@{'/users/' + ${user.id} + '/role'}" method="post" style="display: inline;">
                                 <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
                                     <span class="material-symbols-outlined" th:style="${user.role == T(com.splashScore.waterpolo_app.user.model.UserRole).ADMIN} ? 'color: red' : 'color: green'">autorenew</span>
                                 </button>
@@ -128,7 +116,7 @@
             </div>
 
             <div class="header-right">
-                <button th:if="${clubs.size() > 0}"><a th:href="@{/admin-panel/add-player}">Add Player</a></button>
+                <button th:if="${clubs.size() > 0}"><a th:href="@{/admin-panel/players/new}">Add Player</a></button>
             </div>
         </div>
 
@@ -154,7 +142,7 @@
                     </th>
 
                     <th>
-                        <form th:action="@{'/players/' + ${player.id} + '/change-status'}" method="post" style="display: inline;">
+                        <form th:action="@{'/players/' + ${player.id} + '/status'}" method="post" style="display: inline;">
                             <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
                                 <span class="material-symbols-outlined" th:style="${player.status == T(com.splashScore.waterpolo_app.player.model.Status).ACTIVE} ? 'color: red' : 'color: green'">autorenew</span>
                             </button>
@@ -173,7 +161,7 @@
             </div>
 
             <div class="header-right">
-                <button><a th:href="@{/admin-panel/add-club}">Add Club</a></button>
+                <button><a th:href="@{/admin-panel/clubs/new}">Add Club</a></button>
             </div>
         </div>
 
@@ -199,6 +187,50 @@
                             <form th:action="@{'/clubs/' + ${club.id} + '/confirm-deletion'}" method="get" style="display: inline;">
                                 <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
                                     <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </form>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="referees" class="content-section">
+        <div class="content-section-header">
+            <div class="header-left">
+                <div class="header-left-title">Referees</div>
+            </div>
+
+            <div class="header-right">
+                <button><a th:href="@{/admin-panel/referees/new}">Add Referee</a></button>
+            </div>
+        </div>
+
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Matches</th>
+                    <th>Country</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="referee : ${referees}">
+                        <th th:text="${referee.fullName}"></th>
+                        <th th:text="${referee.matches.size()}"></th>
+                        <th th:text="${referee.country}"></th>
+                        <th th:text="${referee.status}"
+                            th:style="${referee.status == T(com.splashScore.waterpolo_app.referee.model.Status).ACTIVE} ? 'color: green' : 'color: red'">
+                        </th>
+                        <th>
+                            <form th:action="@{'/referees/' + ${referee.id} + '/status'}" method="post" style="display: inline;">
+                                <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
+                                    <span class="material-symbols-outlined" th:style="${referee.status == T(com.splashScore.waterpolo_app.referee.model.Status).ACTIVE} ? 'color: red' : 'color: green'">autorenew</span>
                                 </button>
                             </form>
                         </th>

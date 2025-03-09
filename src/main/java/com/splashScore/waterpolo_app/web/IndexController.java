@@ -4,6 +4,8 @@ import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.service.ClubService;
 import com.splashScore.waterpolo_app.player.model.Player;
 import com.splashScore.waterpolo_app.player.service.PlayerService;
+import com.splashScore.waterpolo_app.referee.model.Referee;
+import com.splashScore.waterpolo_app.referee.service.RefereeService;
 import com.splashScore.waterpolo_app.security.AuthenticationMetaData;
 import com.splashScore.waterpolo_app.user.model.User;
 import com.splashScore.waterpolo_app.user.service.UserService;
@@ -32,12 +34,14 @@ public class IndexController {
     private final UserService userService;
     private final PlayerService playerService;
     private final ClubService clubService;
+    private final RefereeService refereeService;
 
     @Autowired
-    public IndexController(UserService userService, PlayerService playerService, ClubService clubService) {
+    public IndexController(UserService userService, PlayerService playerService, ClubService clubService, RefereeService refereeService) {
         this.userService = userService;
         this.playerService = playerService;
         this.clubService = clubService;
+        this.refereeService = refereeService;
     }
 
     @GetMapping("/")
@@ -57,7 +61,6 @@ public class IndexController {
 
     @GetMapping("/register")
     public ModelAndView getRegisterPage() {
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("register");
         modelAndView.addObject("registerRequest", new RegisterRequest());
@@ -82,7 +85,6 @@ public class IndexController {
 
     @GetMapping("/login")
     public ModelAndView getLoginPage(@RequestParam(value = "error", required = false) String errorParam) {
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         modelAndView.addObject("loginRequest", new LoginRequest());
@@ -102,16 +104,18 @@ public class IndexController {
         List<Player> players = playerService.getAllPlayers();
         List<User> users = userService.getAllUsers(user);
         List<Club> clubs = clubService.getAllClubs();
+        List<Referee> referees = refereeService.getAllReferees();
 
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView mav = new ModelAndView();
 
-        modelAndView.setViewName("admin-panel");
-        modelAndView.addObject("users", users);
-        modelAndView.addObject("players", players);
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("clubs", clubs);
+        mav.setViewName("admin-panel");
+        mav.addObject("users", users);
+        mav.addObject("players", players);
+        mav.addObject("user", user);
+        mav.addObject("clubs", clubs);
+        mav.addObject("referees", referees);
 
-        return modelAndView;
+        return mav;
     }
 }
 
