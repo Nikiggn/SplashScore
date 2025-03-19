@@ -1,7 +1,6 @@
 package com.splashScore.waterpolo_app.referee.model;
 
-import com.splashScore.waterpolo_app.match.model.Match;
-import com.splashScore.waterpolo_app.player.model.Country;
+ import com.splashScore.waterpolo_app.player.model.Country;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -17,8 +16,8 @@ public class Referee {
     @Column(nullable = false, unique = true)
     private String fullName;
 
-    @ManyToMany(mappedBy = "referees",fetch = FetchType.EAGER)
-    private Set<Match> matches = new HashSet<>();
+//    @ManyToMany(mappedBy = "referees",fetch = FetchType.EAGER)
+//    private Set<Match> matches = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     private Country country;
@@ -37,13 +36,13 @@ public class Referee {
         this.fullName = fullName;
     }
 
-    public Set<Match> getMatches() {
-        return matches;
-    }
-
-    public void setMatches(Set<Match> matches) {
-        this.matches = matches;
-    }
+//    public Set<Match> getMatches() {
+//        return matches;
+//    }
+//
+//    public void setMatches(Set<Match> matches) {
+//        this.matches = matches;
+//    }
 
     public Long getId() {
         return id;

@@ -2,6 +2,8 @@ package com.splashScore.waterpolo_app.web;
 
 import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.service.ClubService;
+import com.splashScore.waterpolo_app.match.dto.MatchView;
+import com.splashScore.waterpolo_app.match.service.MatchService;
 import com.splashScore.waterpolo_app.player.model.Player;
 import com.splashScore.waterpolo_app.player.service.PlayerService;
 import com.splashScore.waterpolo_app.referee.model.Referee;
@@ -35,13 +37,16 @@ public class IndexController {
     private final PlayerService playerService;
     private final ClubService clubService;
     private final RefereeService refereeService;
+    private final MatchService matchService;
+
 
     @Autowired
-    public IndexController(UserService userService, PlayerService playerService, ClubService clubService, RefereeService refereeService) {
+    public IndexController(UserService userService, PlayerService playerService, ClubService clubService, RefereeService refereeService, MatchService matchService) {
         this.userService = userService;
         this.playerService = playerService;
         this.clubService = clubService;
         this.refereeService = refereeService;
+        this.matchService = matchService;
     }
 
     @GetMapping("/")
@@ -105,6 +110,7 @@ public class IndexController {
         List<User> users = userService.getAllUsers(user);
         List<Club> clubs = clubService.getAllClubs();
         List<Referee> referees = refereeService.getAllReferees();
+        List<MatchView> matches = matchService.getAllMatchesWithClubDetails();
 
         ModelAndView mav = new ModelAndView();
 
@@ -114,6 +120,7 @@ public class IndexController {
         mav.addObject("user", user);
         mav.addObject("clubs", clubs);
         mav.addObject("referees", referees);
+        mav.addObject("matches", matches);
 
         return mav;
     }

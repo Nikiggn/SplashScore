@@ -27,7 +27,7 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private int goals;
+    private int mvp;
 
     private int matchesPlayed;
 
@@ -85,14 +85,6 @@ public class Player {
         this.capNumber = capNumber;
     }
 
-    public int getGoals() {
-        return goals;
-    }
-
-    public void setGoals(int goals) {
-        this.goals = goals;
-    }
-
     public int getMatchesPlayed() {
         return matchesPlayed;
     }
@@ -131,5 +123,13 @@ public class Player {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getMvp() {
+        return mvp;
+    }
+
+    public void setMvp(int mvp) {
+        this.mvp = mvp;
     }
 }

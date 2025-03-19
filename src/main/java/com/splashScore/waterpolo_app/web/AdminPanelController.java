@@ -1,18 +1,16 @@
 package com.splashScore.waterpolo_app.web;
 
 import com.splashScore.waterpolo_app.club.service.ClubService;
+import com.splashScore.waterpolo_app.match.dto.MatchCreation;
 import com.splashScore.waterpolo_app.player.model.CapNumberList;
 import com.splashScore.waterpolo_app.player.service.PlayerService;
 import com.splashScore.waterpolo_app.web.dto.AddClubRequest;
 import com.splashScore.waterpolo_app.web.dto.AddPlayerRequest;
 import com.splashScore.waterpolo_app.web.dto.AddRefereeRequest;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,10 +45,22 @@ public class AdminPanelController {
     public ModelAndView getAddClubPage() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("add-club");
-        mav.addObject("addClubRequest",new AddClubRequest());
+        mav.addObject("addClubRequest", new AddClubRequest());
         mav.addObject("clubs", clubService.getAllClubs());
         return mav;
     }
+
+    @GetMapping("/matches/new")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView getAddMatchPage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("add-match");
+        mav.addObject("addMatchRequest",new MatchCreation());
+        mav.addObject("clubs", clubService.getAllClubs());
+
+        return mav;
+    }
+
 
     @GetMapping("/referees/new")
     @PreAuthorize("hasRole('ADMIN')")

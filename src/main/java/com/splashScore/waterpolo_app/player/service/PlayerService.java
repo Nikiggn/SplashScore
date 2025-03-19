@@ -64,4 +64,8 @@ public class PlayerService {
             throw new DomainException("There are no clubs");
         }
     }
+
+    public List<Player> getPlayersByClub(Long id) {
+        return playerRepository.findByClubId(id);
+    }
 }

@@ -46,7 +46,7 @@
                     <h3>Players</h3>
                 </a>
 
-                <a href="#">
+                <a  href="javascript:void(0);" onclick="showDiv('matches')" id="matches-link">
                     <span class="material-symbols-outlined">stadium</span>
                     <h3>Matches</h3>
                 </a>
@@ -191,6 +191,49 @@
                             </form>
                         </th>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="matches" class="content-section">
+        <div class="content-section-header">
+            <div class="header-left">
+                <div class="header-left-title">Matches</div>
+            </div>
+
+            <div class="header-right">
+                <button><a th:href="@{/admin-panel/matches/new}">Add Match</a></button>
+            </div>
+        </div>
+
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Home Team</th>
+                    <th>Away Team</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="match : ${matches}">
+                    <th th:text="${match.homeTeam.name}">Nikola Antoniev</th>
+                    <th th:text="${match.awayTeam.name}">17</th>
+                    <th th:text="${#temporals.format(match.date, 'dd-MM-yyyy HH:mm')}">ChernoMore-Ticha</th>
+                    <th th:text="${match.status}"></th>
+
+                    <th>
+                        <form style="display: inline;">
+                            <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
+<!--                                <span class="material-symbols-outlined" th:style="${player.status == T(com.splashScore.waterpolo_app.player.model.Status).ACTIVE} ? 'color: red' : 'color: green'">autorenew</span>-->
+                            </button>
+                        </form>
+                    </th>
+                </tr>
                 </tbody>
             </table>
         </div>

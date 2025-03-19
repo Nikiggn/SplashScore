@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SplashScore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header-with-nav.css}">
+</head>
+<body>
+
+<header th:replace="~{fragments/no-user-need-header::section}"></header>
+
+<div class="flex justify-center items-start min-h-screen bg-[#F6F6F9] pt-12">
+    <form th:action="@{/matches/new}" th:method="POST" th:object="${addMatchRequest}" class="bg-[#FAFAFA] p-6 rounded-xl shadow-lg w-[500px] space-y-6">
+        <h2 class="text-gray-900 text-3xl font-semibold text-center">Add Match</h2>
+
+        <!-- Status -->
+        <div class="space-y-2">
+            <label for="status" class="text-gray-700 font-medium">Status</label>
+            <select th:field="*{status}" id="status" name="status" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" onchange="toggleFields()">
+                <option th:each="status : ${T(com.splashScore.waterpolo_app.match.MatchStatus).values()}"
+                        th:value="${status}" th:text="${status.toString()}" th:field="*{status}">Upcoming</option>
+            </select>
+        </div>
+
+        <!-- Date & Time (Shown for Upcoming & Completed) -->
+        <div class="space-y-2" id="dateField">
+            <label for="date" class="text-gray-700 font-medium">Date and Time</label>
+            <input  th:field="*{date}" id="date" type="datetime-local" name="date" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Home Team & Away Team (Shown for Upcoming & Completed) -->
+        <div class="flex gap-4" id="teamsFields">
+            <div class="w-1/2 space-y-2">
+                <label for="homeTeam" class="text-gray-700 font-medium">Home Team</label>
+                <select th:field="*{homeTeamId}" id="homeTeam" name="homeTeam" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option th:each="club : ${clubs}" th:value="${club.id}" th:text="${club.name}"></option>
+                </select>
+            </div>
+            <div class="w-1/2 space-y-2">
+                <label for="awayTeam" class="text-gray-700 font-medium">Away Team</label>
+                <select th:field="*{awayTeamId}" id="awayTeam" name="awayTeam" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option th:each="club : ${clubs}" th:value="${club.id}" th:text="${club.name}"></option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Additional Fields for Completed Matches -->
+        <div id="completedFields" class="hidden space-y-4">
+            <div class="flex gap-4">
+                <div class="w-1/2 space-y-2">
+                    <label for="homeScore" class="text-gray-700 font-medium">Home Score</label>
+                    <input th:field="*{homeScore}" id="homeScore" type="number" name="homeScore" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="w-1/2 space-y-2">
+                    <label for="awayScore" class="text-gray-700 font-medium">Away Score</label>
+                    <input th:field="*{awayScore}" id="awayScore" type="number" name="awayScore" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+
+        </div>
+
+        <button type="submit" class="w-full p-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
+            Add Match
+        </button>
+    </form>
+</div>
+
+<!-- JavaScript to Show/Hide Fields Based on Status -->
+<script>
+    function toggleFields() {
+        const status = document.getElementById("status").value;
+        const completedFields = document.getElementById("completedFields");
+
+        if (status === "COMPLETED") {
+            completedFields.classList.remove("hidden");
+        } else {
+            completedFields.classList.add("hidden");
+        }
+    }
+</script>
+
+
+
+
+</body>
+</html>
