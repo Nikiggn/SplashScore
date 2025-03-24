@@ -3,14 +3,15 @@ package com.splashScore.waterpolo_app.player.model;
  import com.splashScore.waterpolo_app.club.model.Club;
  import jakarta.persistence.*;
  import java.time.LocalDate;
+ import java.util.UUID;
 
 @Entity
 @Table(name = "players")
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     private String fullName;
@@ -27,8 +28,6 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private int mvp;
-
     private int matchesPlayed;
 
     private int age;
@@ -43,6 +42,17 @@ public class Player {
 
     public Player() {
     }
+
+    public Player(UUID id, String name, LocalDate date, String capNumber, Country country, Status status, Club club) {
+        this.id = id;
+        this.fullName = name;
+        this.birthDate = date;
+        this.capNumber = capNumber;
+        this.country = country;
+        this.status = status;
+        this.club = club;
+    }
+
 
     public String getFullName() {
         return fullName;
@@ -66,14 +76,6 @@ public class Player {
 
     public void setClub(Club club) {
         this.club = club;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 
@@ -125,11 +127,12 @@ public class Player {
         this.age = age;
     }
 
-    public int getMvp() {
-        return mvp;
+
+    public UUID getId() {
+        return id;
     }
 
-    public void setMvp(int mvp) {
-        this.mvp = mvp;
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

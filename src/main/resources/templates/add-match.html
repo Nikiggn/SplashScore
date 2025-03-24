@@ -12,7 +12,7 @@
 <header th:replace="~{fragments/no-user-need-header::section}"></header>
 
 <div class="flex justify-center items-start min-h-screen bg-[#F6F6F9] pt-12">
-    <form th:action="@{/matches/new}" th:method="POST" th:object="${addMatchRequest}" class="bg-[#FAFAFA] p-6 rounded-xl shadow-lg w-[500px] space-y-6">
+    <form th:action="@{/matches}" th:method="POST" th:object="${addMatchRequest}" class="bg-[#FAFAFA] p-6 rounded-xl shadow-lg w-[500px] space-y-6">
         <h2 class="text-gray-900 text-3xl font-semibold text-center">Add Match</h2>
 
         <!-- Status -->

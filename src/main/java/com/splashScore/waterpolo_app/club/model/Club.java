@@ -6,14 +6,15 @@ import jakarta.persistence.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "clubs")
 public class Club {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(unique = true, nullable = false)
     private String name;
@@ -42,6 +43,13 @@ public class Club {
     public Club() {
     }
 
+    public Club(UUID id, String name, String town, Country country) {
+        this.id = id;
+        this.name = name;
+        this.town = town;
+        this.country = country;
+    }
+
     public String getName() {
         return name;
     }
@@ -50,7 +58,6 @@ public class Club {
         this.name = name;
     }
 
-
     public String getLogoUrl() {
         return logoUrl;
     }
@@ -58,39 +65,6 @@ public class Club {
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
-//
-//    public Instant getEstablished() {
-//        return established;
-//    }
-//
-//    public void setEstablished(Instant established) {
-//        this.established = established;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-//
-//    public Coach getHeadCoach() {
-//        return headCoach;
-//    }
-//
-//    public void setHeadCoach(Coach headCoach) {
-//        this.headCoach = headCoach;
-//    }
-//
-//    public Set<Coach> getCoaches() {
-//        return coaches;
-//    }
-//
-//    public void setCoaches(Set<Coach> coaches) {
-//        this.coaches = coaches;
-//    }
-
 
     public List<Player> getSquad() {
         return squad;
@@ -98,14 +72,6 @@ public class Club {
 
     public void setSquad(List<Player> squad) {
         this.squad = squad;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Country getCountry() {
@@ -122,5 +88,13 @@ public class Club {
 
     public void setTown(String town) {
         this.town = town;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

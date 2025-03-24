@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/clubs")
 public class ClubController {
@@ -40,7 +42,7 @@ public class ClubController {
 
     @GetMapping("/{id}/confirm-deletion")
     @PreAuthorize("hasRole('ADMIN')")
-    public ModelAndView getConfirmationPage(@PathVariable Long id) {
+    public ModelAndView getConfirmationPage(@PathVariable UUID id) {
         Club club = clubService.getClubById(id);
 
         ModelAndView mav = new ModelAndView();
@@ -51,7 +53,7 @@ public class ClubController {
     }
 
     @PostMapping("/{id}/deletion")
-    public String deleteClub(@PathVariable Long id) {
+    public String deleteClub(@PathVariable UUID id) {
         clubService.deleteClubById(id);
         return "redirect:/admin-panel?activeDiv=clubs";  // or whichever divId you want active
     }

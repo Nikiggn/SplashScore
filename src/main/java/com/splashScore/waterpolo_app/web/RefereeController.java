@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/referees")
 public class RefereeController {
@@ -32,7 +34,7 @@ public class RefereeController {
     }
 
     @PostMapping("/{id}/status")
-    public String changeRefereeStatus(@PathVariable Long id){
+    public String changeRefereeStatus(@PathVariable UUID id){
         refereeService.changeRefereeStatus(id);
         return "redirect:/admin-panel?activeDiv=referees";
     }

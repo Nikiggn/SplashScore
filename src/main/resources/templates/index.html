@@ -4,107 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SplashScore</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">-->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/header-with-nav.css}">
 
 </head>
 <body>
     <header th:replace="~{fragments/commons::section}"></header>
 
-    <main>
-        <div class="filler-container"></div>
+    <div class="flex gap-10 justify-center mt-8 mx-10">
+        <!-- Empty Box for Left Spacing (Slightly Smaller) -->
+        <div class="w-72"></div>
 
-        <div class="centered-container">
-            <section class="center-index">
-                <nav class="date-navigation">
-                    <div class="date-picker">
-                        <a><img src="#"></a>
-                        <button>Today</button>
-                        <a>></a>
-                    </div>
-                </nav>
-            </section>
+        <!-- Main Content (Shifted Left) -->
+        <main class="flex-1 max-w-xl ml-[-40px]">
+            <section class="bg-white shadow-lg rounded-lg p-4">
+                <h2 class="text-xl font-bold text-center mb-6">Upcoming Matches</h2>
 
+                <div class="flex justify-between items-center mb-4">
+                    <button class="text-gray-500 hover:text-gray-700">&lt; Prev</button>
+                    <span class="text-gray-700 font-semibold">Upcoming Matches</span>
+                    <button class="text-gray-500 hover:text-gray-700">Next &gt;</button>
+                </div>
 
-
-            <section class="date-matches-home">
-                <ul class="match-list">
-                    <li class="match-info-container">
-                        <div class="team-container">
-                            <div class="team home-team">
-                                <a></a>
-                                <span class="team-name">ЧерноМоре-Тича</span>
-                            </div>
-                            <span class="match-time">17:00</span>
-                            <div class="team away-team">
-                                <span class="team-name">TICHA</span>
-                                <a></a>
-                            </div>
-                        </div>
+                <ul class="space-y-4">
+                    <li class="flex items-center bg-gray-100 p-3 rounded-lg">
+                        <span class="font-semibold w-1/3 truncate">ЧерноМоре-Тича</span>
+                        <div class="flex justify-center w-16 text-center text-gray-500 mx-auto">17:00</div>
+                        <span class="font-semibold w-1/3 text-right truncate">TICHA</span>
                     </li>
-
-                    <li class="match-info-container">
-                        <div class="team-container">
-                            <div class="team home-team">
-                               <a></a><!--  <img src="img.png" alt="Home Team Logo" class="team-logo">-->
-                                <span class="team-name">KPS</span>
-                            </div>
-                            <span class="match-time">17:00</span>
-                            <div class="team away-team">
-                                <span class="team-name">TICHA</span>
-<!--                                <img src="img.png" alt="Away Team Logo" class="team-logo">-->
-                            </div>
-                        </div>
+                    <li class="flex items-center bg-gray-100 p-3 rounded-lg">
+                        <span class="font-semibold w-1/3 truncate">KPS</span>
+                        <div class="flex justify-center w-16 text-center text-gray-500 mx-auto">17:00</div>
+                        <span class="font-semibold w-1/3 text-right truncate">TICHA</span>
                     </li>
                 </ul>
             </section>
-        </div>
+        </main>
 
-        <div class="nz">
-            <aside class="teams-table-sidebar">
-                <div class="club">Clubs</div>
-
-                <section>
-                    <div class="left">
-                        <a>#</a>
-                    </div>
-                    <div class="right">
-                        <ul>
-                            <li><a>PL</a></li>
-                            <li><a>GD</a></li>
-                            <li><a>PTS</a></li>
-                        </ul>
-                    </div>
-                </section>
-
-                <div class="club-container">
-                    <ul>
-                        <li>
-                            <div>
-                                <a>1</a>
-                                <a>img</a>
-                                <a>Liverpool</a>
-                            </div>
-
-                            <div class="stats">
-                                <a>22</a>
-                                <a>+33</a>
-                                <a>53</a>
-                            </div>
-                        </li>
-
-                    </ul>
+        <!-- Clubs Sidebar -->
+        <aside class="bg-white shadow-lg rounded-lg p-4 w-96">
+            <h2 class="text-xl font-bold text-center mb-6">Clubs</h2>
+            <div class="flex justify-between text-gray-500 text-xs mb-4 px-2">
+                <span class="text-[13px]">#</span>
+                <div class="grid grid-cols-4 gap-4 text-[13px] w-32 text-center">
+                    <span>P</span>
+                    <span>W</span>
+                    <span>D</span>
+                    <span>L</span>
                 </div>
-            </aside>
-        </div>
+            </div>
+            <ul class="space-y-1">
+                <li>
+                    <a href="#" class="flex items-center p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
+                        <span class="font-bold w-6 text-center">1</span>
+                        <img src="path-to-liverpool-logo.png" alt="Liverpool" class="w-5 h-5 rounded-full mx-2">
+                        <span class="font-medium text-[15px] truncate mr-4">Liverpool</span>
+                        <div class="grid grid-cols-4 gap-4 text-gray-500 text-sm w-32 text-center ml-auto">
+                            <span>22</span>
+                            <span>15</span>
+                            <span>5</span>
+                            <span>2</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
+                        <span class="font-bold w-6 text-center">2</span>
+                        <img src="path-to-chelsea-logo.png" alt="Chelsea" class="w-5 h-5 rounded-full mx-2">
+                        <span class="font-medium text-[15px] truncate mr-4">Chelsea</span>
+                        <div class="grid grid-cols-4 gap-4 text-gray-500 text-sm w-32 text-center ml-auto">
+                            <span>22</span>
+                            <span>14</span>
+                            <span>6</span>
+                            <span>2</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
+                        <span class="font-bold w-6 text-center">3</span>
+                        <img src="path-to-manchester-logo.png" alt="Manchester City" class="w-5 h-5 rounded-full mx-2">
+                        <span class="font-medium text-[15px] truncate mr-4">Manchester City</span>
+                        <div class="grid grid-cols-4 gap-4 text-gray-500 text-sm w-32 text-center ml-auto">
+                            <span>22</span>
+                            <span>13</span>
+                            <span>7</span>
+                            <span>2</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </div>
 
 
-    </main>
 
-    <footer>
 
-    </footer>
 
-    <script src="/js/header-setting-icon-dropdown.js"></script>
+
+
+
 </body>
 </html>

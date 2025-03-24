@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/players")
 public class PlayerController {
@@ -24,7 +26,7 @@ public class PlayerController {
     }
 
     @PostMapping("/{id}/status")
-    public String changePlayerStatus(@PathVariable Long id) {
+    public String changePlayerStatus(@PathVariable UUID id) {
         playerService.changePlayerStatus(id);
         return "redirect:/admin-panel?activeDiv=players";
     }

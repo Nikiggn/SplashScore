@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
+ import java.util.UUID;
 
 @Entity
 @Table(name = "referees")
 public class Referee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, unique = true)
     private String fullName;
@@ -26,6 +27,13 @@ public class Referee {
     private Status status;
 
     public Referee() {
+    }
+
+    public Referee(UUID id, String name, Country country, com.splashScore.waterpolo_app.referee.model.Status status) {
+        this.id = id;
+        this.fullName = name;
+        this.country = country;
+        this.status = status;
     }
 
     public String getFullName() {
@@ -44,11 +52,11 @@ public class Referee {
 //        this.matches = matches;
 //    }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

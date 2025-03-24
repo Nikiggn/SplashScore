@@ -16,7 +16,7 @@ public class MatchController {
         this.matchService = matchService;
     }
 
-    @PostMapping("/new")
+    @PostMapping
     public String createMatch(@ModelAttribute MatchCreation request) {
         matchService.createMatch(request);
         return "redirect:/admin-panel?activeDiv=matches";

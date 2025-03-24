@@ -3,7 +3,7 @@ package com.splashScore.waterpolo_app.match.service;
 import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.service.ClubService;
 import com.splashScore.waterpolo_app.exception.DomainException;
-import com.splashScore.waterpolo_app.match.MatchClient;
+import com.splashScore.waterpolo_app.match.client.MatchClient;
 import com.splashScore.waterpolo_app.match.MatchStatus;
 import com.splashScore.waterpolo_app.match.dto.MatchCreation;
 import com.splashScore.waterpolo_app.match.dto.MatchView;

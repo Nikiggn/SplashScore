@@ -15,16 +15,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 //Spring ще черпи някаква configuration
 public class BeanConfiguration {
-
-
     @Bean
     // когато искам -|- Спринг искам да ми връща конкретна имплентация на този Беан
     public PasswordEncoder passwordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
-
-
 
     @Bean
     public ModelMapper modelMapper() {

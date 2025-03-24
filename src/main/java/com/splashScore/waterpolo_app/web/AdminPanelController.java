@@ -61,7 +61,6 @@ public class AdminPanelController {
         return mav;
     }
 
-
     @GetMapping("/referees/new")
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getAddRefereePage() {

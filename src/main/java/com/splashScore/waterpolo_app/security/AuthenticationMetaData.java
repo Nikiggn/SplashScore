@@ -8,18 +8,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 // ПАЗИ ДАННИТЕ НА ЛОГНАТИЯ ПОТРЕБИТЕЛ
 public class AuthenticationMetaData implements UserDetails {
 
-    private Long id;
+    private UUID id;
     private String username;
     private String password;
     private String email;
     private UserRole role;
     private LocalDateTime createdOn;
 
-    public AuthenticationMetaData(Long id, String username, String password, String email , UserRole role, LocalDateTime createdOn) {
+    public AuthenticationMetaData(UUID id, String username, String password, String email , UserRole role, LocalDateTime createdOn) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -47,7 +48,7 @@ public class AuthenticationMetaData implements UserDetails {
         return this.username;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -83,7 +84,7 @@ public class AuthenticationMetaData implements UserDetails {
         this.createdOn = createdOn;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 }

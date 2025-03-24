@@ -3,29 +3,30 @@ package com.splashScore.waterpolo_app.match.dto;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class MatchViewResponse {
-     private Long homeTeam;
-     private Long awayTeam;
+     private UUID homeTeam;
+     private UUID awayTeam;
      private LocalDateTime date;
      private String status;
 
     public MatchViewResponse() {
     }
 
-    public Long getHomeTeam() {
+    public UUID getHomeTeam() {
         return homeTeam;
     }
 
-    public void setHomeTeam(Long homeTeam) {
+    public void setHomeTeam(UUID homeTeam) {
         this.homeTeam = homeTeam;
     }
 
-    public Long getAwayTeam() {
+    public UUID getAwayTeam() {
         return awayTeam;
     }
 
-    public void setAwayTeam(Long awayTeam) {
+    public void setAwayTeam(UUID awayTeam) {
         this.awayTeam = awayTeam;
     }
 

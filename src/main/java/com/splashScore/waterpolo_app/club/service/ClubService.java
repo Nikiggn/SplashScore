@@ -2,6 +2,7 @@ package com.splashScore.waterpolo_app.club.service;
 
 import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.repository.ClubRepository;
+import com.splashScore.waterpolo_app.exception.DomainException;
 import com.splashScore.waterpolo_app.web.dto.AddClubRequest;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -9,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ClubService {
@@ -24,11 +28,11 @@ public class ClubService {
     }
 
     public List<Club> getAllClubs() {
-        return clubRepository.findAll();
+        return clubRepository.findAll().stream().sorted(Comparator.comparing(Club::getTown)).collect(Collectors.toList());
     }
 
-    public Club getClubById(Long clubId) {
-        return clubRepository.findById(clubId).orElseThrow();
+    public Club getClubById(UUID clubId) {
+        return clubRepository.findById(clubId).orElseThrow(() -> new DomainException(String.format("Club with such id does not exist 11: %s", clubId)));
     }
 
     public void saveNewClub(AddClubRequest newClubRequest) {
@@ -38,8 +42,8 @@ public class ClubService {
     }
 
     @Transactional
-    public void deleteClubById(Long id) {
-        Club club = clubRepository.findById(id).orElseThrow();
+    public void deleteClubById(UUID clubId) {
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new DomainException(String.format("Club with such id does not exist 22: %s", clubId)));
         clubRepository.delete(club);
     }
 }

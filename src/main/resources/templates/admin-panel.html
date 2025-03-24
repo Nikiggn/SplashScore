@@ -255,7 +255,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Matches</th>
+<!--                    <th>Matches</th>-->
                     <th>Country</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -265,7 +265,7 @@
                 <tbody>
                     <tr th:each="referee : ${referees}">
                         <th th:text="${referee.fullName}"></th>
-                        <th th:text="${referee.matches.size()}"></th>
+<!--                        <th th:text="${referee.matches.size()}"></th>-->
                         <th th:text="${referee.country}"></th>
                         <th th:text="${referee.status}"
                             th:style="${referee.status == T(com.splashScore.waterpolo_app.referee.model.Status).ACTIVE} ? 'color: green' : 'color: red'">

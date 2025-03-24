@@ -14,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +37,9 @@ public class PlayerService {
         return playerRepository.findAll()
                 .stream()
                 .peek(pl -> pl.setAge(Period.between(pl.getBirthDate(), LocalDate.now()).getYears()))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing((Player p) -> p.getClub().getName())
+                        .thenComparing(Player::getStatus))
+                .toList();
     }
 
      public void saveNewPlayer(AddPlayerRequest newPlayerRequest) {
@@ -50,8 +54,8 @@ public class PlayerService {
     }
 
     @Transactional
-    public void changePlayerStatus(Long id) {
-        Player player = playerRepository.findById(id).orElseThrow();
+    public void changePlayerStatus(UUID id) {
+        Player player = playerRepository.findById(id).orElseThrow(() -> new DomainException("Player not found with id: " + id));
         if (player.getStatus() == Status.ACTIVE) {
             player.setStatus(Status.RETIRED);
         }else {
@@ -61,11 +65,11 @@ public class PlayerService {
 
     public void checkAvailableClubs(){
         if (clubService.getAllClubs().isEmpty()){
-            throw new DomainException("There are no clubs");
+            throw new DomainException("There are no available clubs");
         }
     }
 
-    public List<Player> getPlayersByClub(Long id) {
-        return playerRepository.findByClubId(id);
+    public List<Player> getPlayersByClub(UUID clubId) {
+        return playerRepository.findByClubId(clubId);
     }
 }

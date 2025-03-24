@@ -4,77 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SplashScore</title>
-    <link rel="stylesheet" type="text/css" th:href="@{css/register.css}">
+<!--    <link rel="stylesheet" type="text/css" th:href="@{css/register.css}">-->
     <link rel="stylesheet" type="text/css" th:href="@{css/header-logo.css}">
+    <script src="https://cdn.tailwindcss.com"></script>
+
 
 </head>
 <body>
 <header th:replace="~{fragments/header-logo::header}"></header>
 
 <main>
-            <div class="form signup">
-                <span class="title">Create your free account</span>
-                <form th:action="@{/register}" th:method="post" th:object="${registerRequest}">
-                    <!-- Name Field -->
-                    <div class="input-field" id="first-name">
-                        <label for="username">Username</label>
-                        <input th:field="*{username}" type="text" id="username" name="name" placeholder="Enter your username" required />
-                        <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">fff</p>
-                        <i class="uil uil-user"></i>
-                    </div>
+    <div class="flex items-center justify-center min-h-screen ">
+        <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Create your free account</h2>
 
-                    <!-- Email Field -->
-                    <div class="input-field">
-                        <label for="email">Email</label>
-                        <input th:field="*{email}" type="email" id="email" name="email" placeholder="Enter your email" required />
-                        <i class="uil uil-envelope icon"></i>
-                    </div>
+            <form th:action="@{/register}" th:method="post" th:object="${registerRequest}" class="space-y-6">
+                <!-- Username Field -->
+                <div>
+                    <label for="username" class="block text-gray-700 font-semibold text-lg">Username</label>
+                    <input th:field="*{username}" type="text" id="username" name="username"
+                           class="w-full mt-2 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                           placeholder="Enter your username" required />
+                    <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                    <p class="text-red-500 text-sm mt-1"  th:text="${message}"></p>
 
-                    <!-- Password Field -->
-                    <div class="input-field">
-                        <label for="password">Password</label>
-                        <input th:field="*{password}" type="password" id="password" name="password" class="password" placeholder="Create a password" required />
-                        <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">fff</p>
-                        <i class="uil uil-lock icon"></i>
-                    </div>
-
-                    <!-- Confirm Password Field -->
-                    <div class="input-field">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input th:field="*{confirmPassword}" type="password" id="confirm-password" name="confirm-password" class="password" placeholder="Confirm your password" required />
-                        <i class="uil uil-lock icon"></i>
-                        <i class="uil uil-eye-slash showHidePw"></i>
-                    </div>
-
-                    <!-- Terms and Conditions Checkbox -->
-                    <div class="checkbox-text">
-                        <div class="checkbox-content">
-                            <input type="checkbox" id="termCon" name="terms" required />
-                            <label for="termCon" class="text">I accept all terms and conditions</label>
-                        </div>
-
-                        <div class="filler">fffff</div>
-                    </div>
-
-                    <!-- Signup Button -->
-                    <div class="input-field button">
-                        <input type="submit" value="Sign Up" />
-                    </div>
-                </form>
-
-                <!-- Login Link -->
-                <div class="login-signup">
-                <span class="text">
-                    Already have an account?
-                    <a th:href="@{/login}" class="text login-link">Log in</a>
-                </span>
                 </div>
-            </div>
-        </main>
+
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block text-gray-700 font-semibold text-lg">Email</label>
+                    <input th:field="*{email}" type="email" id="email" name="email"
+                           class="w-full mt-2 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                           placeholder="Enter your email" required />
+                    <p class="text-red-500 text-sm mt-1"    th:text="${email_in_use}"></p>
+
+
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label for="password" class="block text-gray-700 font-semibold text-lg">Password</label>
+                    <input th:field="*{password}" type="password" id="password" name="password"
+                           class="w-full mt-2 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                           placeholder="Create a password" required />
+                    <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+                </div>
+
+                <!-- Signup Button -->
+                <div class="pt-4">
+                    <button type="submit"
+                            class="w-full py-3 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg shadow-md hover:opacity-90 transition">
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+
+            <!-- Login Link -->
+            <p class="text-center text-gray-600 mt-6 text-lg">
+                Already have an account?
+                <a th:href="@{/login}" class="text-blue-500 font-semibold hover:underline">Log in</a>
+            </p>
+        </div>
+    </div>
 
 
 
-
+</main>
 
 </body>
 </html>

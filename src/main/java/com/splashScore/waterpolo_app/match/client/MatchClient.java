@@ -1,4 +1,4 @@
-package com.splashScore.waterpolo_app.match;
+package com.splashScore.waterpolo_app.match.client;
 
 import com.splashScore.waterpolo_app.match.dto.MatchCreation;
 import com.splashScore.waterpolo_app.match.dto.MatchViewResponse;

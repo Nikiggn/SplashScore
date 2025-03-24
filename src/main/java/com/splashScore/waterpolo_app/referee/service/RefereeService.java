@@ -9,7 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class RefereeService {
@@ -23,7 +26,7 @@ public class RefereeService {
     }
 
     public List<Referee> getAllReferees() {
-        return refereeRepository.findAll();
+            return refereeRepository.findAll().stream().sorted(Comparator.comparing(Referee::getStatus)).collect(Collectors.toList());
     }
 
     public void saveNewReferee(AddRefereeRequest addRefereeRequest) {
@@ -34,8 +37,8 @@ public class RefereeService {
     }
 
     @Transactional
-    public void changeRefereeStatus(Long id) {
-        Referee referee = refereeRepository.findById(id).orElseThrow();
+    public void changeRefereeStatus(UUID id) {
+        Referee referee = refereeRepository.findById(id).orElseThrow(() -> new RuntimeException("Referee not found with id: " + id));
 
         if (referee.getStatus() == Status.ACTIVE) {
             referee.setStatus(Status.ARCHIVED);

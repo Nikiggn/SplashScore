@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class AddPlayerRequest {
 
@@ -17,7 +18,7 @@ public class AddPlayerRequest {
     @Past(message = "Date of birth must be in the past")
     private LocalDate dateOfBirth;
 
-    private Long clubId;
+    private UUID clubId;
 
     private Country country;
 
@@ -58,11 +59,11 @@ public class AddPlayerRequest {
         this.capNumber = capNumber;
     }
 
-    public Long getClubId() {
+    public UUID getClubId() {
         return clubId;
     }
 
-    public void setClubId(Long clubId) {
+    public void setClubId(UUID clubId) {
         this.clubId = clubId;
     }
 }

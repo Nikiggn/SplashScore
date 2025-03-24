@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.UUID;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -33,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/{id}/role")
-    public String changeUserRole(@PathVariable("id") Long targetUserId, @AuthenticationPrincipal AuthenticationMetaData admin) {
+    public String changeUserRole(@PathVariable("id") UUID targetUserId, @AuthenticationPrincipal AuthenticationMetaData admin) {
         userService.changeUserRole(targetUserId, admin.getId());
         return "redirect:/admin-panel?activeDiv=users";  // or whichever divId you want active
     }
