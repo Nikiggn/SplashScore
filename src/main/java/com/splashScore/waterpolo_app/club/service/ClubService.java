@@ -4,7 +4,6 @@ import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.repository.ClubRepository;
 import com.splashScore.waterpolo_app.exception.DomainException;
 import com.splashScore.waterpolo_app.web.dto.AddClubRequest;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,18 +31,18 @@ public class ClubService {
     }
 
     public Club getClubById(UUID clubId) {
-        return clubRepository.findById(clubId).orElseThrow(() -> new DomainException(String.format("Club with such id does not exist 11: %s", clubId)));
+        return clubRepository.findById(clubId).orElseThrow(() -> new DomainException(String.format("Club with such id does not exist: %s", clubId)));
     }
 
-    public void saveNewClub(AddClubRequest newClubRequest) {
+    public Club saveNewClub(AddClubRequest newClubRequest) {
         Club club = modelMapper.map(newClubRequest, Club.class);
 
-        clubRepository.save(club);
+        return clubRepository.save(club);
     }
 
     @Transactional
     public void deleteClubById(UUID clubId) {
-        Club club = clubRepository.findById(clubId).orElseThrow(() -> new DomainException(String.format("Club with such id does not exist 22: %s", clubId)));
+        Club club = clubRepository.findById(clubId).orElseThrow(() -> new DomainException(String.format("Club with such id does not exist: %s", clubId)));
         clubRepository.delete(club);
     }
 }

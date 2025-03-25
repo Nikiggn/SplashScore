@@ -76,7 +76,7 @@ public class UserService implements UserDetailsService{
         // !!!!!
         if (userRepository.findAll().isEmpty()){
             user.setRole(UserRole.ADMIN);
-            fillData();
+            //fillData();
         }
         // !!!!!
 
@@ -93,7 +93,7 @@ public class UserService implements UserDetailsService{
 
     public User getUserById(UUID userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new DomainException("User not found with id: " + userId));
     }
 
     @Transactional
@@ -102,7 +102,7 @@ public class UserService implements UserDetailsService{
             throw new DomainException("Admin cannot change their own role. Please contact system support if needed.");
         }
 
-        User user = userRepository.findById(targetUserId).orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + targetUserId));
+        User user = userRepository.findById(targetUserId).orElseThrow(() -> new DomainException("User not found with id: " + targetUserId));
 
         if (user.getRole() == UserRole.USER){
             user.setRole(UserRole.ADMIN);
@@ -122,35 +122,35 @@ public class UserService implements UserDetailsService{
     //!!!!!!!!!!!!
     // За Ваше улеснение
     // !!!!!!!!!!!
-    protected void fillData(){
-        Club club = new Club( null, "Cherno-More", "Varna", Country.BULGARIA);
-        Club club2 = new Club( null, "Spartak", "Varna", Country.BULGARIA);
-        Club club3 = new Club(null, "CSKA-Sofia", "Sofia", Country.BULGARIA);
-        Club club4 = new Club( null, "Chernomorec", "Burgas", Country.BULGARIA);
-
-        Player player = new Player(null, "Nikola Antoniev", LocalDate.of(2007, 9, 14), "2", Country.BULGARIA, Status.ACTIVE, club);
-        Player player2 = new Player(null, "Ivaylo Antoniev", LocalDate.of(2002, 2, 24), "5", Country.BULGARIA, Status.ACTIVE, club);
-        Player player3 = new Player(null, "Martin Karanfilov", LocalDate.of(2007, 9, 14), "4", Country.BULGARIA, Status.ACTIVE, club2);
-        Player player4 = new Player(null, "Veselin Ganchev", LocalDate.of(2007, 5, 6), "10", Country.BULGARIA, Status.ACTIVE, club2);
-        Player player5 = new Player(null, "Petur Stoqnov", LocalDate.of(1999, 6, 9), "7", Country.BULGARIA, Status.ACTIVE, club3);
-        Player player6 = new Player(null, "Ivan Ivanov", LocalDate.of(2007, 9, 14), "3", Country.BULGARIA, Status.ACTIVE, club3);
-        Player player7 = new Player(null, "Stoqn Pet", LocalDate.of(1990, 5, 4), "4", Country.BULGARIA, Status.ACTIVE, club4);
-        Player player8 = new Player(null, "Cristiano Ron", LocalDate.of(1995, 2, 4), "7", Country.BULGARIA, Status.ACTIVE, club4);
-
-        Referee referee = new Referee(null, "Ivan Kik", Country.ROMANIA, com.splashScore.waterpolo_app.referee.model.Status.ACTIVE);
-        Referee referee2 = new Referee(null, "Boris Bob", Country.BULGARIA, com.splashScore.waterpolo_app.referee.model.Status.ACTIVE);
-
-        clubRepository.save(club);clubRepository.save(club2);clubRepository.save(club3);clubRepository.save(club4);
-        playerRepository.save(player);
-        playerRepository.save(player2);
-        playerRepository.save(player3);
-        playerRepository.save(player4);
-        playerRepository.save(player5);
-        playerRepository.save(player6);
-        playerRepository.save(player7);
-        playerRepository.save(player8);
-        refereeRepository.save(referee);
-        refereeRepository.save(referee2);
-
-    }
+//    protected void fillData(){
+//        Club club = new Club( null, "Cherno-More", "Varna", Country.BULGARIA);
+//        Club club2 = new Club( null, "Spartak", "Varna", Country.BULGARIA);
+//        Club club3 = new Club(null, "CSKA-Sofia", "Sofia", Country.BULGARIA);
+//        Club club4 = new Club( null, "Chernomorec", "Burgas", Country.BULGARIA);
+//
+//        Player player = new Player(null, "Nikola Antoniev", LocalDate.of(2007, 9, 14), "2", Country.BULGARIA, Status.ACTIVE, club);
+//        Player player2 = new Player(null, "Ivaylo Antoniev", LocalDate.of(2002, 2, 24), "5", Country.BULGARIA, Status.ACTIVE, club);
+//        Player player3 = new Player(null, "Martin Karanfilov", LocalDate.of(2007, 9, 14), "4", Country.BULGARIA, Status.ACTIVE, club2);
+//        Player player4 = new Player(null, "Veselin Ganchev", LocalDate.of(2007, 5, 6), "10", Country.BULGARIA, Status.ACTIVE, club2);
+//        Player player5 = new Player(null, "Petur Stoqnov", LocalDate.of(1999, 6, 9), "7", Country.BULGARIA, Status.ACTIVE, club3);
+//        Player player6 = new Player(null, "Ivan Ivanov", LocalDate.of(2007, 9, 14), "3", Country.BULGARIA, Status.ACTIVE, club3);
+//        Player player7 = new Player(null, "Stoqn Pet", LocalDate.of(1990, 5, 4), "4", Country.BULGARIA, Status.ACTIVE, club4);
+//        Player player8 = new Player(null, "Cristiano Ron", LocalDate.of(1995, 2, 4), "7", Country.BULGARIA, Status.ACTIVE, club4);
+//
+//        Referee referee = new Referee(null, "Ivan Kik", Country.ROMANIA, com.splashScore.waterpolo_app.referee.model.Status.ACTIVE);
+//        Referee referee2 = new Referee(null, "Boris Bob", Country.BULGARIA, com.splashScore.waterpolo_app.referee.model.Status.ACTIVE);
+//
+//        clubRepository.save(club);clubRepository.save(club2);clubRepository.save(club3);clubRepository.save(club4);
+//        playerRepository.save(player);
+//        playerRepository.save(player2);
+//        playerRepository.save(player3);
+//        playerRepository.save(player4);
+//        playerRepository.save(player5);
+//        playerRepository.save(player6);
+//        playerRepository.save(player7);
+//        playerRepository.save(player8);
+//        refereeRepository.save(referee);
+//        refereeRepository.save(referee2);
+//
+//    }
 }

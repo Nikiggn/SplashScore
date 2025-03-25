@@ -1,6 +1,7 @@
 package com.splashScore.waterpolo_app.web.exception_handler;
 
 import com.splashScore.waterpolo_app.exception.EmailAlreadyExistException;
+import com.splashScore.waterpolo_app.exception.RefereeAlreadyExistException;
 import com.splashScore.waterpolo_app.exception.UsernameAlreadyExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -28,6 +29,14 @@ public class GlobalExceptionHandler {
         redirectAttributes.addFlashAttribute("email_in_use", "This email is already in use");
         return new ModelAndView("redirect:/register");
     }
+
+    @ExceptionHandler(RefereeAlreadyExistException.class)
+    public ModelAndView refereeAlreadyExistHandler(RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("referee_exception", "Referee with that name already exist");
+        return new ModelAndView("redirect:/add-referee");
+    }
+
+
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({

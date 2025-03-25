@@ -17,8 +17,6 @@ public class RegisterRequest {
     @Size(min = 6, message = "Password must be at least 6 symbols")
     private String password;
 
-    @Size(min = 6, message = "Password must be at least 6 symbols")
-    private String confirmPassword;
 
     public RegisterRequest() {
     }
@@ -48,11 +46,4 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
 }

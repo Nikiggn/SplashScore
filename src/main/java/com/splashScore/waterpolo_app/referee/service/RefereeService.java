@@ -1,5 +1,7 @@
 package com.splashScore.waterpolo_app.referee.service;
 
+import com.splashScore.waterpolo_app.exception.DomainException;
+import com.splashScore.waterpolo_app.exception.RefereeAlreadyExistException;
 import com.splashScore.waterpolo_app.referee.model.Referee;
 import com.splashScore.waterpolo_app.referee.model.Status;
 import com.splashScore.waterpolo_app.referee.repository.RefereeRepository;
@@ -26,19 +28,25 @@ public class RefereeService {
     }
 
     public List<Referee> getAllReferees() {
-            return refereeRepository.findAll().stream().sorted(Comparator.comparing(Referee::getStatus)).collect(Collectors.toList());
+            return refereeRepository.findAll()
+                    .stream()
+                    .sorted(Comparator.comparing(Referee::getStatus))
+                    .collect(Collectors.toList());
     }
 
-    public void saveNewReferee(AddRefereeRequest addRefereeRequest) {
+    public Referee saveNewReferee(AddRefereeRequest addRefereeRequest) {
+         refereeRepository.findByFullName(addRefereeRequest.getFullName())
+                 .ifPresent(referee -> { throw new RefereeAlreadyExistException(addRefereeRequest.getFullName()); });
+
         Referee referee = modelMapper.map(addRefereeRequest, Referee.class);
         referee.setStatus(Status.ACTIVE);
 
-        refereeRepository.save(referee);
+        return refereeRepository.save(referee);
     }
 
     @Transactional
     public void changeRefereeStatus(UUID id) {
-        Referee referee = refereeRepository.findById(id).orElseThrow(() -> new RuntimeException("Referee not found with id: " + id));
+        Referee referee = refereeRepository.findById(id).orElseThrow(() -> new DomainException("Referee not found with id: " + id));
 
         if (referee.getStatus() == Status.ACTIVE) {
             referee.setStatus(Status.ARCHIVED);

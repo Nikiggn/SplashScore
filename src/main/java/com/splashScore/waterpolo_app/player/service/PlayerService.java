@@ -42,15 +42,15 @@ public class PlayerService {
                 .toList();
     }
 
-     public void saveNewPlayer(AddPlayerRequest newPlayerRequest) {
+    public Player saveNewPlayer(AddPlayerRequest newPlayerRequest) {
         Club club = clubService.getClubById(newPlayerRequest.getClubId());
         Player player = modelMapper.map(newPlayerRequest, Player.class);
 
-        player.setId(null);
+        //player.setId(null);
         player.setClub(club);
         player.setStatus(Status.ACTIVE);
 
-        playerRepository.save(player);
+        return playerRepository.save(player);
     }
 
     @Transactional
@@ -70,6 +70,8 @@ public class PlayerService {
     }
 
     public List<Player> getPlayersByClub(UUID clubId) {
-        return playerRepository.findByClubId(clubId);
+        Club club = clubService.getClubById(clubId);
+
+        return playerRepository.findByClubId(club.getId());
     }
 }
