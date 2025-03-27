@@ -15,13 +15,13 @@ import com.splashScore.waterpolo_app.security.AuthenticationMetaData;
 import com.splashScore.waterpolo_app.user.model.UserRole;
 import com.splashScore.waterpolo_app.user.model.User;
 import com.splashScore.waterpolo_app.user.repository.UserRepository;
- import com.splashScore.waterpolo_app.web.dto.RegisterRequest;
+import com.splashScore.waterpolo_app.web.dto.RegisterRequest;
 import org.modelmapper.ModelMapper;
- import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
- import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -29,10 +29,10 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
- import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService implements UserDetailsService{
+public class UserService implements UserDetailsService {
     //!!!!!!!Цел -> Помощ
     private final PlayerRepository playerRepository;
     private final ClubRepository clubRepository;
@@ -58,10 +58,14 @@ public class UserService implements UserDetailsService{
     @Transactional// гарантитра всяка от долните операции може да се изпълни
     public User register(RegisterRequest registerRequest) {
         userRepository.findByUsername(registerRequest.getUsername())
-                .ifPresent(user -> { throw new UsernameAlreadyExistException(registerRequest.getUsername()); });
+                .ifPresent(user -> {
+                    throw new UsernameAlreadyExistException(registerRequest.getUsername());
+                });
 
         userRepository.findByEmail(registerRequest.getEmail())
-                .ifPresent(user -> { throw new EmailAlreadyExistException(registerRequest.getEmail()); });
+                .ifPresent(user -> {
+                    throw new EmailAlreadyExistException(registerRequest.getEmail());
+                });
 
         return userRepository.save(initializeUser(registerRequest));
     }
@@ -74,7 +78,7 @@ public class UserService implements UserDetailsService{
         user.setRole(UserRole.USER);
 
         // !!!!!
-        if (userRepository.findAll().isEmpty()){
+        if (userRepository.findAll().isEmpty()) {
             user.setRole(UserRole.ADMIN);
             fillData();
         }
@@ -104,9 +108,9 @@ public class UserService implements UserDetailsService{
 
         User user = userRepository.findById(targetUserId).orElseThrow(() -> new DomainException("User not found with id: " + targetUserId));
 
-        if (user.getRole() == UserRole.USER){
+        if (user.getRole() == UserRole.USER) {
             user.setRole(UserRole.ADMIN);
-        }else {
+        } else {
             user.setRole(UserRole.USER);
         }
     }
@@ -116,17 +120,30 @@ public class UserService implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new DomainException("User not found with username: " + username));
 
-        return new AuthenticationMetaData(user.getId(), username, user.getPassword(),user.getEmail(), user.getRole(), user.getCreatedOn());
+        return new AuthenticationMetaData(user.getId(), username, user.getPassword(), user.getEmail(), user.getRole(), user.getCreatedOn());
     }
 
     //!!!!!!!!!!!!
     // За Ваше улеснение
     // !!!!!!!!!!!
-    protected void fillData(){
-        Club club = new Club( null, "Cherno-More", "Varna", Country.BULGARIA);
-        Club club2 = new Club( null, "Spartak", "Varna", Country.BULGARIA);
+    protected void fillData() {
+        Club club = new Club(null, "Cherno-More", "Varna", Country.BULGARIA);
+        Club club2 = new Club(null, "Spartak", "Varna", Country.BULGARIA);
         Club club3 = new Club(null, "CSKA-Sofia", "Sofia", Country.BULGARIA);
-        Club club4 = new Club( null, "Chernomorec", "Burgas", Country.BULGARIA);
+        Club club4 = new Club(null, "Chernomorec", "Burgas", Country.BULGARIA);
+        Club club5 = new Club(null, "Akva", "Varna", Country.BULGARIA);
+        List<Club> clubs = Arrays.asList(club, club2, club3, club4, club5);
+
+        List<String> logos = new ArrayList<>(List.of("logo-3.png", "logo-4.png",
+                "logo-5.png", "logo-6.png", "logo-7.jpg"
+        ));
+        Collections.shuffle(logos);
+
+        for (int i = 0; i < clubs.size(); i++) {
+            String assignedLogo = (i < logos.size()) ? logos.get(i) : "logo-1.jpg"; // Use default if out of logos
+            clubs.get(i).setLogoUrl("/images/" + assignedLogo);
+
+        }
 
         Player player = new Player(null, "Nikola Antoniev", LocalDate.of(2007, 9, 14), "2", Country.BULGARIA, Status.ACTIVE, club);
         Player player2 = new Player(null, "Ivaylo Antoniev", LocalDate.of(2002, 2, 24), "5", Country.BULGARIA, Status.ACTIVE, club);
@@ -140,7 +157,10 @@ public class UserService implements UserDetailsService{
         Referee referee = new Referee(null, "Ivan Kik", Country.ROMANIA, com.splashScore.waterpolo_app.referee.model.Status.ACTIVE);
         Referee referee2 = new Referee(null, "Boris Bob", Country.BULGARIA, com.splashScore.waterpolo_app.referee.model.Status.ACTIVE);
 
-        clubRepository.save(club);clubRepository.save(club2);clubRepository.save(club3);clubRepository.save(club4);
+        clubRepository.save(club);
+        clubRepository.save(club2);
+        clubRepository.save(club3);
+        clubRepository.save(club4);
         playerRepository.save(player);
         playerRepository.save(player2);
         playerRepository.save(player3);

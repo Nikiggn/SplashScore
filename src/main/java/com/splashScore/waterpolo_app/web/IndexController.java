@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -56,7 +57,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView("index");
 
         User user = userService.getUserById(authenticationMetaData.getId());
-        List<Club> clubs = clubService.getAllClubs();
+        List<Club> clubs = clubService.getAllClubsSortedByPoints();
 
         modelAndView.addObject("user", user);
         modelAndView.addObject("clubs", clubs);
@@ -107,7 +108,7 @@ public class IndexController {
 
         List<Player> players = playerService.getAllPlayers();
         List<User> users = userService.getAllUsers(user);
-        List<Club> clubs = clubService.getAllClubs();
+        List<Club> clubs = clubService.getAllClubs() ;
         List<Referee> referees = refereeService.getAllReferees();
         List<MatchView> matches = matchService.getAllMatchesWithClubDetails();
 

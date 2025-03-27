@@ -33,7 +33,7 @@
 <main class="container mx-auto p-6 flex-grow mt-10">
     <!-- Club Info Section -->
     <div class="bg-white shadow-lg rounded-2xl p-6 flex flex-col md:flex-row items-center">
-        <img th:src="@{/images/england-premier-league-logo-on-transparent-background-free-vector.jpg}"
+        <img th:src="${club.logoUrl}"
              alt="Club Logo" class="w-40 h-40 object-cover rounded-xl shadow-md">
         <div class="md:ml-6 text-center md:text-left mt-4 md:mt-0">
             <h2 th:text="${club.name}" class="text-3xl font-bold">Club Name</h2>

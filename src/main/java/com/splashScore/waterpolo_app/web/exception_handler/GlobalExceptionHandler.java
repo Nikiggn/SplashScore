@@ -58,4 +58,12 @@ public class GlobalExceptionHandler {
 
         return new ModelAndView("match-creation-exceptions");
     }
+
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleServerError() {
+        ModelAndView mav = new ModelAndView("not-found");
+        mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return mav;
+    }
 }

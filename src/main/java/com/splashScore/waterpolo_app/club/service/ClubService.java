@@ -18,10 +18,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient;
 
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +37,22 @@ public class ClubService {
     public List<Club> getAllClubs() {
         return clubRepository.findAll().stream().sorted(Comparator.comparing(Club::getTown)).collect(Collectors.toList());
     }
+
+    @Transactional
+    public List<Club> getAllClubsSortedByPoints() {
+
+        return clubRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparingInt(Club::getPoints).reversed())
+                .peek(club -> {
+                    if (club.getLogoUrl() != null && club.getLogoUrl().length() > 19) {
+                        club.setLogoUrl("/images/logo-1.jpg");
+                    }
+                })
+                .collect(Collectors.toList());
+    }
+
+
 
     public Club getClubById(UUID clubId) {
         return clubRepository.findById(clubId).orElseThrow(() -> new DomainException(String.format("Club with such id does not exist: %s", clubId)));

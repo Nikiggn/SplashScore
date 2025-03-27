@@ -12,12 +12,13 @@
 <body>
     <header th:replace="~{fragments/commons::section}"></header>
 
+    <div class="border-t border-gray-300 mt-2"></div>
+
     <div class="flex gap-10 justify-center mt-8 mx-10">
         <!-- Empty Box for Left Spacing (Slightly Smaller) -->
         <div class="w-72"></div>
 
-        <!-- Main Content (Shifted Left) -->
-        <main class="flex-1 max-w-xl ml-[-40px]">
+         <main class="flex-1 max-w-xl ml-[-40px]">
             <section class="bg-white shadow-lg rounded-lg p-4">
                 <h2 class="text-xl font-bold text-center mb-6">Upcoming Matches</h2>
 
@@ -28,43 +29,48 @@
                 </div>
 
                 <ul class="space-y-4">
-                    <li class="flex items-center bg-gray-100 p-3 rounded-lg">
+                    <li class="flex items-center bg-gray-100 p-4 rounded-lg">
                         <span class="font-semibold w-1/3 truncate">ЧерноМоре-Тича</span>
                         <div class="flex justify-center w-16 text-center text-gray-500 mx-auto">17:00</div>
                         <span class="font-semibold w-1/3 text-right truncate">TICHA</span>
                     </li>
-<!--                    <li class="flex items-center bg-gray-100 p-3 rounded-lg">-->
-<!--                        <span class="font-semibold w-1/3 truncate">KPS</span>-->
-<!--                        <div class="flex justify-center w-16 text-center text-gray-500 mx-auto">17:00</div>-->
-<!--                        <span class="font-semibold w-1/3 text-right truncate">TICHA</span>-->
-<!--                    </li>-->
                 </ul>
             </section>
         </main>
 
         <!-- Clubs Sidebar -->
-        <aside class="bg-white shadow-lg rounded-lg p-4 w-96">
+        <aside class="bg-white shadow-lg rounded-lg p-4 w-[30rem]">
             <h2 class="text-xl font-bold text-center mb-6">Clubs</h2>
-            <div class="flex justify-between text-gray-500 text-xs mb-4 px-2">
-                <span class="text-[13px]">#</span>
-                <div class="grid grid-cols-4 gap-4 text-[13px] w-32 text-center">
-                    <span>P</span>
-                    <span>W</span>
-                    <span>D</span>
-                    <span>L</span>
+
+            <!-- Header Row -->
+            <div class="flex items-center text-gray-500 text-xs mb-5 px-2">
+                <span class="text-[13px] w-6 text-center">#</span>
+                <span class="flex-1 text-left">Club</span>
+                <div class="flex w-40 justify-between text-center">
+                    <span class="w-6">PL</span>
+                    <span class="w-6">W</span>
+                    <span class="w-6">D</span>
+                    <span class="w-6">L</span>
+                    <span class="w-6">PTS</span>
                 </div>
             </div>
-            <ul class="space-y-1">
+
+            <!-- Clubs List -->
+            <ul id="clubs-list" class="space-y-2">
                 <li th:each="club : ${clubs}">
-                    <a th:href="@{'/clubs/' + ${club.id} + '/profile'}" class="flex items-center p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
-                        <span class="font-bold w-6 text-center">1</span>
-                        <img src="path-to-liverpool-logo.png" alt="Liverpool" class="w-5 h-5 rounded-full mx-2">
-                        <span th:text="${club.name}"    class="font-medium text-[15px] truncate mr-4">Liverpool</span>
-                        <div class="grid grid-cols-4 gap-4 text-gray-500 text-sm w-32 text-center ml-auto">
-                            <span>22</span>
-                            <span>15</span>
-                            <span>5</span>
-                            <span>2</span>
+                    <a th:href="@{'/clubs/' + ${club.id} + '/profile'}"
+                       class="flex items-center p-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition h-[50px]">
+                        <span class="rank font-bold w-6 text-center">1</span>
+                        <img th:src="${club.logoUrl}" alt="Liverpool" class="w-7 h-7 rounded-full mx-2">
+                        <span th:text="${club.name}" class="font-medium text-[15px] truncate flex-1 mr-4">Liverpool</span>
+
+                        <!-- Stats Row (Aligned with Headers) -->
+                        <div class="flex w-40 justify-between text-center">
+                            <span class="w-6" th:text="${club.matchesParticipatedIn}">22</span>
+                            <span class="w-6" th:text="${club.matchesWon}">15</span>
+                            <span class="w-6" th:text="${club.matchesDrawn}">5</span>
+                            <span class="w-6" th:text="${club.matchesLost}">2</span>
+                            <span class="w-6" th:text="${club.points}">45</span>
                         </div>
                     </a>
                 </li>
@@ -72,8 +78,18 @@
         </aside>
     </div>
 
-    <footer class="absolute bottom-5 text-gray-500 text-sm">
+    <!-- Centered Footer -->
+    <footer class="absolute bottom-5 left-1/2 transform -translate-x-1/2 text-gray-500 text-sm mt-5">
         <p>© 2025 Splash Score. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ranks = document.querySelectorAll("#clubs-list .rank");
+            ranks.forEach((rank, index) => {
+                rank.textContent = index + 1; // Update ranking dynamically
+            });
+        });
+    </script>
 </body>
 </html>

@@ -31,12 +31,12 @@ public class MatchService {
         this.refereeService = refereeService;
     }
 
-    public List<MatchView> getAllMatchesWithClubDetails(){
+    public List<MatchView> getAllMatchesWithClubDetails() {
         List<MatchViewResponse> matches = matchClient.getAllMatches().getBody();
 
         assert matches != null;
 
-        return  matches.stream().map(match -> {
+        return matches.stream().map(match -> {
             Club homeClub = clubService.getClubById(match.getHomeTeam());
             Club awayClub = clubService.getClubById(match.getAwayTeam());
             return new MatchView(homeClub, awayClub, match.getDate(), match.getStatus());
@@ -44,16 +44,16 @@ public class MatchService {
     }
 
     @Transactional
-    public void createMatch(MatchCreation request){
-        if (Objects.equals(request.getHomeTeamId(), request.getAwayTeamId())){
+    public void createMatch(MatchCreation request) {
+        if (Objects.equals(request.getHomeTeamId(), request.getAwayTeamId())) {
             throw new MatchCreationException("You must choose two different teams");
         }
 
-        if (request.getStatus() == MatchStatus.UPCOMING){
+        if (request.getStatus() == MatchStatus.UPCOMING) {
             request.setHomeScore(0);
             request.setAwayScore(0);
 
-            if (request.getDate().isBefore(LocalDateTime.now())){
+            if (request.getDate().isBefore(LocalDateTime.now())) {
                 throw new MatchCreationException("An upcoming match cannot be scheduled in the past.");
             }
         }
@@ -66,7 +66,7 @@ public class MatchService {
         matchClient.createMatch(request);
     }
 
-    private void updateOverallStats(MatchCreation request){
+    private void updateOverallStats(MatchCreation request) {
         Club homeClub = clubService.getClubById(request.getHomeTeamId());
         Club awayClub = clubService.getClubById(request.getAwayTeamId());
 
@@ -81,29 +81,29 @@ public class MatchService {
 
 
         //Updating stats
-        if (status.equals(MatchStatus.COMPLETED)){
+        if (status.equals(MatchStatus.COMPLETED)) {
             updatingClubsMatchesStats(homeClub, awayClub, request);
         }
     }
 
-    private void updatingClubsMatchesStats(Club homeClub, Club awayClub, MatchCreation request){
+    private void updatingClubsMatchesStats(Club homeClub, Club awayClub, MatchCreation request) {
         int homeScore = request.getHomeScore();
         int awayScore = request.getAwayScore();
 
         homeClub.setGoalsScored(homeClub.getGoalsScored() + homeScore);
         awayClub.setGoalsScored(awayClub.getGoalsScored() + awayScore);
 
-        if (homeScore > awayScore){
+        if (homeScore > awayScore) {
             homeClub.setMatchesWon(homeClub.getMatchesWon() + 1);
             homeClub.setPoints(homeClub.getPoints() + 3);
 
             awayClub.setMatchesLost(awayClub.getMatchesLost() + 1);
-        }else if (awayScore > homeScore){
+        } else if (awayScore > homeScore) {
             homeClub.setMatchesLost(homeClub.getMatchesLost() + 1);
             awayClub.setPoints(awayClub.getPoints() + 3);
 
             awayClub.setMatchesWon(awayClub.getMatchesWon() + 1);
-        }else {
+        } else {
             homeClub.setMatchesDrawn(homeClub.getMatchesDrawn() + 1);
             homeClub.setPoints(homeClub.getPoints() + 1);
 

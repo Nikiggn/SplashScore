@@ -28,13 +28,13 @@ public class RefereeService {
     }
 
     public List<Referee> getAllReferees() {
-            return refereeRepository.findAll()
-                    .stream()
-                    .sorted(Comparator.comparing(Referee::getStatus))
-                    .collect(Collectors.toList());
+        return refereeRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Referee::getStatus))
+                .collect(Collectors.toList());
     }
 
-     public Referee saveNewReferee(AddRefereeRequest addRefereeRequest) {
+    public Referee saveNewReferee(AddRefereeRequest addRefereeRequest) {
         refereeRepository.findByFullName(addRefereeRequest.getFullName())
                 .ifPresent(referee -> {
                     System.out.println("Throwing RefereeAlreadyExistException for " + addRefereeRequest.getFullName()); // Debugging
@@ -53,7 +53,7 @@ public class RefereeService {
 
         if (referee.getStatus() == Status.ACTIVE) {
             referee.setStatus(Status.ARCHIVED);
-        }else {
+        } else {
             referee.setStatus(Status.ACTIVE);
         }
     }
