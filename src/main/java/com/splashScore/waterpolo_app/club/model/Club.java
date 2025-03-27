@@ -5,7 +5,6 @@ import com.splashScore.waterpolo_app.player.model.Player;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -31,14 +30,18 @@ public class Club {
 
     private String logoUrl;
 
-//    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Coach> coaches = new HashSet<>();
+    private int matchesParticipatedIn;
 
-//    @OneToMany(mappedBy = "homeClub", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Match> homeMatches = new HashSet<>();
-//
-//    @OneToMany(mappedBy = "awayClub", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Match> awayMatches = new HashSet<>();
+    private int matchesWon;
+    private int matchesLost;
+    private int matchesDrawn;
+
+    private int goalsScored;
+
+    private int points;
+
+
+
 
     public Club() {
     }
@@ -97,4 +100,55 @@ public class Club {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public int getMatchesParticipatedIn() {
+        return matchesParticipatedIn;
+    }
+
+    public void setMatchesParticipatedIn(int matchesPlayed) {
+        this.matchesParticipatedIn = matchesPlayed;
+    }
+
+    public int getMatchesWon() {
+        return matchesWon;
+    }
+
+    public void setMatchesWon(int matchesWon) {
+        this.matchesWon = matchesWon;
+    }
+
+    public int getMatchesLost() {
+        return matchesLost;
+    }
+
+    public void setMatchesLost(int matchesLost) {
+        this.matchesLost = matchesLost;
+    }
+
+    public int getMatchesDrawn() {
+        return matchesDrawn;
+    }
+
+    public void setMatchesDrawn(int matchesDrawn) {
+        this.matchesDrawn = matchesDrawn;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public int getGoalsScored() {
+        return goalsScored;
+    }
+
+    public void setGoalsScored(int goalsScored) {
+        this.goalsScored = goalsScored;
+    }
 }
+
+
+

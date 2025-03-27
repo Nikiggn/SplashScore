@@ -26,7 +26,9 @@ public class RefereeController {
     @PostMapping
     public ModelAndView addReferee(@Valid AddRefereeRequest addRefereeRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("add-referee");
+            ModelAndView modelAndView = new ModelAndView("addReferee");
+            modelAndView.addObject("addRefereeRequest", addRefereeRequest);
+            return modelAndView;
         }
         refereeService.saveNewReferee(addRefereeRequest);
 

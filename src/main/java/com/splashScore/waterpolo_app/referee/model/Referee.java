@@ -17,14 +17,13 @@ public class Referee {
     @Column(nullable = false, unique = true)
     private String fullName;
 
-//    @ManyToMany(mappedBy = "referees",fetch = FetchType.EAGER)
-//    private Set<Match> matches = new HashSet<>();
-
     @Enumerated(EnumType.STRING)
     private Country country;
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    private int refereeAttendance;
 
     public Referee() {
     }
@@ -43,14 +42,6 @@ public class Referee {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-
-//    public Set<Match> getMatches() {
-//        return matches;
-//    }
-//
-//    public void setMatches(Set<Match> matches) {
-//        this.matches = matches;
-//    }
 
     public UUID getId() {
         return id;
@@ -74,5 +65,13 @@ public class Referee {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public int getRefereeAttendance() {
+        return refereeAttendance;
+    }
+
+    public void setRefereeAttendance(int refereeAttendance) {
+        this.refereeAttendance = refereeAttendance;
     }
 }

@@ -23,25 +23,24 @@
   </style>
 
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
 <header th:replace="~{fragments/no-user-need-header::section}"></header>
 
-
-<div class="flex justify-center items-start min-h-screen bg-[#F6F6F9] pt-12">
+<div class="flex flex-col items-center flex-grow bg-[#F6F6F9] pt-12">
   <form th:method="POST" th:action="@{/clubs}"  th:object="${addClubRequest}" enctype="multipart/form-data" class="bg-[#FAFAFA] p-6 rounded-xl shadow-lg w-[500px] space-y-6">
     <h2 class="text-gray-900 text-3xl font-semibold text-center">Add Club</h2>
 
     <div class="space-y-2">
       <label for="name" class="text-gray-700 font-medium">Name of the club</label>
       <input th:field="*{name}" id="name" type="text" placeholder="Name" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert-warning">
+      <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert-warning"></p>
     </div>
 
     <div class="space-y-2">
       <label for="town" class="text-gray-700 font-medium">Town of the club</label>
       <input th:field="*{town}" id="town" type="text" placeholder="Town" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <p th:if="${#fields.hasErrors('town')}" th:errors="*{town}" class="alert-warning">
+      <p th:if="${#fields.hasErrors('town')}" th:errors="*{town}" class="alert-warning"></p>
     </div>
 
     <div class="flex gap-4">
@@ -49,16 +48,15 @@
         <label for="country" class="text-gray-700 font-medium">Country</label>
         <select th:field="*{country}" id="country" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
           <option style="color: black" th:each="country : ${T(com.splashScore.waterpolo_app.player.model.Country).values()}"
-                  th:value="${country}" th:text="${country.toString()}" th:field="*{country}">
+                  th:value="${country}" th:text="${country.toString()}">
           </option>
-
         </select>
       </div>
 
       <div class="w-1/2 space-y-2">
         <label for="logo" class="text-gray-700 font-medium">Club Logo</label>
         <input th:field="*{logo_URL}" id="logo" type="text" placeholder="Logo URL" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <p th:if="${#fields.hasErrors('logo_URL')}" th:errors="*{logo_URL}" class="alert-warning">
+        <p th:if="${#fields.hasErrors('logo_URL')}" th:errors="*{logo_URL}" class="alert-warning"></p>
       </div>
     </div>
 
@@ -67,5 +65,11 @@
     </button>
   </form>
 </div>
+
+<footer class="text-center text-gray-500 text-sm py-4">
+  <p>© 2025 Splash Score. All rights reserved.</p>
+</footer>
+
 </body>
+
 </html>

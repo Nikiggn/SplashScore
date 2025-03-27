@@ -33,11 +33,11 @@
                         <div class="flex justify-center w-16 text-center text-gray-500 mx-auto">17:00</div>
                         <span class="font-semibold w-1/3 text-right truncate">TICHA</span>
                     </li>
-                    <li class="flex items-center bg-gray-100 p-3 rounded-lg">
-                        <span class="font-semibold w-1/3 truncate">KPS</span>
-                        <div class="flex justify-center w-16 text-center text-gray-500 mx-auto">17:00</div>
-                        <span class="font-semibold w-1/3 text-right truncate">TICHA</span>
-                    </li>
+<!--                    <li class="flex items-center bg-gray-100 p-3 rounded-lg">-->
+<!--                        <span class="font-semibold w-1/3 truncate">KPS</span>-->
+<!--                        <div class="flex justify-center w-16 text-center text-gray-500 mx-auto">17:00</div>-->
+<!--                        <span class="font-semibold w-1/3 text-right truncate">TICHA</span>-->
+<!--                    </li>-->
                 </ul>
             </section>
         </main>
@@ -55,11 +55,11 @@
                 </div>
             </div>
             <ul class="space-y-1">
-                <li>
-                    <a href="#" class="flex items-center p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
+                <li th:each="club : ${clubs}">
+                    <a th:href="@{'/clubs/' + ${club.id} + '/profile'}" class="flex items-center p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
                         <span class="font-bold w-6 text-center">1</span>
                         <img src="path-to-liverpool-logo.png" alt="Liverpool" class="w-5 h-5 rounded-full mx-2">
-                        <span class="font-medium text-[15px] truncate mr-4">Liverpool</span>
+                        <span th:text="${club.name}"    class="font-medium text-[15px] truncate mr-4">Liverpool</span>
                         <div class="grid grid-cols-4 gap-4 text-gray-500 text-sm w-32 text-center ml-auto">
                             <span>22</span>
                             <span>15</span>
@@ -68,42 +68,12 @@
                         </div>
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="flex items-center p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
-                        <span class="font-bold w-6 text-center">2</span>
-                        <img src="path-to-chelsea-logo.png" alt="Chelsea" class="w-5 h-5 rounded-full mx-2">
-                        <span class="font-medium text-[15px] truncate mr-4">Chelsea</span>
-                        <div class="grid grid-cols-4 gap-4 text-gray-500 text-sm w-32 text-center ml-auto">
-                            <span>22</span>
-                            <span>14</span>
-                            <span>6</span>
-                            <span>2</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
-                        <span class="font-bold w-6 text-center">3</span>
-                        <img src="path-to-manchester-logo.png" alt="Manchester City" class="w-5 h-5 rounded-full mx-2">
-                        <span class="font-medium text-[15px] truncate mr-4">Manchester City</span>
-                        <div class="grid grid-cols-4 gap-4 text-gray-500 text-sm w-32 text-center ml-auto">
-                            <span>22</span>
-                            <span>13</span>
-                            <span>7</span>
-                            <span>2</span>
-                        </div>
-                    </a>
-                </li>
             </ul>
         </aside>
     </div>
 
-
-
-
-
-
-
-
+    <footer class="absolute bottom-5 text-gray-500 text-sm">
+        <p>© 2025 Splash Score. All rights reserved.</p>
+    </footer>
 </body>
 </html>

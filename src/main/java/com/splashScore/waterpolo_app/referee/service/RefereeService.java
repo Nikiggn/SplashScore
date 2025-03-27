@@ -34,9 +34,12 @@ public class RefereeService {
                     .collect(Collectors.toList());
     }
 
-    public Referee saveNewReferee(AddRefereeRequest addRefereeRequest) {
-         refereeRepository.findByFullName(addRefereeRequest.getFullName())
-                 .ifPresent(referee -> { throw new RefereeAlreadyExistException(addRefereeRequest.getFullName()); });
+     public Referee saveNewReferee(AddRefereeRequest addRefereeRequest) {
+        refereeRepository.findByFullName(addRefereeRequest.getFullName())
+                .ifPresent(referee -> {
+                    System.out.println("Throwing RefereeAlreadyExistException for " + addRefereeRequest.getFullName()); // Debugging
+                    throw new RefereeAlreadyExistException("Referee with that name already exists");
+                });
 
         Referee referee = modelMapper.map(addRefereeRequest, Referee.class);
         referee.setStatus(Status.ACTIVE);
@@ -53,5 +56,9 @@ public class RefereeService {
         }else {
             referee.setStatus(Status.ACTIVE);
         }
+    }
+
+    public Referee getRefereeById(UUID refereeId) {
+        return refereeRepository.findById(refereeId).orElseThrow(() -> new DomainException("Referee not found with id: " + refereeId));
     }
 }

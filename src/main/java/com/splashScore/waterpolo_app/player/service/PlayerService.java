@@ -46,7 +46,7 @@ public class PlayerService {
         Club club = clubService.getClubById(newPlayerRequest.getClubId());
         Player player = modelMapper.map(newPlayerRequest, Player.class);
 
-        //player.setId(null);
+        player.setId(null);
         player.setClub(club);
         player.setStatus(Status.ACTIVE);
 

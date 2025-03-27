@@ -4,6 +4,8 @@ import com.splashScore.waterpolo_app.club.service.ClubService;
 import com.splashScore.waterpolo_app.match.dto.MatchCreation;
 import com.splashScore.waterpolo_app.player.model.CapNumberList;
 import com.splashScore.waterpolo_app.player.service.PlayerService;
+import com.splashScore.waterpolo_app.referee.model.Status;
+import com.splashScore.waterpolo_app.referee.service.RefereeService;
 import com.splashScore.waterpolo_app.web.dto.AddClubRequest;
 import com.splashScore.waterpolo_app.web.dto.AddPlayerRequest;
 import com.splashScore.waterpolo_app.web.dto.AddRefereeRequest;
@@ -20,11 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminPanelController {
     private final PlayerService playerService;
     private final ClubService clubService;
+    private final RefereeService refereeService;
 
     @Autowired
-    public AdminPanelController(PlayerService playerService, ClubService clubService) {
+    public AdminPanelController(PlayerService playerService, ClubService clubService, RefereeService refereeService) {
         this.playerService = playerService;
         this.clubService = clubService;
+        this.refereeService = refereeService;
     }
 
     @GetMapping("/players/new")
@@ -57,6 +61,7 @@ public class AdminPanelController {
         mav.setViewName("add-match");
         mav.addObject("addMatchRequest",new MatchCreation());
         mav.addObject("clubs", clubService.getAllClubs());
+        mav.addObject("referees", refereeService.getAllReferees());
 
         return mav;
     }

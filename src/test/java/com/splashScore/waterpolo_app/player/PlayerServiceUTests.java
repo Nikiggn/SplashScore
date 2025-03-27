@@ -25,7 +25,7 @@ import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PlayerServiceUTests {
@@ -39,9 +39,6 @@ public class PlayerServiceUTests {
 
     @InjectMocks
     private PlayerService playerService;
-
-    //1999-06-09
-    //2002-02-24
 
     @Test
     void whenGettingAllPlayers_thenReturnSortedListOfPlayers_withAge() {
@@ -104,10 +101,9 @@ public class PlayerServiceUTests {
 
 
         Player realPlayer = playerService.saveNewPlayer(addPlayerRequest);
-
+        verify(clubService, times(1)).getClubById(club.getId());
         assertThat(realPlayer).isNotNull();
         assertThat(realPlayer).isEqualTo(player);
-
     }
 
     @Test

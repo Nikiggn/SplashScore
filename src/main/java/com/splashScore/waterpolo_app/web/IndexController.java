@@ -2,6 +2,7 @@ package com.splashScore.waterpolo_app.web;
 
 import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.service.ClubService;
+import com.splashScore.waterpolo_app.match.dto.MatchCreation;
 import com.splashScore.waterpolo_app.match.dto.MatchView;
 import com.splashScore.waterpolo_app.match.service.MatchService;
 import com.splashScore.waterpolo_app.player.model.Player;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Controller
@@ -53,13 +55,12 @@ public class IndexController {
     public ModelAndView getIndexPage(@AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
         ModelAndView modelAndView = new ModelAndView("index");
 
-        // Check if a user is authenticated
-        if (authenticationMetaData != null) {
-            User user = userService.getUserById(authenticationMetaData.getId());
-            modelAndView.addObject("user", user);
-        } else {
-            modelAndView.addObject("user", null); // or handle anonymous users differently
-        }
+        User user = userService.getUserById(authenticationMetaData.getId());
+        List<Club> clubs = clubService.getAllClubs();
+
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("clubs", clubs);
+
 
         return modelAndView;
     }
@@ -78,11 +79,9 @@ public class IndexController {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("register");
         }
-
-        User user = userService.register(registerRequest);
+        userService.register(registerRequest);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("user", user);
         modelAndView.setViewName("redirect:/login");
 
         return modelAndView;
@@ -123,6 +122,11 @@ public class IndexController {
         mav.addObject("matches", matches);
 
         return mav;
+    }
+
+    @GetMapping("/settings")
+    public String getSettingsPage() {
+        return "settings";
     }
 }
 

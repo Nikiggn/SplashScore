@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Creation Error</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen font-roboto">
+<main class="text-center">
+    <div class="bg-gray-800 shadow-lg rounded-2xl p-8 max-w-lg mx-auto">
+        <div class="flex flex-col items-center">
+            <div class="bg-yellow-500 p-4 rounded-full mb-4">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 8v4m0 4h.01" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold mb-2">Match Creation Failed</h2>
+            <p class="text-gray-400 mb-4">We encountered an issue while creating the match. Please check the details and try again.</p>
+            <div class="bg-gray-700 p-3 rounded-lg text-gray-300 text-sm">
+                <strong>Error code:</strong> Match Creation Exception
+            </div>
+            <ul class="text-gray-400 mt-4 text-sm text-left list-disc list-inside">
+                <li>Ensure the match ID is unique.</li>
+                <li>Verify all required fields are filled.</li>
+                <li>Check team assignments and player availability.</li>
+                <li>Make sure the match date and time are valid.</li>
+            </ul>
+        </div>
+        <a th:href="@{/admin-panel}" class="mt-6 inline-flex items-center px-5 py-3 text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-all">
+            <p class="mr-2">Try Again</p>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 7H14C17.3137 7 20 9.68629 20 13C20 16.3137 17.3137 19 14 19H4M4 7L8 3M4 7L8 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </a>
+    </div>
+</main>
+<footer class="absolute bottom-5 text-gray-500 text-sm">
+    <p>© 2025 Splash Score. All rights reserved.</p>
+</footer>
+</body>
+</html>

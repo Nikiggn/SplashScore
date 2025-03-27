@@ -33,9 +33,12 @@
 
                     <li>
                         <div class="dropdown">
-                            <button class="settings-icon" id="settings-button">
-                                ⚙️ <!-- Replace with an actual icon -->
-                            </button>
+                            <a th:href="@{/settings}" style="text-decoration: none;">
+                                <button class="settings-icon" id="settings-button">
+                                    ⚙️ <!-- Replace with an actual icon -->
+                                </button>
+                            </a>
+
                             <div class="dropdown-menu" id="dropdown-menu">
                                 <a href="#">Profile</a>
                                 <a href="#">Theme</a>
@@ -58,5 +61,6 @@
 <!--    </form>-->
 
 </header>
+
 </body>
 </html>

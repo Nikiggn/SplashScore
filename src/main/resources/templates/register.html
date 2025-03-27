@@ -26,7 +26,7 @@
                            class="w-full mt-2 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
                            placeholder="Enter your username" required />
                     <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
-                    <p class="text-red-500 text-sm mt-1"  th:text="${message}"></p>
+                    <p class="text-red-500 text-sm mt-1"  th:text="${usernameAlreadyExistMessage}"></p>
 
                 </div>
 
@@ -36,7 +36,7 @@
                     <input th:field="*{email}" type="email" id="email" name="email"
                            class="w-full mt-2 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none"
                            placeholder="Enter your email" required />
-                    <p class="text-red-500 text-sm mt-1"    th:text="${email_in_use}"></p>
+                    <p class="text-red-500 text-sm mt-1"    th:text="${emailAlreadyExistMessage}"></p>
 
 
                 </div>
@@ -67,9 +67,9 @@
         </div>
     </div>
 
-
-
 </main>
-
+<footer class="absolute bottom-5 text-gray-500 text-sm">
+    <p>© 2025 Splash Score. All rights reserved.</p>
+</footer>
 </body>
 </html>

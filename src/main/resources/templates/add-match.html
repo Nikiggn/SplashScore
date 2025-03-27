@@ -6,12 +6,26 @@
     <title>SplashScore</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/header-with-nav.css}">
+    <style>
+        .alert-warning {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 250;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to left, #f88e8e, #f56767, #f54b3b);
+            background-size: 200%;
+            background-clip: text ;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            align-items: center;
+        }
+    </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen bg-[#F6F6F9]">
 
 <header th:replace="~{fragments/no-user-need-header::section}"></header>
 
-<div class="flex justify-center items-start min-h-screen bg-[#F6F6F9] pt-12">
+<div class="flex justify-center items-start flex-grow pt-12">
     <form th:action="@{/matches}" th:method="POST" th:object="${addMatchRequest}" class="bg-[#FAFAFA] p-6 rounded-xl shadow-lg w-[500px] space-y-6">
         <h2 class="text-gray-900 text-3xl font-semibold text-center">Add Match</h2>
 
@@ -44,6 +58,16 @@
                     <option th:each="club : ${clubs}" th:value="${club.id}" th:text="${club.name}"></option>
                 </select>
             </div>
+
+        </div>
+
+
+        <!-- Referee (Shown for Upcoming & Completed) -->
+        <div class="space-y-2">
+            <label for="referee" class="text-gray-700 font-medium">Referee</label>
+            <select   th:field="*{refereeId}" id="referee" name="referee" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option th:each="referee : ${referees}" th:value="${referee.id}" th:text="${referee.fullName}"></option>
+            </select>
         </div>
 
         <!-- Additional Fields for Completed Matches -->
@@ -58,8 +82,6 @@
                     <input th:field="*{awayScore}" id="awayScore" type="number" name="awayScore" class="w-full p-2.5 bg-transparent border border-gray-400 text-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
             </div>
-
-
         </div>
 
         <button type="submit" class="w-full p-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition">
@@ -68,7 +90,10 @@
     </form>
 </div>
 
-<!-- JavaScript to Show/Hide Fields Based on Status -->
+<footer class="text-center text-gray-500 text-sm py-4 mt-auto">
+    <p>© 2025 Splash Score. All rights reserved.</p>
+</footer>
+
 <script>
     function toggleFields() {
         const status = document.getElementById("status").value;
@@ -81,9 +106,6 @@
         }
     }
 </script>
-
-
-
 
 </body>
 </html>

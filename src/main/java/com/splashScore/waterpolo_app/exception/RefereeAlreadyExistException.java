@@ -5,3 +5,4 @@ public class RefereeAlreadyExistException extends RuntimeException {
     super(message);
   }
 }
+

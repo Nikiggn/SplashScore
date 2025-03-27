@@ -12,20 +12,24 @@ public class MatchCreation {
     private MatchStatus status;
     private int homeScore;
     private int awayScore;
+    private UUID refereeId;
 
+
+    private String homeClubName;
+    private String awayClubName;
 
     public MatchCreation() {
     }
 
-    public MatchCreation(UUID homeTeam, UUID awayTeam, LocalDateTime date, MatchStatus status, int homeScore, int awayScore) {
+    public MatchCreation(UUID homeTeam, UUID awayTeam, LocalDateTime date, MatchStatus status, int homeScore, int awayScore, UUID refereeId) {
         this.homeTeamId = homeTeam;
         this.awayTeamId = awayTeam;
         this.date = date;
         this.status = status;
         this.homeScore = homeScore;
         this.awayScore = awayScore;
+        this.refereeId = refereeId;
     }
-
 
     public LocalDateTime getDate() {
         return date;
@@ -73,5 +77,29 @@ public class MatchCreation {
 
     public void setAwayTeamId(UUID awayTeamId) {
         this.awayTeamId = awayTeamId;
+    }
+
+    public UUID getRefereeId() {
+        return refereeId;
+    }
+
+    public void setRefereeId(UUID refereeId) {
+        this.refereeId = refereeId;
+    }
+
+    public String getHomeClubName() {
+        return homeClubName;
+    }
+
+    public void setHomeClubName(String homeClubName) {
+        this.homeClubName = homeClubName;
+    }
+
+    public String getAwayClubName() {
+        return awayClubName;
+    }
+
+    public void setAwayClubName(String awayClubName) {
+        this.awayClubName = awayClubName;
     }
 }
