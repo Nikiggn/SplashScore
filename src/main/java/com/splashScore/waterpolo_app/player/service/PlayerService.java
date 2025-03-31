@@ -9,6 +9,9 @@ import com.splashScore.waterpolo_app.player.repository.PlayerRepository;
 import com.splashScore.waterpolo_app.web.dto.AddPlayerRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,5 +76,16 @@ public class PlayerService {
         Club club = clubService.getClubById(clubId);
 
         return playerRepository.findByClubId(club.getId());
+    }
+
+    public List<Player> getPlayersByPage(int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page - 1, pageSize, Sort.by("fullName").ascending());
+        return playerRepository.findAll(pageable).getContent().stream().sorted(Comparator.comparing((Player p) -> p.getClub().getName())
+                        .thenComparing(Player::getStatus))
+                        .toList();
+    }
+
+    public int getTotalPlayerCount() {
+        return (int) playerRepository.count();
     }
 }

@@ -20,7 +20,7 @@ public interface MatchClient {
     ResponseEntity<Void> createMatch(@RequestBody MatchCreation match);
 
     @GetMapping
-    ResponseEntity<List<MatchViewResponse>> getAllMatches();
+    ResponseEntity<List<MatchCreation>> getAllMatches();
 
     @GetMapping("/club")
     List<MatchCreation> getMatchesByClubId(@RequestParam("clubId") UUID clubId);

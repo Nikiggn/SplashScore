@@ -42,6 +42,9 @@ public class IndexController {
     private final RefereeService refereeService;
     private final MatchService matchService;
 
+    private static final int PAGE_SIZE = 8; // Max number of players per page
+
+
 
     @Autowired
     public IndexController(UserService userService, PlayerService playerService, ClubService clubService, RefereeService refereeService, MatchService matchService) {
@@ -128,6 +131,26 @@ public class IndexController {
     @GetMapping("/settings")
     public String getSettingsPage() {
         return "settings";
+    }
+
+    @GetMapping("/players")
+    public ModelAndView getPlayersPage(@RequestParam(defaultValue = "1") int page, @AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
+        User user = userService.getUserById(authenticationMetaData.getId());
+
+        List<Player> players = playerService.getPlayersByPage(page, PAGE_SIZE);
+        int totalPlayers = playerService.getTotalPlayerCount();
+        int totalPages = (int) Math.ceil((double) totalPlayers / PAGE_SIZE);
+
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("players");
+//        modelAndView.addObject("players", playerService.getAllPlayers());
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("players", players);
+        modelAndView.addObject("currentPage", page);
+        modelAndView.addObject("totalPages", totalPages);
+
+        return modelAndView;
     }
 }
 

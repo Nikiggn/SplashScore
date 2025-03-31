@@ -30,18 +30,14 @@ public class Club {
 
     private String logoUrl;
 
-    private int matchesParticipatedIn;
+    private int matchesPlayed;
+    private int scheduledMatches;
 
     private int matchesWon;
     private int matchesLost;
     private int matchesDrawn;
-
     private int goalsScored;
-
     private int points;
-
-
-
 
     public Club() {
     }
@@ -101,12 +97,12 @@ public class Club {
         this.id = id;
     }
 
-    public int getMatchesParticipatedIn() {
-        return matchesParticipatedIn;
+    public int getMatchesPlayed() {
+        return matchesPlayed;
     }
 
-    public void setMatchesParticipatedIn(int matchesPlayed) {
-        this.matchesParticipatedIn = matchesPlayed;
+    public void setMatchesPlayed(int matchesPlayed) {
+        this.matchesPlayed = matchesPlayed;
     }
 
     public int getMatchesWon() {
@@ -148,7 +144,12 @@ public class Club {
     public void setGoalsScored(int goalsScored) {
         this.goalsScored = goalsScored;
     }
+
+    public int getScheduledMatches() {
+        return scheduledMatches;
+    }
+
+    public void setScheduledMatches(int scheduledMatches) {
+        this.scheduledMatches = scheduledMatches;
+    }
 }
-
-
-

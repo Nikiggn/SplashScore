@@ -34,7 +34,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping("/{id}/role")
+    @PutMapping("/{id}/role")
     public String changeUserRole(@PathVariable("id") UUID targetUserId, @AuthenticationPrincipal AuthenticationMetaData admin) {
         userService.changeUserRole(targetUserId, admin.getId());
         return "redirect:/admin-panel?activeDiv=users";  // or whichever divId you want active

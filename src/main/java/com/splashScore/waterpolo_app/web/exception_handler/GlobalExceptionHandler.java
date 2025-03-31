@@ -11,11 +11,20 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
+import org.thymeleaf.exceptions.TemplateProcessingException;
 
 import java.net.ConnectException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(TemplateProcessingException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ModelAndView handleTemplateProcessingException(Exception ex) {
+        ModelAndView mav = new ModelAndView("not-found");
+        mav.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        return mav;
+    }
 
     @ExceptionHandler(UsernameAlreadyExistException.class)
     public ModelAndView exceptionHandler(RedirectAttributes redirectAttributes){
@@ -59,6 +68,7 @@ public class GlobalExceptionHandler {
         return new ModelAndView("match-creation-exceptions");
     }
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ModelAndView handleServerError() {
         ModelAndView mav = new ModelAndView("not-found");

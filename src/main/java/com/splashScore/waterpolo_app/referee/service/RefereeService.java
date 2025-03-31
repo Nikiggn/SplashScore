@@ -34,6 +34,13 @@ public class RefereeService {
                 .collect(Collectors.toList());
     }
 
+    public List<Referee> getAllActiveReferees() {
+        return refereeRepository.findAll()
+                .stream()
+                .filter(r -> r.getStatus() == Status.ACTIVE)
+                .collect(Collectors.toList());
+    }
+
     public Referee saveNewReferee(AddRefereeRequest addRefereeRequest) {
         refereeRepository.findByFullName(addRefereeRequest.getFullName())
                 .ifPresent(referee -> {

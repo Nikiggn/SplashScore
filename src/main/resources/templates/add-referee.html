@@ -28,7 +28,7 @@
 <header th:replace="~{fragments/no-user-need-header::section}"></header>
 
   <div class="flex justify-center items-start min-h-screen bg-[#F6F6F9] pt-12">
-    <form th:method="POST" th:action="@{/referees}"  th:object="${addRefereeRequest}" class="bg-[#FAFAFA] p-6 rounded-xl shadow-lg w-[500px] space-y-6">
+    <form th:method="PUT" th:action="@{/referees}"  th:object="${addRefereeRequest}" class="bg-[#FAFAFA] p-6 rounded-xl shadow-lg w-[500px] space-y-6">
       <h2 class="text-gray-900 text-3xl font-semibold text-center">Add Referee</h2>
 
       <div class="space-y-2">

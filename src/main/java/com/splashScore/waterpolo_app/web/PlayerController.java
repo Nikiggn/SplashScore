@@ -6,6 +6,7 @@ import com.splashScore.waterpolo_app.player.service.PlayerService;
 import com.splashScore.waterpolo_app.web.dto.AddPlayerRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,8 @@ public class PlayerController {
         this.clubService = clubService;
     }
 
-    @PostMapping("/{id}/status")
+    @PutMapping("/{id}/status")
+    @PreAuthorize("hasRole('ADMIN')")
     public String changePlayerStatus(@PathVariable UUID id) {
         playerService.changePlayerStatus(id);
         return "redirect:/admin-panel?activeDiv=players";
@@ -36,7 +38,7 @@ public class PlayerController {
         if (bindingResult.hasErrors()) {
             ModelAndView mav = new ModelAndView();
             mav.setViewName("add-player");
-            mav.addObject("addPlayerRequest", newPlayerRequest);
+                mav.addObject("addPlayerRequest", newPlayerRequest);
             mav.addObject("clubs", clubService.getAllClubs());
             mav.addObject("capNumbers", CapNumberList.getCapNumbers());
             return mav;

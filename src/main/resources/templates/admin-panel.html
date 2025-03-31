@@ -98,7 +98,7 @@
                         <th th:text="${user.role}">User</th>
                         <th th:text="${#temporals.format(user.createdOn, 'dd-MM-yyyy HH:mm')}">17.03.19</th>
                         <th>
-                            <form th:action="@{'/users/' + ${user.id} + '/role'}" method="post" style="display: inline;">
+                            <form th:action="@{'/users/' + ${user.id} + '/role'}" th:method="PUT" style="display: inline;">
                                 <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
                                     <span class="material-symbols-outlined" th:style="${user.role == T(com.splashScore.waterpolo_app.user.model.UserRole).ADMIN} ? 'color: red' : 'color: green'">autorenew</span>
                                 </button>
@@ -143,7 +143,7 @@
                     </th>
 
                     <th>
-                        <form th:action="@{'/players/' + ${player.id} + '/status'}" method="post" style="display: inline;">
+                        <form th:action="@{'/players/' + ${player.id} + '/status'}" th:method="PUT" style="display: inline;">
                             <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
                                 <span class="material-symbols-outlined" th:style="${player.status == T(com.splashScore.waterpolo_app.player.model.Status).ACTIVE} ? 'color: red' : 'color: green'">autorenew</span>
                             </button>
@@ -272,7 +272,7 @@
                             th:style="${referee.status == T(com.splashScore.waterpolo_app.referee.model.Status).ACTIVE} ? 'color: green' : 'color: red'">
                         </th>
                         <th>
-                            <form th:action="@{'/referees/' + ${referee.id} + '/status'}" method="post" style="display: inline;">
+                            <form th:action="@{'/referees/' + ${referee.id} + '/status'}" th:method="PUT" style="display: inline;">
                                 <button type="submit" class="btn-delete" style="border: none; background: none; padding: 0; cursor: pointer;">
                                     <span class="material-symbols-outlined" th:style="${referee.status == T(com.splashScore.waterpolo_app.referee.model.Status).ACTIVE} ? 'color: red' : 'color: green'">autorenew</span>
                                 </button>
@@ -283,10 +283,7 @@
             </table>
         </div>
     </div>
-
-
 </main>
-
 
 <script src="/js/admin-panel.js"></script>
 <script src="/js/header-setting-icon-dropdown.js"></script>

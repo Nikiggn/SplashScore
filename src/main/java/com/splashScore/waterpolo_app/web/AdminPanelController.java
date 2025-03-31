@@ -2,6 +2,7 @@ package com.splashScore.waterpolo_app.web;
 
 import com.splashScore.waterpolo_app.club.service.ClubService;
 import com.splashScore.waterpolo_app.match.dto.MatchCreation;
+import com.splashScore.waterpolo_app.match.service.MatchService;
 import com.splashScore.waterpolo_app.player.model.CapNumberList;
 import com.splashScore.waterpolo_app.player.service.PlayerService;
 import com.splashScore.waterpolo_app.referee.model.Status;
@@ -23,12 +24,14 @@ public class AdminPanelController {
     private final PlayerService playerService;
     private final ClubService clubService;
     private final RefereeService refereeService;
+    private final MatchService matchService;
 
     @Autowired
-    public AdminPanelController(PlayerService playerService, ClubService clubService, RefereeService refereeService) {
+    public AdminPanelController(PlayerService playerService, ClubService clubService, RefereeService refereeService, MatchService matchService) {
         this.playerService = playerService;
         this.clubService = clubService;
         this.refereeService = refereeService;
+        this.matchService = matchService;
     }
 
     @GetMapping("/players/new")
@@ -57,11 +60,13 @@ public class AdminPanelController {
     @GetMapping("/matches/new")
     @PreAuthorize("hasRole('ADMIN')")
     public ModelAndView getAddMatchPage() {
+        matchService.checkAllCriteriaForCreatingMatch();
+
         ModelAndView mav = new ModelAndView();
         mav.setViewName("add-match");
         mav.addObject("addMatchRequest",new MatchCreation());
         mav.addObject("clubs", clubService.getAllClubs());
-        mav.addObject("referees", refereeService.getAllReferees());
+        mav.addObject("referees", refereeService.getAllActiveReferees());
 
         return mav;
     }

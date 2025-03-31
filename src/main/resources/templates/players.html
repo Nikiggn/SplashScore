@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header-with-nav.css}">
+</head>
+<body class="bg-gray-50">
+
+<header th:replace="~{fragments/commons::section}"></header>
+
+<div class="container mx-auto p-6">
+    <h1 class="text-4xl font-bold text-center mb-8 text-teal-600">Players</h1>
+
+    <table class="min-w-full bg-white border border-gray-300 shadow-lg rounded-lg overflow-hidden">
+        <thead>
+        <tr class="bg-teal-500 text-white">
+            <th class="px-6 py-3 text-left text-sm font-semibold">Full Name</th>
+            <th class="px-6 py-3 text-center text-sm font-semibold">Matches Played</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold">Club</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold">Nationality</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="player : ${players}" class="hover:bg-teal-100 transition-all duration-200">
+            <td class="px-6 py-4 border-b text-sm text-gray-700 font-medium text-left" th:text="${player.fullName}"></td>
+            <td class="px-6 py-4 border-b text-center text-sm text-gray-700 font-medium" th:text="${player.matchesPlayed}"></td>
+            <td class="px-6 py-4 border-b text-sm text-gray-700 font-medium" th:text="${player.getClub().name}"></td>
+            <td class="px-6 py-4 border-b text-sm text-gray-700 font-medium" th:text="${player.country.toString()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination controls -->
+    <div class="mt-6 text-center">
+        <button th:if="${currentPage > 1}"
+                th:onclick="|window.location.href='/players?page=${currentPage - 1}'|"
+                class="px-6 py-2 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50">
+            Previous
+        </button>
+
+        <span class="mx-4 text-lg text-gray-700">
+    Page <span th:text="${currentPage}"></span> of <span th:text="${totalPages}"></span>
+</span>
+
+        <button th:if="${currentPage < totalPages}"
+                th:onclick="|window.location.href='/players?page=${currentPage + 1}'|"
+                class="px-6 py-2 bg-teal-500 text-white font-semibold rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-50">
+            Next
+        </button>
+    </div>
+</div>
+<footer class="flex justify-center items-center mt-10 py-4 text-gray-500 text-sm">
+    <p>© 2025 Splash Score. All rights reserved.</p>
+</footer>
+</body>
+</html>

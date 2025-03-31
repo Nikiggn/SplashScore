@@ -80,7 +80,7 @@ public class UserService implements UserDetailsService {
         // !!!!!
         if (userRepository.findAll().isEmpty()) {
             user.setRole(UserRole.ADMIN);
-            fillData();
+            //fillData();
         }
         // !!!!!
 
@@ -102,7 +102,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void changeUserRole(UUID targetUserId, UUID adminId) {
-        if (Objects.equals(targetUserId, adminId)) {
+        if (targetUserId == adminId) {
             throw new DomainException("Admin cannot change their own role. Please contact system support if needed.");
         }
 
