@@ -28,11 +28,10 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 flex flex-col min-h-screen">
 
 <main class="container mx-auto p-6 flex-grow mt-10">
-    <!-- Club Info Section -->
-    <div class="bg-white shadow-lg rounded-2xl p-6 flex flex-col md:flex-row items-center">
+     <div class="bg-white shadow-lg rounded-2xl p-6 flex flex-col md:flex-row items-center">
         <img th:src="${club.logoUrl}"
              alt="Club Logo" class="w-40 h-40 object-cover rounded-xl shadow-md">
         <div class="md:ml-6 text-center md:text-left mt-4 md:mt-0">
@@ -41,8 +40,7 @@
         </div>
     </div>
 
-    <!-- Tab Section -->
-    <div class="mt-6">
+     <div class="mt-6">
         <div class="flex justify-end space-x-4">
             <button id="matches-btn" class="flex-1 px-4 py-2 rounded-lg text-lg font-medium bg-blue-500 text-white"
                     onclick="showSection('matches')">Matches</button>
@@ -61,30 +59,36 @@
                 </div>
                 <p class="font-bold text-lg mt-2">Points: <span th:text="${club.points}" class="text-blue-600">18</span></p>
             </div>
-            <ul class="grid grid-cols-3 gap-4">
-                <!-- Dynamically render the matches here -->
-                <li th:each="match : ${matches}" class="bg-gray-100 p-4 rounded-lg shadow">
-                    <!-- Display team names always -->
-                    <span th:text="${match.homeClubName}"></span>
-                    <span> vs </span>
-                    <span th:text="${match.awayClubName}"></span>
 
-                    <!-- For completed matches, show the result -->
-                    <span th:if="${match.status.toString() == 'COMPLETED'}">
-            <span> </span>
-            <span th:text="${match.homeScore}"></span> <!-- Home team score -->
-            <span> - </span>
-            <span th:text="${match.awayScore}"></span> <!-- Away team score -->
-        </span>
+            <!-- Match List -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div th:each="match : ${matches}" class="bg-gray-100 p-6 rounded-lg shadow relative">
+                    <div class="flex justify-between items-center">
+                        <!-- Team Names -->
+                        <span class="text-lg font-semibold w-1/3 text-right" th:text="${match.homeClubName}"></span>
 
-                    <!-- For upcoming matches, show the match date -->
-                    <span th:if="${match.status.toString() == 'UPCOMING'}">
-            <span> </span>
-<!--<span th:text="${#dates.format(match.date, 'dd-MM')}"></span> &lt;!&ndash; Formats as day-month &ndash;&gt;-->
-        </span>
-                </li>
-            </ul>
+                        <!-- VS Section -->
+                        <span class="text-gray-500 text-lg font-bold w-1/3 text-center">vs</span>
 
+                        <span class="text-lg font-semibold w-1/3 text-left" th:text="${match.awayClubName}"></span>
+                    </div>
+
+                    <!-- Completed Match Score -->
+                    <div th:if="${match.status.toString() == 'COMPLETED'}" class="mt-2 text-center text-xl font-bold">
+                        <span th:classappend="${match.homeScore > match.awayScore ? 'text-green-600' : 'text-gray-800'}" th:text="${match.homeScore}"></span>
+                        <span> - </span>
+                        <span th:classappend="${match.awayScore > match.homeScore ? 'text-green-600' : 'text-gray-800'}" th:text="${match.awayScore}"></span>
+                    </div>
+
+                    <!-- Upcoming Match Date -->
+                    <div th:if="${match.status.toString() == 'UPCOMING'}" class="mt-2 text-center text-lg text-blue-600">
+                        <span th:text="${#temporals.format(match.date, 'dd MMM yyyy HH:mm')}"></span>
+                    </div>
+
+                    <!-- Referee -->
+                    <p class="text-center text-sm text-gray-600 mt-2">Referee: <span th:text="${match.refereeName}"></span></p>
+                </div>
+            </div>
         </div>
 
         <!-- Squad Section -->
@@ -100,15 +104,18 @@
             </div>
         </div>
     </div>
+
+     <div class="flex justify-center mt-12">
+        <button onclick="window.history.back()"
+                class="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-blue-700 hover:scale-105">
+            ⬅ Go Back
+        </button>
+    </div>
 </main>
-<div class="flex justify-center mt-12">
-    <button onclick="window.history.back()"
-            class="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-blue-700 hover:scale-105">
-        ⬅ Go Back
-    </button>
-</div>
-<footer class="absolute bottom-5 w-full text-center text-gray-500 text-sm">
+
+ <footer class="w-full text-center text-gray-500 text-sm py-4 bg-white shadow mt-auto">
     <p>&copy; 2025 Splash Score. All rights reserved.</p>
 </footer>
+
 </body>
 </html>

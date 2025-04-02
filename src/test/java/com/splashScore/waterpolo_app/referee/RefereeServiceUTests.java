@@ -27,7 +27,6 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class RefereeServiceUTests {
-
     @Mock
     private RefereeRepository refereeRepository;
     @Mock
@@ -108,5 +107,36 @@ public class RefereeServiceUTests {
         refereeService.changeRefereeStatus(any(UUID.class));
 
         assertThat(referee.getStatus()).isEqualTo(Status.ACTIVE);
+    }
+
+    @Test
+    void whenGettingAllReferees_returnListWithOnlyActivesOnes(){
+        Referee referee = new Referee(UUID.randomUUID(), "Nikola Ant", Country.BULGARIA, Status.ACTIVE);
+        Referee referee1 = new Referee(UUID.randomUUID(), "Ivaylo", Country.BULGARIA, Status.ARCHIVED);
+        Referee referee2 = new Referee(UUID.randomUUID(), "PeturFiliata", Country.BULGARIA, Status.ACTIVE);
+
+        when(refereeRepository.findAll()).thenReturn(List.of(referee,referee1, referee2));
+
+        List<Referee> refereeList = refereeService.getAllActiveReferees();
+
+        assertThat(refereeList).isEqualTo(List.of(referee, referee2));
+    }
+    @Test
+    void givenValidId_whenGettingRefereeById_shouldReturnReferee() {
+        UUID refereeId = UUID.randomUUID();
+
+        Referee referee = new Referee(refereeId, "Nikola Ant", Country.BULGARIA, Status.ACTIVE);
+        when(refereeRepository.findById(any(UUID.class))).thenReturn(Optional.of(referee));
+
+        Referee realReferee = refereeService.getRefereeById(refereeId);
+        assertThat(realReferee).isEqualTo(referee);
+    }
+
+    @Test
+    void givenInvalidId_whenGettingRefereeById_thenThrowException() {
+        UUID refereeId = UUID.randomUUID();
+        when(refereeRepository.findById(any(UUID.class))).thenReturn(Optional.empty());
+
+        assertThrows(DomainException.class, () -> refereeService.getRefereeById(refereeId));
     }
 }

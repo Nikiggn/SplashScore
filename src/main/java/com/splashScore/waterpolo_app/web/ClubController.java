@@ -3,17 +3,17 @@ package com.splashScore.waterpolo_app.web;
 import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.service.ClubService;
 import com.splashScore.waterpolo_app.match.dto.MatchCreation;
+import com.splashScore.waterpolo_app.match.service.MatchService;
 import com.splashScore.waterpolo_app.player.model.Player;
+import com.splashScore.waterpolo_app.referee.model.Referee;
+import com.splashScore.waterpolo_app.referee.service.RefereeService;
 import com.splashScore.waterpolo_app.web.dto.AddClubRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -23,10 +23,12 @@ import java.util.UUID;
 @RequestMapping("/clubs")
 public class ClubController {
     private final ClubService clubService;
+    private final MatchService matchService;
 
     @Autowired
-    public ClubController(ClubService clubService) {
+    public ClubController(ClubService clubService, MatchService matchService) {
         this.clubService = clubService;
+        this.matchService = matchService;
     }
 
     @PostMapping
@@ -55,7 +57,7 @@ public class ClubController {
         return mav;
     }
 
-    @PostMapping("/{id}/deletion")
+    @DeleteMapping("/{id}/deletion")
     public String deleteClub(@PathVariable UUID id) {
         clubService.deleteClubById(id);
         return "redirect:/admin-panel?activeDiv=clubs";  // or whichever divId you want active
@@ -73,14 +75,9 @@ public class ClubController {
         Club club = clubService.getClubById(id);
         List<Player> players = club.getSquad();
         List<MatchCreation> matches = clubService.getClubMatches(id);
-        for (MatchCreation match : matches) {
-            Club homeTeam = clubService.getClubById(match.getHomeTeamId());
-            Club awayTeam = clubService.getClubById(match.getAwayTeamId());
 
-            // Add the team names to the match object
-            match.setHomeClubName(homeTeam.getName());
-            match.setAwayClubName(awayTeam.getName());
-        }
+        matchService.addClubAndRefereeDetailsToEachMatch(matches);
+
         mav.setViewName("club");
         mav.addObject("club", club);
         mav.addObject("players", players);

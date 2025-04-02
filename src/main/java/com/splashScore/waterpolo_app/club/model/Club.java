@@ -39,6 +39,8 @@ public class Club {
     private int goalsScored;
     private int points;
 
+    private int shutoutWins;
+
     public Club() {
     }
 
@@ -151,5 +153,13 @@ public class Club {
 
     public void setScheduledMatches(int scheduledMatches) {
         this.scheduledMatches = scheduledMatches;
+    }
+
+    public int getShutoutWins() {
+        return shutoutWins;
+    }
+
+    public void setShutoutWins(int shutoutWins) {
+        this.shutoutWins = shutoutWins;
     }
 }

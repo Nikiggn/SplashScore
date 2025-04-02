@@ -1,14 +1,13 @@
 package com.splashScore.waterpolo_app.match.client;
 
 import com.splashScore.waterpolo_app.match.dto.MatchCreation;
+import com.splashScore.waterpolo_app.match.dto.MatchForProcessing;
 import com.splashScore.waterpolo_app.match.dto.MatchViewResponse;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,4 +23,16 @@ public interface MatchClient {
 
     @GetMapping("/club")
     List<MatchCreation> getMatchesByClubId(@RequestParam("clubId") UUID clubId);
+
+
+    @GetMapping("/page")
+    List<MatchCreation> getMatchesByPage(@RequestParam("page") int page, @RequestParam("size") int size);
+
+
+    @GetMapping("/unprocessed")
+    List<MatchForProcessing> getUnprocessedMatches();  // Fetch unprocessed matches as DTO
+
+    @PutMapping("/{id}")
+    void updateMatchStatus(@PathVariable("id") UUID matchId, @RequestBody MatchForProcessing matchDTO);  // Update match status via DTO
+
 }

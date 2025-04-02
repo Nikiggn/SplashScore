@@ -14,9 +14,12 @@ public class MatchCreation {
     private int awayScore;
     private UUID refereeId;
 
+    private boolean processed = false;
 
     private String homeClubName;
     private String awayClubName;
+    private String refereeName;
+
 
     public MatchCreation() {
     }
@@ -101,5 +104,21 @@ public class MatchCreation {
 
     public void setAwayClubName(String awayClubName) {
         this.awayClubName = awayClubName;
+    }
+
+    public String getRefereeName() {
+        return refereeName;
+    }
+
+    public void setRefereeName(String refereeName) {
+        this.refereeName = refereeName;
+    }
+
+    public boolean isProcessed() {
+        return processed;
+    }
+
+    public void setProcessed(boolean processed) {
+        this.processed = processed;
     }
 }

@@ -22,6 +22,13 @@ public class AddClubRequest {
     public AddClubRequest() {
     }
 
+    public AddClubRequest(String name, String town, Country country, String logo_URL) {
+        this.name = name;
+        this.town = town;
+        this.country = country;
+        this.logo_URL = logo_URL;
+    }
+
     public String getName() {
         return name;
     }

@@ -30,7 +30,7 @@
 
         <!-- Buttons Section -->
         <div class="w-full">
-            <form th:action="@{'/clubs/' + ${club.id} + '/deletion'}" method="post" class="w-full">
+            <form th:action="@{'/clubs/' + ${club.id} + '/deletion'}" th:method="DELETE" class="w-full">
                 <button type="submit"
                         class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 mb-4">
                     Yes, Delete

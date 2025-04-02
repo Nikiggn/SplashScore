@@ -7,13 +7,17 @@ import com.splashScore.waterpolo_app.match.client.MatchClient;
 import com.splashScore.waterpolo_app.match.MatchStatus;
 import com.splashScore.waterpolo_app.match.dto.MatchCreation;
 import com.splashScore.waterpolo_app.match.dto.MatchView;
+import com.splashScore.waterpolo_app.player.model.Player;
+import com.splashScore.waterpolo_app.player.model.Status;
 import com.splashScore.waterpolo_app.referee.model.Referee;
 import com.splashScore.waterpolo_app.referee.service.RefereeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,6 +52,22 @@ public class MatchService {
         }
     }
 
+    public List<MatchCreation> getMatchesByPage(int page, int size) {
+        return matchClient.getMatchesByPage(page, size); // Fetch 5 matches per page
+    }
+
+    public void addClubAndRefereeDetailsToEachMatch(List<MatchCreation> matches) {
+        for (MatchCreation match : matches) {
+            Club homeTeam = clubService.getClubById(match.getHomeTeamId());
+            Club awayTeam = clubService.getClubById(match.getAwayTeamId());
+            Referee referee = refereeService.getRefereeById(match.getRefereeId());
+
+            match.setHomeClubName(homeTeam.getName());
+            match.setAwayClubName(awayTeam.getName());
+            match.setRefereeName(referee.getFullName());
+        }
+    }
+
     @Transactional
     public void createMatch(MatchCreation request) {
         if (Objects.equals(request.getHomeTeamId(), request.getAwayTeamId())) {
@@ -75,9 +95,9 @@ public class MatchService {
         Club homeClub = clubService.getClubById(request.getHomeTeamId());
         Club awayClub = clubService.getClubById(request.getAwayTeamId());
 
-        // increase players matchesPlayed
-        homeClub.getSquad().forEach(p -> p.setMatchesPlayed(p.getMatchesPlayed() + 1));
-        awayClub.getSquad().forEach(p -> p.setMatchesPlayed(p.getMatchesPlayed() + 1));
+        // increase active players matchesPlayed
+        homeClub.getSquad().stream().filter(p-> p.getStatus().equals(Status.ACTIVE)).forEach(p -> p.setMatchesPlayed(p.getMatchesPlayed() + 1));
+        awayClub.getSquad().stream().filter(p-> p.getStatus().equals(Status.ACTIVE)).forEach(p -> p.setMatchesPlayed(p.getMatchesPlayed() + 1));
 
         // increase referees matchesAttended
         Referee referee = refereeService.getRefereeById(request.getRefereeId());
@@ -88,7 +108,6 @@ public class MatchService {
         // Increasing the number of matches the given Club participated
         homeClub.setMatchesPlayed(homeClub.getMatchesPlayed() + 1);
         awayClub.setMatchesPlayed(awayClub.getMatchesPlayed() + 1);
-
 
         //Updating stats
         if (status.equals(MatchStatus.COMPLETED)) {

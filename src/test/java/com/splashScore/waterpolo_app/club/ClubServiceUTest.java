@@ -1,9 +1,12 @@
 package com.splashScore.waterpolo_app.club;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders;
 import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.repository.ClubRepository;
 import com.splashScore.waterpolo_app.club.service.ClubService;
 import com.splashScore.waterpolo_app.exception.DomainException;
+import com.splashScore.waterpolo_app.match.client.MatchClient;
+import com.splashScore.waterpolo_app.match.dto.MatchCreation;
 import com.splashScore.waterpolo_app.player.model.Country;
 import com.splashScore.waterpolo_app.web.dto.AddClubRequest;
 import org.junit.jupiter.api.Test;
@@ -18,6 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -31,6 +35,10 @@ public class ClubServiceUTest {
 
     @Mock
     private ModelMapper modelMapper;
+
+    @Mock
+    private MatchClient matchClient;
+
 
     @InjectMocks
     private ClubService clubService;
@@ -100,6 +108,13 @@ public class ClubServiceUTest {
     }
 
     @Test
+    void givenValidClubIdButListOfMatches_whenDeletingClub_thenThrowsException() {
+        when(clubRepository.findById(any())).thenReturn(Optional.of(new Club()));
+        when(matchClient.getMatchesByClubId(any(UUID.class))).thenReturn(List.of(new MatchCreation()));
+        assertThrows(DomainException.class, () -> clubService.deleteClubById(UUID.randomUUID()));
+    }
+
+    @Test
     void givenValidClubId_whenDeletingClub_thenDeletesClub() {
         UUID clubId = UUID.randomUUID();
         Club club = new Club();
@@ -107,9 +122,41 @@ public class ClubServiceUTest {
 
         when(clubRepository.findById(clubId)).thenReturn(Optional.of(club));
 
+
         clubService.deleteClubById(clubId);
 
         verify(clubRepository).delete(club);
+    }
+
+    @Test
+    void whenGettingAllClubsToBeSortedByPoints(){
+        Club club = new Club(UUID.randomUUID(),"Ticha", "Varna", Country.BULGARIA);
+        club.setPoints(1);
+
+        Club club2 = new Club(UUID.randomUUID(),"Spartak", "Varna", Country.BULGARIA);
+        club2.setPoints(2);
+
+        List<Club> unsortedClubs = List.of(club, club2);
+
+        when(clubRepository.findAll()).thenReturn(unsortedClubs);
+
+        List<Club> sortedClubs = clubService.getAllClubsSortedByPoints();
+
+        assertThat(sortedClubs).isEqualTo(List.of(club2, club));
+        assertEquals("/images/logo-1.jpg", club.getLogoUrl());
+    }
+
+
+    @Test
+    void whenSavingClubChangesFromMatch_RepositoryIsCalled() {
+        clubService.save(new Club());
+        verify(clubRepository).save(any(Club.class));
+    }
+
+    @Test
+    void whenGettingClubMatches_matchClientIsCalled() {
+        clubService.getClubMatches(UUID.randomUUID());
+        verify(matchClient).getMatchesByClubId(any(UUID.class));
     }
 
 

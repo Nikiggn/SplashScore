@@ -6,6 +6,7 @@ import com.splashScore.waterpolo_app.club.repository.ClubRepository;
 import com.splashScore.waterpolo_app.exception.DomainException;
 import com.splashScore.waterpolo_app.match.client.MatchClient;
 import com.splashScore.waterpolo_app.match.dto.MatchCreation;
+import com.splashScore.waterpolo_app.match.service.MatchService;
 import com.splashScore.waterpolo_app.web.dto.AddClubRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class ClubService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ClubService(ClubRepository clubRepository, MatchClient matchClient, ModelMapper modelMapper) {
+    public ClubService(ClubRepository clubRepository, MatchClient matchClient, ModelMapper modelMapper ) {
         this.clubRepository = clubRepository;
         this.matchClient = matchClient;
         this.modelMapper = modelMapper;
@@ -45,14 +46,12 @@ public class ClubService {
                 .stream()
                 .sorted(Comparator.comparingInt(Club::getPoints).reversed())
                 .peek(club -> {
-                    if (club.getLogoUrl() != null && club.getLogoUrl().length() > 19) {
+                    if (club.getLogoUrl() == null || club.getLogoUrl().length() > 19) {
                         club.setLogoUrl("/images/logo-1.jpg");
                     }
                 })
                 .collect(Collectors.toList());
     }
-
-
 
     public Club getClubById(UUID clubId) {
         return clubRepository.findById(clubId).orElseThrow(() -> new DomainException(String.format("Club with such id does not exist: %s", clubId)));
@@ -67,13 +66,21 @@ public class ClubService {
     @Transactional
     public void deleteClubById(UUID clubId) {
         Club club = clubRepository.findById(clubId).orElseThrow(() -> new DomainException(String.format("Club with such id does not exist: %s", clubId)));
+
+        if (!matchClient.getMatchesByClubId(clubId).isEmpty()) {
+            throw new DomainException(String.format("You cannot delete %s because it already participate in matches", club.getName()));
+        }
+
         clubRepository.delete(club);
     }
 
 
     public List<MatchCreation> getClubMatches(UUID clubId) {
-        List<MatchCreation> matches = matchClient.getMatchesByClubId(clubId);
+        return matchClient.getMatchesByClubId(clubId);
+    }
 
-        return matches;
+    @Transactional
+    public void save(Club club) {
+        clubRepository.save(club);
     }
 }

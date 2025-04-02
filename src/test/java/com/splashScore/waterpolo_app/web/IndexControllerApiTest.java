@@ -15,7 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
@@ -33,10 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(IndexController.class)
-//@AutoConfigureMockMvc(addFilters = false) // Disable security filters
 public class IndexControllerApiTest {
-
-    private static final Logger log = LoggerFactory.getLogger(IndexControllerApiTest.class);
     @MockitoBean
     private UserService userService;
     @MockitoBean
@@ -51,10 +49,9 @@ public class IndexControllerApiTest {
     @Autowired
     private MockMvc mockMvc;
 
-
     @Test
     void getRequestToIndexEndpoint_shouldReturnIndexView() throws Exception {
-        User testUser  = testUser();
+        User testUser = testUser();
         UUID userId = UUID.randomUUID();
         AuthenticationMetaData principal = principal(userId);
 
@@ -64,6 +61,7 @@ public class IndexControllerApiTest {
 
         when(userService.getUserById(userId)).thenReturn(testUser);
 
+
         //Send Request
         mockMvc.perform(request)
                 .andExpect(status().isOk())
@@ -72,9 +70,6 @@ public class IndexControllerApiTest {
 
         verify(userService, times(1)).getUserById(userId);
     }
-
-
-
 
     @Test
     void getRequestToRegisterEndpoint_shouldReturnRegisterView() throws Exception {
@@ -151,7 +146,7 @@ public class IndexControllerApiTest {
     }
 
     @Test
-    void getRequestToLoginEndpointWithErrorParam_shouldReturnLoginViewAndErrorMessage () throws Exception {
+    void getRequestToLoginEndpointWithErrorParam_shouldReturnLoginViewAndErrorMessage() throws Exception {
         MockHttpServletRequestBuilder request = get("/login").param("error", "");
 
         mockMvc.perform(request)
@@ -179,7 +174,7 @@ public class IndexControllerApiTest {
         when(matchService.getAllMatchesWithClubDetails()).thenReturn(List.of());
 
         UUID userId = UUID.randomUUID();
-        AuthenticationMetaData principal =  principal(userId);
+        AuthenticationMetaData principal = principal(userId);
 
         MockHttpServletRequestBuilder request = get("/admin-panel")
                 .with(user(principal));
@@ -187,12 +182,12 @@ public class IndexControllerApiTest {
         mockMvc.perform(request)
                 .andExpect(status().isOk())
                 .andExpect(view().name("admin-panel"))
-                .andExpect(model().attributeExists("user","players","users", "clubs", "referees", "matches"));
+                .andExpect(model().attributeExists("user", "players", "users", "clubs", "referees", "matches"));
 
         verify(userService, times(1)).getUserById(userId);
     }
 
-    private User testUser(){
+    private User testUser() {
         User testUser = new User();
         testUser.setId(UUID.randomUUID());
         testUser.setUsername("admin");
@@ -204,8 +199,8 @@ public class IndexControllerApiTest {
         return testUser;
     }
 
-    private AuthenticationMetaData principal(UUID userId){
-        return new AuthenticationMetaData( userId,
+    private AuthenticationMetaData principal(UUID userId) {
+        return new AuthenticationMetaData(userId,
                 "nik123",
                 "123123",
                 "admin@gmail.com",

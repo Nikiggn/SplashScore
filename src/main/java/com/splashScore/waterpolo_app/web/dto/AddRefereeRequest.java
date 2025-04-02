@@ -15,6 +15,11 @@ public class AddRefereeRequest {
     public AddRefereeRequest() {
     }
 
+    public AddRefereeRequest(String fullName, Country country) {
+        this.fullName = fullName;
+        this.country = country;
+    }
+
     public String getFullName() {
         return fullName;
     }

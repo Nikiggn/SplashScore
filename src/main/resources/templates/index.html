@@ -18,25 +18,56 @@
         <!-- Empty Box for Left Spacing (Slightly Smaller) -->
         <div class="w-72"></div>
 
-         <main class="flex-1 max-w-xl ml-[-40px]">
+        <main class="flex-1 max-w-xl ml-[-40px]">
             <section class="bg-white shadow-lg rounded-lg p-4">
                 <h2 class="text-xl font-bold text-center mb-6">Upcoming Matches</h2>
 
+                <!-- Pagination Controls -->
                 <div class="flex justify-between items-center mb-4">
-                    <button class="text-gray-500 hover:text-gray-700">&lt; Prev</button>
-                    <span class="text-gray-700 font-semibold">Upcoming Matches</span>
-                    <button class="text-gray-500 hover:text-gray-700">Next &gt;</button>
+                    <button th:if="${currentPage > 1}"
+                            th:onclick="|window.location.href='/matches?page=${currentPage - 1}'|"
+                            class="text-gray-500 hover:text-gray-700">
+                        &lt; Prev
+                    </button>
+
+                    <span class="text-gray-700 font-semibold">
+                Page <span th:text="${currentPage}"></span> of <span th:text="${totalPages}"></span>
+            </span>
+
+                    <button th:if="${currentPage < totalPages}"
+                            th:onclick="|window.location.href='/matches?page=${currentPage + 1}'|"
+                            class="text-gray-500 hover:text-gray-700">
+                        Next &gt;
+                    </button>
                 </div>
 
+                <!-- Matches List -->
                 <ul class="space-y-4">
-                    <li class="flex items-center bg-gray-100 p-4 rounded-lg">
-                        <span class="font-semibold w-1/3 truncate">ЧерноМоре-Тича</span>
-                        <div class="flex justify-center w-16 text-center text-gray-500 mx-auto">17:00</div>
-                        <span class="font-semibold w-1/3 text-right truncate">TICHA</span>
+                    <li th:each="match : ${matches}" class="flex flex-col items-center bg-gray-100 p-4 rounded-lg">
+                        <div class="flex w-full justify-between items-center">
+                            <span th:text="${match.homeClubName}" class="font-semibold w-1/3 truncate text-left">Home Team</span>
+                            <div class="flex flex-col items-center w-16 text-center mx-auto">
+                                <!-- Completed Match Score -->
+                                <div th:if="${match.status.toString() == 'COMPLETED'}" class="text-xl font-bold">
+                                    <span th:classappend="${match.homeScore > match.awayScore ? 'text-green-600' : 'text-gray-800'}" th:text="${match.homeScore}"></span>
+                                    <span> - </span>
+                                    <span th:classappend="${match.awayScore > match.homeScore ? 'text-green-600' : 'text-gray-800'}" th:text="${match.awayScore}"></span>
+                                </div>
+                                <!-- Upcoming Match Date -->
+                                <div th:if="${match.status.toString() == 'UPCOMING'}" class="text-lg text-blue-600">
+                                    <span th:text="${#temporals.format(match.date, 'HH:mm')}"></span>
+                                </div>
+                                <!-- Referee Name -->
+                                <p class="text-sm text-gray-600 mt-2" th:text="${match.refereeName}"></p>
+                            </div>
+                            <span th:text="${match.awayClubName}" class="font-semibold w-1/3 truncate text-right">Away Team</span>
+                        </div>
                     </li>
                 </ul>
             </section>
         </main>
+
+
 
         <!-- Clubs Sidebar -->
         <aside class="bg-white shadow-lg rounded-lg p-4 w-[30rem]">

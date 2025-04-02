@@ -2,6 +2,7 @@ package com.splashScore.waterpolo_app.web.dto;
 
 import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.player.model.Country;
+import com.splashScore.waterpolo_app.player.model.Status;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
@@ -25,6 +26,9 @@ public class AddPlayerRequest {
     private String capNumber;
 
     public AddPlayerRequest() {
+    }
+
+    public AddPlayerRequest(String nikola, LocalDate of, String number, Country country, Status status, UUID id) {
     }
 
     public String getFullName() {

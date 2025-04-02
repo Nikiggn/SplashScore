@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class PlayerService {
-
     private final PlayerRepository playerRepository;
     private final ClubService clubService;
     private final ModelMapper modelMapper;
@@ -49,7 +48,7 @@ public class PlayerService {
         Club club = clubService.getClubById(newPlayerRequest.getClubId());
         Player player = modelMapper.map(newPlayerRequest, Player.class);
 
-        player.setId(null);
+         player.setId(null);
         player.setClub(club);
         player.setStatus(Status.ACTIVE);
 

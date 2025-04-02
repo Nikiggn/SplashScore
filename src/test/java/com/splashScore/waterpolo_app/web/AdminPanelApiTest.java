@@ -1,6 +1,7 @@
 package com.splashScore.waterpolo_app.web;
 
 import com.splashScore.waterpolo_app.club.service.ClubService;
+import com.splashScore.waterpolo_app.match.service.MatchService;
 import com.splashScore.waterpolo_app.player.service.PlayerService;
 import com.splashScore.waterpolo_app.referee.service.RefereeService;
 import com.splashScore.waterpolo_app.security.AuthenticationMetaData;
@@ -30,6 +31,8 @@ public class AdminPanelApiTest {
     private ClubService clubService;
     @MockitoBean
     private RefereeService refereeService;
+    @MockitoBean
+    private MatchService matchService;
 
     @Autowired
     MockMvc mockMvc;

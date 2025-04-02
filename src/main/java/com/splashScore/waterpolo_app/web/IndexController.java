@@ -43,8 +43,7 @@ public class IndexController {
     private final MatchService matchService;
 
     private static final int PAGE_SIZE = 8; // Max number of players per page
-
-
+    private static final int PAGE_SIZE_MATCHES = 5; // Max number of players per page
 
     @Autowired
     public IndexController(UserService userService, PlayerService playerService, ClubService clubService, RefereeService refereeService, MatchService matchService) {
@@ -56,15 +55,47 @@ public class IndexController {
     }
 
     @GetMapping("/")
-    public ModelAndView getIndexPage(@AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
+    public ModelAndView getIndexPage(@RequestParam(defaultValue = "1") int page, @AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
         ModelAndView modelAndView = new ModelAndView("index");
 
         User user = userService.getUserById(authenticationMetaData.getId());
         List<Club> clubs = clubService.getAllClubsSortedByPoints();
 
+        // Get matches for the current page
+        List<MatchCreation> matches = matchService.getMatchesByPage(page, PAGE_SIZE_MATCHES);
+
+        // Fetch the total number of matches from the microservice
+        int totalMatches = matchService.getAllMatchesWithClubDetails().size();
+        int totalPages = (int) Math.ceil((double) totalMatches / PAGE_SIZE_MATCHES);
+
+        // Add club and referee details to each match
+        matchService.addClubAndRefereeDetailsToEachMatch(matches);
+
+        // Add data to the model
         modelAndView.addObject("user", user);
         modelAndView.addObject("clubs", clubs);
+        modelAndView.addObject("matches", matches);
+        modelAndView.addObject("currentPage", page);
+        modelAndView.addObject("totalPages", totalPages);
 
+        return modelAndView;
+    }
+
+    @GetMapping("/players")
+    public ModelAndView getPlayersPage(@RequestParam(defaultValue = "1") int page, @AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
+        User user = userService.getUserById(authenticationMetaData.getId());
+
+        List<Player> players = playerService.getPlayersByPage(page, PAGE_SIZE);
+        int totalPlayers = playerService.getTotalPlayerCount();
+        int totalPages = (int) Math.ceil((double) totalPlayers / PAGE_SIZE);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("players");
+//      modelAndView.addObject("players", playerService.getAllPlayers());
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("players", players);
+        modelAndView.addObject("currentPage", page);
+        modelAndView.addObject("totalPages", totalPages);
 
         return modelAndView;
     }
@@ -133,25 +164,7 @@ public class IndexController {
         return "settings";
     }
 
-    @GetMapping("/players")
-    public ModelAndView getPlayersPage(@RequestParam(defaultValue = "1") int page, @AuthenticationPrincipal AuthenticationMetaData authenticationMetaData) {
-        User user = userService.getUserById(authenticationMetaData.getId());
 
-        List<Player> players = playerService.getPlayersByPage(page, PAGE_SIZE);
-        int totalPlayers = playerService.getTotalPlayerCount();
-        int totalPages = (int) Math.ceil((double) totalPlayers / PAGE_SIZE);
-
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("players");
-//        modelAndView.addObject("players", playerService.getAllPlayers());
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("players", players);
-        modelAndView.addObject("currentPage", page);
-        modelAndView.addObject("totalPages", totalPages);
-
-        return modelAndView;
-    }
 }
 
 // Role -> groups of permissions

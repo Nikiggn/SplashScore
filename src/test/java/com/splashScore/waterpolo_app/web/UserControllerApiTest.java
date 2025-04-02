@@ -59,7 +59,22 @@ public class UserControllerApiTest {
         verify(userService, times(1)).changeUserRole(eq(uuid), eq(principal.getId()));
     }
 
+    @Test
+    void requestToUserProfile_happyPath() throws Exception {
+        User user = testUser();
+        AuthenticationMetaData principal = principal(user.getId());
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/users/profile")
+                .with(user(principal))
+                .with(csrf());
 
+        when(userService.getUserById(any())).thenReturn(user);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("profile"))
+
+        .andExpect(model().attributeExists("user"));
+    }
 
     private AuthenticationMetaData principal(UUID userId){
         return new AuthenticationMetaData( userId,
@@ -68,5 +83,17 @@ public class UserControllerApiTest {
                 "admin@gmail.com",
                 ADMIN,
                 LocalDateTime.now());
+    }
+
+    private User testUser() {
+        User testUser = new User();
+        testUser.setId(UUID.randomUUID());
+        testUser.setUsername("admin");
+        testUser.setEmail("admin@gmail.com");
+        testUser.setPassword("123123");
+        testUser.setRole(USER);
+        testUser.setCreatedOn(LocalDateTime.now());
+
+        return testUser;
     }
 }
