@@ -1,9 +1,13 @@
 package com.splashScore.waterpolo_app.web;
 
+import com.splashScore.waterpolo_app.club.model.Club;
 import com.splashScore.waterpolo_app.club.service.ClubService;
 import com.splashScore.waterpolo_app.exception.EmailAlreadyExistException;
 import com.splashScore.waterpolo_app.exception.UsernameAlreadyExistException;
 import com.splashScore.waterpolo_app.match.service.MatchService;
+import com.splashScore.waterpolo_app.player.model.Country;
+import com.splashScore.waterpolo_app.player.model.Player;
+import com.splashScore.waterpolo_app.player.model.Status;
 import com.splashScore.waterpolo_app.player.service.PlayerService;
 import com.splashScore.waterpolo_app.referee.service.RefereeService;
 import com.splashScore.waterpolo_app.security.AuthenticationMetaData;
@@ -19,7 +23,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -186,6 +193,43 @@ public class IndexControllerApiTest {
 
         verify(userService, times(1)).getUserById(userId);
     }
+
+    @Test
+    void getRequestToPlayersPage_happyPath() throws Exception {
+        User testUser = testUser();
+        AuthenticationMetaData user = principal(testUser.getId());
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/players")
+                .with(user(user))
+                .with(csrf());
+
+        Club club = new Club(UUID.randomUUID(), "Ticha", "Varna", Country.BULGARIA);
+
+        when(userService.getUserById(any())).thenReturn(testUser);
+        when(playerService.getPlayersByPage(anyInt(), anyInt())).thenReturn(List.of(new Player(UUID.randomUUID(), "Nikola", LocalDate.of(1999, 6, 9), "2", Country.BULGARIA, Status.ACTIVE, club)));
+        when(playerService.getTotalPlayerCount()).thenReturn(1);
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("players"))
+                .andExpect(model().attributeExists("user","players","currentPage","totalPages"));
+    }
+
+    @GetMapping("/settings")
+    public String getSettingsPage() {
+        return "settings";
+    }
+
+    @Test
+    void getRequestToSettingsPage_happyPath()  throws Exception {
+        AuthenticationMetaData user = principal(testUser().getId());
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/settings")
+                .with(user(user))
+                .with(csrf());
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(view().name("settings"));
+     }
 
     private User testUser() {
         User testUser = new User();

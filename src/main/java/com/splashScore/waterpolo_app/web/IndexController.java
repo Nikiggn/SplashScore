@@ -45,6 +45,9 @@ public class IndexController {
     private static final int PAGE_SIZE = 8; // Max number of players per page
     private static final int PAGE_SIZE_MATCHES = 5; // Max number of players per page
 
+// Role -> groups of permissions
+// Permission -> authority
+
     @Autowired
     public IndexController(UserService userService, PlayerService playerService, ClubService clubService, RefereeService refereeService, MatchService matchService) {
         this.userService = userService;
@@ -91,7 +94,6 @@ public class IndexController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("players");
-//      modelAndView.addObject("players", playerService.getAllPlayers());
         modelAndView.addObject("user", user);
         modelAndView.addObject("players", players);
         modelAndView.addObject("currentPage", page);
@@ -163,9 +165,4 @@ public class IndexController {
     public String getSettingsPage() {
         return "settings";
     }
-
-
 }
-
-// Role -> groups of permissions
-// Permission -> authority

@@ -122,6 +122,22 @@ public class ClubControllerApiTest {
         verify(clubService, times(1)).saveNewClub(any(AddClubRequest.class));
     }
 
+    @Test
+    void deleteRequestForClubById_happyPath()  throws Exception {
+        Club club = new Club(UUID.randomUUID(), "Ticha", "Varna", Country.BULGARIA);
+
+        AuthenticationMetaData user = principal(testUser().getId());
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.delete("/clubs/{id}/deletion",club.getId())
+                .with(user(user))
+                .with(csrf());
+
+        mockMvc.perform(request)
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin-panel?activeDiv=clubs"));
+
+        verify(clubService, times(1)).deleteClubById(any(UUID.class));
+     }
+
     private AuthenticationMetaData principal(UUID userId) {
         return new AuthenticationMetaData(userId,
                 "nik123",
