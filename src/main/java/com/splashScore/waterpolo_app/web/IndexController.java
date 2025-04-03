@@ -64,17 +64,12 @@ public class IndexController {
         User user = userService.getUserById(authenticationMetaData.getId());
         List<Club> clubs = clubService.getAllClubsSortedByPoints();
 
-        // Get matches for the current page
         List<MatchCreation> matches = matchService.getMatchesByPage(page, PAGE_SIZE_MATCHES);
-
-        // Fetch the total number of matches from the microservice
         int totalMatches = matchService.getAllMatchesWithClubDetails().size();
         int totalPages = (int) Math.ceil((double) totalMatches / PAGE_SIZE_MATCHES);
 
-        // Add club and referee details to each match
         matchService.addClubAndRefereeDetailsToEachMatch(matches);
 
-        // Add data to the model
         modelAndView.addObject("user", user);
         modelAndView.addObject("clubs", clubs);
         modelAndView.addObject("matches", matches);

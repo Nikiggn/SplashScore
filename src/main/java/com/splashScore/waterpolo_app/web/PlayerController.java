@@ -38,7 +38,7 @@ public class PlayerController {
         if (bindingResult.hasErrors()) {
             ModelAndView mav = new ModelAndView();
             mav.setViewName("add-player");
-                mav.addObject("addPlayerRequest", newPlayerRequest);
+            mav.addObject("addPlayerRequest", newPlayerRequest);
             mav.addObject("clubs", clubService.getAllClubs());
             mav.addObject("capNumbers", CapNumberList.getCapNumbers());
             return mav;
